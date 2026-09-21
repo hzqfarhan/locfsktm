@@ -321,34 +321,53 @@ export default function RoomCatalog({
                       }}
                     >
                       {/* Card Top: Code & Badge */}
-                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '8px' }}>
-                        <div
-                          style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '5px',
-                            backgroundColor: '#F8FAFC',
-                            border: '1px solid #E2E8F0',
-                            borderRadius: '6px',
-                            padding: '3px 8px',
-                            fontSize: '11px',
-                            fontWeight: 800,
-                            color: '#0F172A'
-                          }}
-                        >
-                          <span>{room.code}</span>
-                          <button
-                            onClick={(e) => handleCopy(e, room.code)}
-                            title="Salin Kod Bilik"
+                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '8px', flexWrap: 'wrap' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                          <div
                             style={{
-                              color: isCopied ? '#16A34A' : '#94A3B8',
                               display: 'flex',
                               alignItems: 'center',
-                              padding: '1px'
+                              gap: '5px',
+                              backgroundColor: '#F8FAFC',
+                              border: '1px solid #E2E8F0',
+                              borderRadius: '6px',
+                              padding: '3px 8px',
+                              fontSize: '11px',
+                              fontWeight: 800,
+                              color: '#0F172A'
                             }}
                           >
-                            {isCopied ? <Check size={12} /> : <Copy size={12} />}
-                          </button>
+                            <span>{room.code}</span>
+                            <button
+                              onClick={(e) => handleCopy(e, room.code)}
+                              title="Salin Kod Bilik"
+                              style={{
+                                color: isCopied ? '#16A34A' : '#94A3B8',
+                                display: 'flex',
+                                alignItems: 'center',
+                                padding: '1px'
+                              }}
+                            >
+                              {isCopied ? <Check size={12} /> : <Copy size={12} />}
+                            </button>
+                          </div>
+
+                          {room.shortform && (
+                            <span
+                              style={{
+                                backgroundColor: '#DC2626',
+                                color: '#FFFFFF',
+                                padding: '2px 8px',
+                                borderRadius: '9999px',
+                                fontSize: '10px',
+                                fontWeight: 800,
+                                letterSpacing: '0.04em',
+                                boxShadow: '0 1px 3px rgba(220, 38, 38, 0.25)',
+                              }}
+                            >
+                              {room.shortform}
+                            </span>
+                          )}
                         </div>
 
                         {/* Category Pill */}

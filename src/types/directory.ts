@@ -5,6 +5,7 @@ export interface Room {
   code: string;
   name: string;
   nameEn?: string;
+  shortform?: string;
   category: RoomCategory;
   floorId: number;
   wingId: string;

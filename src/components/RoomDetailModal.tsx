@@ -75,7 +75,7 @@ export default function RoomDetailModal({
           gap: '12px'
         }}>
           <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px', flexWrap: 'wrap' }}>
               <span style={{
                 backgroundColor: 'rgba(255, 255, 255, 0.2)',
                 padding: '2px 8px',
@@ -95,6 +95,20 @@ export default function RoomDetailModal({
               }}>
                 {room.wingName}
               </span>
+              {room.shortform && (
+                <span style={{
+                  backgroundColor: '#FFFFFF',
+                  color: '#B91C1C',
+                  padding: '2px 9px',
+                  borderRadius: '9999px',
+                  fontSize: '11px',
+                  fontWeight: 900,
+                  letterSpacing: '0.04em',
+                  boxShadow: '0 2px 6px rgba(0, 0, 0, 0.15)'
+                }}>
+                  {room.shortform}
+                </span>
+              )}
             </div>
             <h2 style={{ fontSize: '20px', fontWeight: 900, lineHeight: 1.2 }}>
               {room.name}
@@ -139,7 +153,22 @@ export default function RoomDetailModal({
           }}>
             <div>
               <div style={{ fontSize: '11px', color: '#7F1D1D', fontWeight: 600 }}>KOD LOKASI RASMI</div>
-              <div style={{ fontSize: '18px', fontWeight: 900, color: '#991B1B' }}>{room.code}</div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '2px' }}>
+                <span style={{ fontSize: '18px', fontWeight: 900, color: '#991B1B' }}>{room.code}</span>
+                {room.shortform && (
+                  <span style={{
+                    backgroundColor: '#DC2626',
+                    color: '#FFFFFF',
+                    padding: '2px 8px',
+                    borderRadius: '9999px',
+                    fontSize: '11px',
+                    fontWeight: 800,
+                    letterSpacing: '0.04em',
+                  }}>
+                    {room.shortform}
+                  </span>
+                )}
+              </div>
             </div>
             <div style={{ display: 'flex', gap: '6px' }}>
               <button

@@ -82,13 +82,14 @@ export default function SearchModal({
       const { room, floorName, floorCode, wingName } = item;
       const matchName = room.name.toLowerCase().includes(q);
       const matchCode = room.code.toLowerCase().includes(q);
+      const matchShortform = room.shortform ? room.shortform.toLowerCase().includes(q) : false;
       const matchEn = room.nameEn ? room.nameEn.toLowerCase().includes(q) : false;
       const matchFloor = floorName.toLowerCase().includes(q) || floorCode.toLowerCase() === q;
       const matchWing = wingName.toLowerCase().includes(q);
       const matchTags = room.tags ? room.tags.some((t) => t.toLowerCase().includes(q)) : false;
       const matchDesc = room.description ? room.description.toLowerCase().includes(q) : false;
 
-      return matchName || matchCode || matchEn || matchFloor || matchWing || matchTags || matchDesc;
+      return matchName || matchCode || matchShortform || matchEn || matchFloor || matchWing || matchTags || matchDesc;
     });
   }, [allRoomsList, query]);
 
@@ -140,7 +141,7 @@ export default function SearchModal({
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Cari bilik, makmal, staf, surau (cth: PB-301, Infosys, Cisco)..."
+            placeholder="Cari bilik, makmal, singkatan (cth: MRM, CISCO, ISYS, BT1)..."
             style={{
               flex: 1,
               border: 'none',
@@ -177,10 +178,10 @@ export default function SearchModal({
         {!query && (
           <div style={{ padding: '16px 20px', borderBottom: '1px solid #F8FAFC', backgroundColor: '#FEF2F2' }}>
             <div style={{ fontSize: '11px', fontWeight: 800, color: '#991B1B', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '8px' }}>
-              Carian Popular Pelajar:
+              Carian Popular Pelajar & Singkatan:
             </div>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
-              {['Surau', 'Auditorium', 'Ruang Membaca', 'Cisco', 'Infosys', 'Pejabat Pentadbiran', 'PB-301', 'PB-701', 'VR'].map((tag) => (
+              {['MRM', 'CISCO', 'ISYS', 'MGA', 'BT1', 'MSD', 'MKP', 'AUDITORIUM', 'Surau', 'Ruang Membaca', 'Pejabat Pentadbiran'].map((tag) => (
                 <button
                   key={tag}
                   onClick={() => setQuery(tag)}
@@ -277,10 +278,25 @@ export default function SearchModal({
                 </div>
 
                 <div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexWrap: 'wrap' }}>
                     <span style={{ fontSize: '14px', fontWeight: 800, color: '#0F172A' }}>
                       {item.room.name}
                     </span>
+                    {item.room.shortform && (
+                      <span style={{
+                        fontSize: '10px',
+                        fontWeight: 800,
+                        backgroundColor: '#DC2626',
+                        color: '#FFFFFF',
+                        padding: '1px 8px',
+                        borderRadius: '9999px',
+                        letterSpacing: '0.04em',
+                        boxShadow: '0 1px 3px rgba(220, 38, 38, 0.25)',
+                        flexShrink: 0
+                      }}>
+                        {item.room.shortform}
+                      </span>
+                    )}
                     <span style={{
                       fontSize: '10px',
                       fontWeight: 700,

@@ -147,6 +147,9 @@ export default function InteractiveFloorPlan({
       wing.rooms.forEach((room) => {
         map.set(room.id.toLowerCase(), room);
         map.set(room.code.toLowerCase(), room);
+        if (room.shortform) {
+          map.set(room.shortform.toLowerCase(), room);
+        }
       });
     });
     return map;
@@ -240,8 +243,8 @@ export default function InteractiveFloorPlan({
 
         // Sayap Kanan (Horizontal)
         { id: 'g-makmal-grafik', x: 645, y: 190, w: 160, h: 66, label: 'MAKMAL GRAFIK DAN ANIMASI', category: 'lab', wingId: 'sayap-kanan' },
-        { id: 'g-studio-av', x: 815, y: 190, w: 165, h: 66, label: 'STUDIO AUDIO DAN VIDEO', category: 'lab', wingId: 'sayap-kanan' },
-        { id: 'g-makmal-vr', x: 645, y: 292, w: 160, h: 86, label: 'MAKMAL REALITI MAYA', category: 'lab', wingId: 'sayap-kanan' },
+        { id: 'g-studio-av', x: 815, y: 190, w: 165, h: 66, label: 'STUDIO MULTIMEDIA', category: 'lab', wingId: 'sayap-kanan' },
+        { id: 'g-makmal-vr', x: 645, y: 292, w: 160, h: 86, label: 'MAKMAL REKABENTUK MULTIMEDIA', category: 'lab', wingId: 'sayap-kanan' },
         { id: 'g-makmal-data', x: 815, y: 292, w: 118, h: 86, label: 'MAKMAL SAINS DATA', category: 'lab', wingId: 'sayap-kanan' },
         { id: 'g-tandas-kanan', x: 941, y: 292, w: 42, h: 86, label: 'TANDAS', category: 'facility', wingId: 'sayap-kanan', isSpecialIcon: 'toilet' },
       ];
@@ -251,7 +254,7 @@ export default function InteractiveFloorPlan({
       const leftWingNodes: RoomNode[] = [
         // Backside row (top edge, y = -166, h = 70, extends to middle corridor at y = -96)
         // Bilik Pasca Siswazah sits above Bilik Siswazah 1, sharing a wall at y = -76 (h = 90)
-        { id: 'g-pasca', x: -95, y: -166, w: 95, h: 90, label: 'BILIK PASCA SISWAZAH', category: 'class', wingId: 'sayap-kiri' },
+        { id: 'g-pasca', x: -95, y: -166, w: 95, h: 90, label: 'MAKMAL PASCA SISWAZAH', category: 'class', wingId: 'sayap-kiri' },
         { id: 'g-siswazah-6', x: -195, y: -166, w: 100, h: 70, label: 'BILIK SISWAZAH 6', category: 'class', wingId: 'sayap-kiri' },
         { id: 'g-siswazah-5', x: -260, y: -166, w: 65, h: 70, label: 'BILIK SISWAZAH 5', category: 'class', wingId: 'sayap-kiri' },
         { id: 'g-siswazah-4', x: -340, y: -166, w: 80, h: 70, label: 'BILIK SISWAZAH 4', category: 'class', wingId: 'sayap-kiri' },
@@ -466,10 +469,10 @@ export default function InteractiveFloorPlan({
 
       const leftWingNodes: RoomNode[] = [
         { id: '2-tandas-kiri', x: -44, y: -52, w: 40, h: 40, label: 'TANDAS', category: 'facility', wingId: 'sayap-kiri', isSpecialIcon: 'toilet' },
-        { id: '2-tutorial-5', x: -130, y: -166, w: 86, h: 154, label: 'BILIK TUTORIAL 5', category: 'class', wingId: 'sayap-kiri' },
+        { id: '2-tutorial-5', x: -130, y: -166, w: 86, h: 154, label: 'BILIK TUTORIAL 3', category: 'class', wingId: 'sayap-kiri' },
         { id: '2-tutorial-2', x: -236, y: -166, w: 106, h: 154, label: 'BILIK TUTORIAL 2', category: 'class', wingId: 'sayap-kiri' },
         { id: '2-tutorial-1', x: -342, y: -166, w: 106, h: 154, label: 'BILIK TUTORIAL 1', category: 'class', wingId: 'sayap-kiri' },
-        { id: '2-seminar', x: -448, y: -166, w: 106, h: 154, label: 'BILIK SEMINAR FSKTM', category: 'class', wingId: 'sayap-kiri' },
+        { id: '2-seminar', x: -448, y: -166, w: 106, h: 154, label: 'BILIK SEMINAR 1', category: 'class', wingId: 'sayap-kiri' },
       ];
 
       return {
@@ -916,6 +919,32 @@ export default function InteractiveFloorPlan({
           strokeLinecap="round"
         />
 
+        {/* Small Shortform Pill Badge in SVG Room */}
+        {roomData?.shortform && !node.isSpecialIcon && (
+          <g style={{ pointerEvents: 'none' }}>
+            <rect
+              x={node.x + 3}
+              y={node.y + 3}
+              width={Math.max(roomData.shortform.length * 5.2 + 8, 22)}
+              height={11}
+              rx={3}
+              fill="#DC2626"
+            />
+            <text
+              x={node.x + 3 + Math.max(roomData.shortform.length * 5.2 + 8, 22) / 2}
+              y={node.y + 11.2}
+              textAnchor="middle"
+              fill="#FFFFFF"
+              fontSize="6.5px"
+              fontWeight={900}
+              letterSpacing="0.02em"
+              style={{ fontFamily: 'Inter, system-ui, sans-serif' }}
+            >
+              {roomData.shortform}
+            </text>
+          </g>
+        )}
+
         {/* Kiosk Service Badges for Lifts, Toilets, Surau */}
         {node.isSpecialIcon === 'lift' && (
           <g>
@@ -1224,20 +1253,38 @@ export default function InteractiveFloorPlan({
               maxWidth: '240px',
             }}
           >
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '4px' }}>
-              <span
-                style={{
-                  fontSize: '10px',
-                  fontWeight: 800,
-                  backgroundColor: '#FEF2F2',
-                  color: '#991B1B',
-                  padding: '2px 6px',
-                  borderRadius: '4px',
-                  border: '1px solid #FEE2E2',
-                }}
-              >
-                {hoveredNode.room?.code || hoveredNode.node.id.toUpperCase()}
-              </span>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '4px', gap: '6px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <span
+                  style={{
+                    fontSize: '10px',
+                    fontWeight: 800,
+                    backgroundColor: '#FEF2F2',
+                    color: '#991B1B',
+                    padding: '2px 6px',
+                    borderRadius: '4px',
+                    border: '1px solid #FEE2E2',
+                  }}
+                >
+                  {hoveredNode.room?.code || hoveredNode.node.id.toUpperCase()}
+                </span>
+                {hoveredNode.room?.shortform && (
+                  <span
+                    style={{
+                      fontSize: '10px',
+                      fontWeight: 800,
+                      backgroundColor: '#DC2626',
+                      color: '#FFFFFF',
+                      padding: '2px 7px',
+                      borderRadius: '9999px',
+                      letterSpacing: '0.04em',
+                      boxShadow: '0 1px 3px rgba(220, 38, 38, 0.25)',
+                    }}
+                  >
+                    {hoveredNode.room.shortform}
+                  </span>
+                )}
+              </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '10px', color: '#64748B', fontWeight: 600 }}>
                 {hoveredNode.node.category === 'office' && <Building2 size={11} color="#991B1B" />}
                 {hoveredNode.node.category === 'lab' && <Laptop size={11} color="#2563EB" />}

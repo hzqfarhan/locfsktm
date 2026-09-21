@@ -88,8 +88,9 @@ export const FLOORS_DATA: Floor[] = [
           {
             id: "g-pasca",
             code: "PASCA",
-            name: "Bilik Pascasiswazah",
-            nameEn: "Postgraduate Research Room",
+            name: "Makmal Pasca Siswazah",
+            nameEn: "Postgraduate Research Laboratory",
+            shortform: "MS",
             category: "class",
             floorId: 0,
             wingId: "sayap-kiri",
@@ -97,7 +98,7 @@ export const FLOORS_DATA: Floor[] = [
             description: "Ruang kerja dan penyelidikan khas untuk pelajar sarjana (Master) & doktor falsafah (PhD).",
             facilities: ["Stesen Komputer", "Penyaman Udara", "Wi-Fi Berkelajuan Tinggi"],
             directions: "Sayap kiri, menghadap koridor utama.",
-            tags: ["master", "phd", "research", "pascasiswazah"]
+            tags: ["ms", "makmal pasca siswazah", "master", "phd", "research", "pascasiswazah"]
           },
           {
             id: "g-siswazah-1",
@@ -237,6 +238,7 @@ export const FLOORS_DATA: Floor[] = [
             code: "MAK-GRAFIK",
             name: "Makmal Grafik dan Animasi",
             nameEn: "Graphics and Animation Laboratory",
+            shortform: "MGA",
             category: "lab",
             floorId: 0,
             wingId: "sayap-kanan",
@@ -244,13 +246,14 @@ export const FLOORS_DATA: Floor[] = [
             description: "Makmal komputer berprestasi tinggi untuk pemodelan 3D, animasi dan penyuntingan grafik.",
             facilities: ["PC Spesifikasi Tinggi (GPU)", "Penyaman Udara", "Projektor", "Papan Putih"],
             directions: "Sayap kanan dari lobi, bilik pertama sebelah kiri koridor.",
-            tags: ["grafik", "animasi", "3d", "multimedia", "makmal"]
+            tags: ["mga", "makmal grafik dan animasi", "grafik", "animasi", "3d", "multimedia", "makmal"]
           },
           {
             id: "g-studio-av",
             code: "STUDIO-AV",
-            name: "Studio Audio dan Video",
-            nameEn: "Audio and Video Studio",
+            name: "Studio Multimedia",
+            nameEn: "Multimedia Studio",
+            shortform: "MM",
             category: "lab",
             floorId: 0,
             wingId: "sayap-kanan",
@@ -258,27 +261,29 @@ export const FLOORS_DATA: Floor[] = [
             description: "Studio rakaman audio berkualiti tinggi, rakaman video, chroma key green screen dan podcast.",
             facilities: ["Ruang Kalis Bunyi", "Kamera Studio", "Peralatan Audio", "Green Screen"],
             directions: "Sayap kanan sebelah Makmal Grafik dan Animasi.",
-            tags: ["studio", "audio", "video", "rakaman", "podcast"]
+            tags: ["mm", "studio multimedia", "audio", "video", "rakaman", "podcast"]
           },
           {
             id: "g-makmal-vr",
             code: "MAK-VR",
-            name: "Makmal Realiti Maya",
-            nameEn: "Virtual Reality (VR) Laboratory",
+            name: "Makmal Rekabentuk Multimedia",
+            nameEn: "Multimedia Design Laboratory",
+            shortform: "MRM",
             category: "lab",
             floorId: 0,
             wingId: "sayap-kanan",
             wingName: "Sayap Kanan",
-            description: "Pembangunan dan pengujian aplikasi VR, AR dan Mixed Reality (Meta Quest, HTC Vive).",
-            facilities: ["Headset VR/AR", "Sensor Gerakan", "Penyaman Udara"],
+            description: "Pembangunan reka bentuk multimedia interaktif, pemodelan kreatif, VR dan AR.",
+            facilities: ["Headset VR/AR", "Sensor Gerakan", "Penyaman Udara", "PC Perekabentuk"],
             directions: "Sayap kanan bertentangan Makmal Grafik.",
-            tags: ["vr", "virtual reality", "ar", "metaverse", "makmal"]
+            tags: ["mrm", "makmal rekabentuk multimedia", "vr", "virtual reality", "multimedia", "design", "makmal"]
           },
           {
             id: "g-makmal-data",
             code: "MAK-DATA",
             name: "Makmal Sains Data",
             nameEn: "Data Science Laboratory",
+            shortform: "MSD",
             category: "lab",
             floorId: 0,
             wingId: "sayap-kanan",
@@ -286,7 +291,7 @@ export const FLOORS_DATA: Floor[] = [
             description: "Pengajaran dan penyelidikan analitik data raya, kecerdasan buatan (AI) dan machine learning.",
             facilities: ["Stesen Kerja AI", "Projektor Pintar", "Penyaman Udara"],
             directions: "Sayap kanan bertentangan Studio Audio Video.",
-            tags: ["data", "ai", "sains data", "analytics", "makmal"]
+            tags: ["msd", "makmal sains data", "data", "ai", "sains data", "analytics", "makmal"]
           },
           {
             id: "g-tandas-kanan",
@@ -346,6 +351,7 @@ export const FLOORS_DATA: Floor[] = [
             code: "MAK-INFOSYS",
             name: "Makmal Infosys",
             nameEn: "Infosys Laboratory",
+            shortform: "ISYS",
             category: "lab",
             floorId: 1,
             wingId: "sayap-kiri",
@@ -353,7 +359,7 @@ export const FLOORS_DATA: Floor[] = [
             description: "Makmal pengajaran sistem maklumat dan aplikasi perniagaan perusahaan.",
             facilities: ["40+ PC Komputer", "Projektor", "Penyaman Udara", "Rangkaian LAN"],
             directions: "Sayap kiri bersebelahan Ruang Membaca Pelajar.",
-            tags: ["infosys", "sistem maklumat", "makmal", "komputer"]
+            tags: ["isys", "makmal infosys", "infosys", "sistem maklumat", "makmal", "komputer"]
           },
           {
             id: "1-tandas-kiri",
@@ -542,6 +548,7 @@ export const FLOORS_DATA: Floor[] = [
             code: "MAK-SE",
             name: "Makmal Kejuruteraan Perisian",
             nameEn: "Software Engineering Laboratory",
+            shortform: "MKP",
             category: "lab",
             floorId: 1,
             wingId: "sayap-kanan",
@@ -549,13 +556,14 @@ export const FLOORS_DATA: Floor[] = [
             description: "Makmal praktikal untuk pemodelan UML, metodologi Agile dan pembangunan sistem berskala besar.",
             facilities: ["PC Pembangun", "Projektor", "Papan Putih", "Penyaman Udara"],
             directions: "Sayap kanan sebelah Pejabat Ketua Jabatan.",
-            tags: ["software engineering", "kejuruteraan perisian", "se", "makmal"]
+            tags: ["mkp", "makmal kejuruteraan perisian", "software engineering", "kejuruteraan perisian", "se", "makmal"]
           },
           {
             id: "1-makmal-dev",
             code: "MAK-DEV",
             name: "Makmal Pembangunan Perisian",
             nameEn: "Software Development Laboratory",
+            shortform: "MPPER",
             category: "lab",
             floorId: 1,
             wingId: "sayap-kanan",
@@ -563,13 +571,14 @@ export const FLOORS_DATA: Floor[] = [
             description: "Makmal bengkel pengaturcaraan aplikasi web, mudah alih dan perisian gunaan.",
             facilities: ["PC Lengkap IDE", "Projektor", "Penyaman Udara"],
             directions: "Sayap kanan sebelah kanan koridor bertentangan Makmal SE.",
-            tags: ["pembangunan perisian", "coding", "development", "makmal"]
+            tags: ["mpper", "makmal pembangunan perisian", "pembangunan perisian", "coding", "development", "makmal"]
           },
           {
             id: "1-makmal-prog",
             code: "MAK-PROG",
             name: "Makmal Pengaturcaraan",
             nameEn: "Programming Laboratory",
+            shortform: "MP",
             category: "lab",
             floorId: 1,
             wingId: "sayap-kanan",
@@ -577,7 +586,7 @@ export const FLOORS_DATA: Floor[] = [
             description: "Makmal asas algoritma dan bahasa pengaturcaraan (C++, Java, Python).",
             facilities: ["Komputer Lengkap", "Penyaman Udara", "Projektor"],
             directions: "Sayap kanan bahagian hujung bersebelahan tandas.",
-            tags: ["pengaturcaraan", "programming", "c++", "java", "python"]
+            tags: ["mp", "makmal pengaturcaraan", "pengaturcaraan", "programming", "c++", "java", "python"]
           },
           {
             id: "1-tandas-kanan",
@@ -621,8 +630,9 @@ export const FLOORS_DATA: Floor[] = [
           {
             id: "2-seminar",
             code: "SEMINAR",
-            name: "Bilik Seminar",
-            nameEn: "Seminar Room",
+            name: "Bilik Seminar 1",
+            nameEn: "Seminar Room 1",
+            shortform: "BS1",
             category: "class",
             floorId: 2,
             wingId: "sayap-kiri",
@@ -630,13 +640,14 @@ export const FLOORS_DATA: Floor[] = [
             description: "Dewan kuliah berkapasiti besar untuk syarahan jemputan, bengkel, viva dan taklimat fakulti.",
             facilities: ["Kapasiti 100+ Orang", "Sistem Audio & Mikrofon", "Dua Projektor", "Penyaman Udara"],
             directions: "Sayap kiri, bilik paling luas di sebelah kiri laluan.",
-            tags: ["seminar", "dewan", "kuliah", "viva", "bengkel"]
+            tags: ["bs1", "bilik seminar 1", "seminar", "dewan", "kuliah", "viva", "bengkel"]
           },
           {
             id: "2-tutorial-1",
             code: "TUTORIAL-1",
             name: "Bilik Tutorial 1",
             nameEn: "Tutorial Room 1",
+            shortform: "BT1",
             category: "class",
             floorId: 2,
             wingId: "sayap-kiri",
@@ -644,13 +655,14 @@ export const FLOORS_DATA: Floor[] = [
             description: "Bilik perbincangan kelas tutorial dan pembentangan kumpulan.",
             facilities: ["Kapasiti 35 Pelajar", "Penyaman Udara", "Projektor", "Papan Putih"],
             directions: "Sayap kiri bersebelahan Bilik Seminar.",
-            tags: ["tutorial", "kelas", "kuliah", "bilik tutorial 1"]
+            tags: ["bt1", "bilik tutorial 1", "tutorial", "kelas", "kuliah"]
           },
           {
             id: "2-tutorial-2",
             code: "TUTORIAL-2",
             name: "Bilik Tutorial 2",
             nameEn: "Tutorial Room 2",
+            shortform: "BT2",
             category: "class",
             floorId: 2,
             wingId: "sayap-kiri",
@@ -658,21 +670,22 @@ export const FLOORS_DATA: Floor[] = [
             description: "Bilik kelas tutorial dan perbincangan akademik.",
             facilities: ["Kapasiti 35 Pelajar", "Penyaman Udara", "Projektor"],
             directions: "Sayap kiri bersebelahan Bilik Tutorial 1.",
-            tags: ["tutorial", "kelas", "bilik tutorial 2"]
+            tags: ["bt2", "bilik tutorial 2", "tutorial", "kelas"]
           },
           {
             id: "2-tutorial-5",
-            code: "TUTORIAL-5",
-            name: "Bilik Tutorial 5",
-            nameEn: "Tutorial Room 5",
+            code: "TUTORIAL-3",
+            name: "Bilik Tutorial 3",
+            nameEn: "Tutorial Room 3",
+            shortform: "BT3",
             category: "class",
             floorId: 2,
             wingId: "sayap-kiri",
             wingName: "Sayap Kiri",
-            description: "Bilik kelas tutorial.",
+            description: "Bilik kelas tutorial dan perbincangan kurikulum.",
             facilities: ["Kapasiti 35 Pelajar", "Penyaman Udara", "Projektor"],
             directions: "Sayap kiri bertentangan pintu masuk dari koridor tengah.",
-            tags: ["tutorial", "kelas", "bilik tutorial 5"]
+            tags: ["bt3", "bilik tutorial 3", "tutorial", "kelas"]
           },
           {
             id: "2-tandas-kiri",
@@ -842,6 +855,7 @@ export const FLOORS_DATA: Floor[] = [
             code: "MAK-FORENSIK",
             name: "Makmal Forensik Digital",
             nameEn: "Digital Forensics Laboratory",
+            shortform: "MFD",
             category: "lab",
             floorId: 2,
             wingId: "sayap-kanan",
@@ -849,13 +863,14 @@ export const FLOORS_DATA: Floor[] = [
             description: "Makmal khusus siasatan jenayah siber, pemulihan data dan analisis keselamatan.",
             facilities: ["Peralatan Forensik Khas", "Perisian EnCase/Autopsy", "Penyaman Udara"],
             directions: "Sayap kanan, bilik pertama di bahagian atas koridor.",
-            tags: ["forensik", "digital forensics", "cybersecurity", "keselamatan", "makmal"]
+            tags: ["mfd", "makmal forensik digital", "forensik", "digital forensics", "cybersecurity", "keselamatan", "makmal"]
           },
           {
             id: "2-akademi-aruba",
             code: "AKAD-ARUBA",
-            name: "Akademi HP Aruba",
+            name: "Akademi HPE Aruba",
             nameEn: "HP Aruba Networking Academy",
+            shortform: "ARUBA",
             category: "lab",
             floorId: 2,
             wingId: "sayap-kanan",
@@ -863,13 +878,14 @@ export const FLOORS_DATA: Floor[] = [
             description: "Pusat latihan pensijilan industri rangkaian tanpa wayar dan pensuisan Aruba.",
             facilities: ["Rak Suis Aruba", "Access Point Latihan", "Penyaman Udara"],
             directions: "Sayap kanan sebelah Makmal Forensik Digital.",
-            tags: ["aruba", "hp", "rangkaian", "wifi", "pensijilan"]
+            tags: ["aruba", "akademi hpe aruba", "hp", "rangkaian", "wifi", "pensijilan"]
           },
           {
             id: "2-akademi-cisco",
             code: "AKAD-CISCO",
             name: "Akademi Rangkaian Cisco",
             nameEn: "Cisco Networking Academy",
+            shortform: "CISCO",
             category: "lab",
             floorId: 2,
             wingId: "sayap-kanan",
@@ -877,13 +893,14 @@ export const FLOORS_DATA: Floor[] = [
             description: "Pusat persediaan peperiksaan pensijilan Cisco CCNA / CCNP dengan rak penghala (router) fizikal.",
             facilities: ["Rak Router & Switch Cisco", "Kabel Patch", "Penyaman Udara"],
             directions: "Sayap kanan bahagian bawah koridor.",
-            tags: ["cisco", "ccna", "ccnp", "router", "networking", "makmal"]
+            tags: ["cisco", "akademi rangkaian cisco", "ccna", "ccnp", "router", "networking", "makmal"]
           },
           {
             id: "2-makmal-keselamatan",
             code: "MAK-KESELAMATAN",
             name: "Makmal Keselamatan Komputer",
             nameEn: "Computer Security Laboratory",
+            shortform: "MKK",
             category: "lab",
             floorId: 2,
             wingId: "sayap-kanan",
@@ -891,7 +908,7 @@ export const FLOORS_DATA: Floor[] = [
             description: "Makmal penggodaman beretika (ethical hacking), pertahanan siber dan kriptografi.",
             facilities: ["Rangkaian Terasing (Sandbox)", "PC Berprestasi Tinggi", "Penyaman Udara"],
             directions: "Sayap kanan bertentangan Akademi HP Aruba.",
-            tags: ["keselamatan", "security", "hacking", "kriptografi", "makmal"]
+            tags: ["mkk", "makmal keselamatan komputer", "keselamatan", "security", "hacking", "kriptografi", "makmal"]
           },
           {
             id: "2-surau",
@@ -935,8 +952,9 @@ export const FLOORS_DATA: Floor[] = [
           {
             id: "3-auditorium",
             code: "AUDITORIUM",
-            name: "Auditorium FSKTM",
+            name: "Auditorium",
             nameEn: "FSKTM Main Auditorium",
+            shortform: "AUDITORIUM",
             category: "class",
             floorId: 3,
             wingId: "sayap-kanan",
@@ -965,6 +983,7 @@ export const FLOORS_DATA: Floor[] = [
             code: "MAK-INTERNET",
             name: "Makmal Pengaturcaraan Internet",
             nameEn: "Internet Programming Laboratory",
+            shortform: "MPI",
             category: "lab",
             floorId: 3,
             wingId: "sayap-kanan",
@@ -972,13 +991,14 @@ export const FLOORS_DATA: Floor[] = [
             description: "Makmal pengajaran protokol rangkaian internet, API backend, soket dan aplikasi rangkaian.",
             facilities: ["Stesen Kerja Lengkap", "Penyaman Udara", "Projektor"],
             directions: "Sayap kanan berdekatan Surau.",
-            tags: ["internet", "makmal", "backend", "api", "network"]
+            tags: ["mpi", "makmal pengaturcaraan internet", "internet", "makmal", "backend", "api", "network"]
           },
           {
             id: "3-makmal-sistem",
             code: "MAK-SISTEM",
             name: "Makmal Sistem Komputer",
             nameEn: "Computer Systems Laboratory",
+            shortform: "MSK",
             category: "lab",
             floorId: 3,
             wingId: "sayap-kanan",
@@ -986,13 +1006,14 @@ export const FLOORS_DATA: Floor[] = [
             description: "Makmal senibina komputer, sistem pengoperasian (OS Linux/Unix) dan mikropemproses.",
             facilities: ["PC Dual Boot Linux/Windows", "Projektor", "Penyaman Udara"],
             directions: "Sayap kanan bertentangan Auditorium.",
-            tags: ["sistem", "os", "linux", "senibina", "makmal"]
+            tags: ["msk", "makmal sistem komputer", "sistem", "os", "linux", "senibina", "makmal"]
           },
           {
             id: "3-makmal-web",
             code: "MAK-WEB",
             name: "Makmal Teknologi Web",
             nameEn: "Web Technology Laboratory",
+            shortform: "MTW",
             category: "lab",
             floorId: 3,
             wingId: "sayap-kanan",
@@ -1000,7 +1021,7 @@ export const FLOORS_DATA: Floor[] = [
             description: "Pembangunan laman web moden (HTML, CSS, JavaScript, React, Next.js dan Full Stack).",
             facilities: ["PC Generasi Terkini", "Projektor", "Penyaman Udara"],
             directions: "Sayap kanan bersebelahan Makmal Sistem Komputer.",
-            tags: ["web", "frontend", "fullstack", "makmal", "html", "javascript"]
+            tags: ["mtw", "makmal teknologi web", "web", "frontend", "fullstack", "makmal", "html", "javascript"]
           },
           {
             id: "3-tandas-kanan",
@@ -1056,6 +1077,7 @@ export const FLOORS_DATA: Floor[] = [
             code: "TUTORIAL-4",
             name: "Bilik Tutorial 4",
             nameEn: "Tutorial Room 4",
+            shortform: "BT4",
             category: "class",
             floorId: 3,
             wingId: "sayap-kiri",
@@ -1063,7 +1085,7 @@ export const FLOORS_DATA: Floor[] = [
             description: "Bilik kelas tutorial dan perbincangan kurikulum.",
             facilities: ["Kapasiti 35 Orang", "Projektor", "Papan Putih", "Penyaman Udara"],
             directions: "Sayap kiri bersebelahan Bilik Aktiviti Staf.",
-            tags: ["tutorial", "kelas", "bilik tutorial 4"]
+            tags: ["bt4", "bilik tutorial 4", "tutorial", "kelas"]
           },
           {
             id: "3-tandas-kiri",

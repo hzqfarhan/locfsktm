@@ -34,7 +34,10 @@ function DirectoryContent() {
     if (roomParam) {
       const allRooms = getAllRooms();
       const matchedRoom = allRooms.find(
-        (r) => r.id === roomParam || r.code.toLowerCase() === roomParam.toLowerCase()
+        (r) =>
+          r.id === roomParam ||
+          r.code.toLowerCase() === roomParam.toLowerCase() ||
+          (r.shortform && r.shortform.toLowerCase() === roomParam.toLowerCase())
       );
       if (matchedRoom) {
         setSelectedRoom(matchedRoom);
