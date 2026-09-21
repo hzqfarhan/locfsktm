@@ -45,9 +45,9 @@ export default function FloorMapViewer({
         flexDirection: 'column',
       }}
     >
-      {/* Floating View Switcher: Pelan 2D vs Model 3D Only */}
+      {/* Floating View Switcher: Pelan 2D vs Model 3D Only (Hidden on mobile) */}
       <div
-        className="view-mode-switcher"
+        className="view-mode-switcher hide-mobile"
         style={{
           position: 'absolute',
           top: '12px',

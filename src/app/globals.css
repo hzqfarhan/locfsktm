@@ -213,7 +213,7 @@ button {
     top: 8px !important;
     left: 8px !important;
     gap: 6px !important;
-    max-width: calc(100% - 146px) !important;
+    max-width: calc(100% - 16px) !important;
   }
 
   .floor-title-badge {
@@ -233,22 +233,9 @@ button {
     font-size: 13px !important;
   }
 
-  /* View Mode Switcher (2D / 3D) on Mobile */
+  /* View Mode Switcher (2D / 3D) on Mobile (Hidden on mobile) */
   .view-mode-switcher {
-    top: 8px !important;
-    right: 8px !important;
-    padding: 2px !important;
-    border-radius: 10px !important;
-  }
-
-  .view-mode-btn {
-    padding: 5px 9px !important;
-    font-size: 11px !important;
-    border-radius: 8px !important;
-  }
-
-  .view-mode-btn-text {
-    font-size: 11px !important;
+    display: none !important;
   }
 
   /* Category Filter Pills on Mobile */
