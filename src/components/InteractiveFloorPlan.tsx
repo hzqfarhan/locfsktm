@@ -1047,6 +1047,7 @@ export default function InteractiveFloorPlan({
 
   return (
     <div
+      className="floor-plan-root"
       style={{
         position: 'relative',
         width: '100%',
@@ -1060,6 +1061,7 @@ export default function InteractiveFloorPlan({
     >
       {/* Top-Left Floating Info & Category Filter Badge */}
       <div
+        className="floor-info-overlay"
         style={{
           position: 'absolute',
           top: '12px',
@@ -1073,6 +1075,7 @@ export default function InteractiveFloorPlan({
       >
         {/* Stylized Kiosk Floor Title */}
         <div
+          className="floor-title-badge"
           style={{
             backgroundColor: 'rgba(255, 255, 255, 0.96)',
             backdropFilter: 'blur(8px)',
@@ -1087,6 +1090,7 @@ export default function InteractiveFloorPlan({
           }}
         >
           <div
+            className="floor-badge-icon"
             style={{
               width: '36px',
               height: '36px',
@@ -1099,12 +1103,14 @@ export default function InteractiveFloorPlan({
               fontSize: '17px',
               fontWeight: 900,
               boxShadow: '0 2px 8px rgba(185, 28, 28, 0.35)',
+              flexShrink: 0,
             }}
           >
             {floor.levelCode}
           </div>
-          <div>
+          <div style={{ minWidth: 0 }}>
             <div
+              className="floor-badge-title"
               style={{
                 fontSize: '16px',
                 fontWeight: 900,
@@ -1112,18 +1118,25 @@ export default function InteractiveFloorPlan({
                 lineHeight: 1.1,
                 letterSpacing: '-0.02em',
                 textTransform: 'uppercase',
+                whiteSpace: 'nowrap',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
               }}
             >
               {floor.name}
             </div>
-            <div style={{ fontSize: '11px', color: '#64748B', fontWeight: 600 }}>
+            <div className="floor-badge-sub hide-mobile" style={{ fontSize: '11px', color: '#64748B', fontWeight: 600, whiteSpace: 'nowrap' }}>
               {floor.nameMalay} • {floor.stats.totalRooms} Ruang Berdaftar
+            </div>
+            <div className="floor-badge-sub show-mobile-only" style={{ fontSize: '10.5px', color: '#64748B', fontWeight: 600, whiteSpace: 'nowrap' }}>
+              {floor.stats.totalRooms} Ruang Berdaftar
             </div>
           </div>
         </div>
 
         {/* Quick Category Filter Pills */}
         <div
+          className="category-filters-scroll"
           style={{
             display: 'flex',
             alignItems: 'center',
@@ -1166,6 +1179,7 @@ export default function InteractiveFloorPlan({
                   display: 'flex',
                   alignItems: 'center',
                   gap: '5px',
+                  flexShrink: 0,
                 }}
               >
                 <Icon size={12} color={isActive ? '#FFFFFF' : '#64748B'} />
@@ -1335,6 +1349,7 @@ export default function InteractiveFloorPlan({
 
       {/* Floating Bottom-Right Zoom & Pan Controls */}
       <div
+        className="floor-zoom-controls"
         style={{
           position: 'absolute',
           bottom: '16px',

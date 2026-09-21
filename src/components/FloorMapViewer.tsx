@@ -30,6 +30,7 @@ export default function FloorMapViewer({
 
   return (
     <div
+      className="floor-map-container"
       style={{
         position: 'relative',
         width: '100%',
@@ -46,6 +47,7 @@ export default function FloorMapViewer({
     >
       {/* Floating View Switcher: Pelan 2D vs Model 3D Only */}
       <div
+        className="view-mode-switcher"
         style={{
           position: 'absolute',
           top: '12px',
@@ -66,6 +68,7 @@ export default function FloorMapViewer({
           onClick={() => setViewMode('2d')}
           title="Paparan Pelan 2D Interaktif"
           aria-label="Pelan 2D"
+          className="view-mode-btn"
           style={{
             padding: '7px 14px',
             borderRadius: '9px',
@@ -83,13 +86,14 @@ export default function FloorMapViewer({
           }}
         >
           <Compass size={15} />
-          <span>Pelan 2D</span>
+          <span className="view-mode-btn-text">Pelan 2D</span>
         </button>
 
         <button
           onClick={() => setViewMode('3d')}
           title="Paparan Model 3D Bangunan FSKTM"
           aria-label="Model 3D"
+          className="view-mode-btn"
           style={{
             padding: '7px 14px',
             borderRadius: '9px',
@@ -107,7 +111,7 @@ export default function FloorMapViewer({
           }}
         >
           <Layers size={15} />
-          <span>Model 3D</span>
+          <span className="view-mode-btn-text">Model 3D</span>
         </button>
       </div>
 

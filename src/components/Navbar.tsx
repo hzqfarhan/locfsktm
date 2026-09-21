@@ -84,7 +84,7 @@ export default function Navbar({
                 UTHM
               </span>
             </div>
-            <div style={{ fontSize: '11px', color: '#64748B', fontWeight: 600 }}>
+            <div className="hide-mobile" style={{ fontSize: '11px', color: '#64748B', fontWeight: 600 }}>
               Direktori Aras Bangunan
             </div>
           </div>
@@ -92,6 +92,7 @@ export default function Navbar({
 
         {/* Center: Integrated Floor Selector (G to 7) */}
         <div
+          className="navbar-floor-selector"
           style={{
             display: 'flex',
             alignItems: 'center',
@@ -107,6 +108,7 @@ export default function Navbar({
             disabled={selectedFloorId === 0}
             title="Turun satu tingkat"
             aria-label="Turun satu tingkat"
+            className="navbar-nav-btn"
             style={{
               padding: '5px',
               borderRadius: '7px',
@@ -144,6 +146,7 @@ export default function Navbar({
                 key={f.id}
                 onClick={() => onSelectFloor(f.id)}
                 title={`${f.nameMalay} (${f.name})`}
+                className={`navbar-floor-btn ${isSelected ? 'active' : ''}`}
                 style={{
                   width: '32px',
                   height: '32px',
@@ -185,6 +188,7 @@ export default function Navbar({
             disabled={selectedFloorId === floors.length - 1}
             title="Naik satu tingkat"
             aria-label="Naik satu tingkat"
+            className="navbar-nav-btn"
             style={{
               padding: '5px',
               borderRadius: '7px',
@@ -206,6 +210,7 @@ export default function Navbar({
         <button
           onClick={onOpenSearch}
           aria-label="Cari bilik atau makmal"
+          className="navbar-search-btn"
           style={{
             display: 'flex',
             alignItems: 'center',

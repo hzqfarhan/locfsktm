@@ -132,6 +132,10 @@ button {
 }
 
 /* Responsive Styles */
+.show-mobile-only {
+  display: none !important;
+}
+
 @media (max-width: 960px) {
   .directory-grid {
     grid-template-columns: 1fr !important;
@@ -143,8 +147,133 @@ button {
     display: none !important;
   }
 
+  .show-mobile-only {
+    display: inline !important;
+  }
+
+  /* Main container bottom padding so footer and contributor cards are completely visible above floating search */
+  .main-content {
+    padding: 8px 10px 110px 10px !important;
+  }
+
+  /* Mobile floating search pill */
   .mobile-search-bar {
     display: flex !important;
+  }
+
+  /* Top Navbar compact on mobile */
+  .navbar-floor-selector {
+    padding: 2px 3px !important;
+    gap: 2px !important;
+    overflow-x: auto !important;
+    max-width: 100% !important;
+    scrollbar-width: none !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+  .navbar-floor-selector::-webkit-scrollbar {
+    display: none;
+  }
+
+  .navbar-floor-btn {
+    width: 28px !important;
+    height: 28px !important;
+    font-size: 11.5px !important;
+    border-radius: 6px !important;
+    flex-shrink: 0 !important;
+  }
+
+  .navbar-nav-btn {
+    padding: 3px !important;
+    border-radius: 6px !important;
+    flex-shrink: 0 !important;
+  }
+
+  .navbar-search-btn {
+    padding: 7px !important;
+    width: 34px !important;
+    height: 34px !important;
+    justify-content: center !important;
+    border-radius: 50% !important;
+  }
+
+  /* Floor Map container sizing for mobile */
+  .floor-map-container {
+    height: 58vh !important;
+    min-height: 400px !important;
+    max-height: 520px !important;
+    border-radius: 16px !important;
+  }
+
+  .floor-plan-root {
+    min-height: 400px !important;
+  }
+
+  /* Floor Title Badge on Mobile */
+  .floor-info-overlay {
+    top: 8px !important;
+    left: 8px !important;
+    gap: 6px !important;
+    max-width: calc(100% - 146px) !important;
+  }
+
+  .floor-title-badge {
+    padding: 6px 10px !important;
+    gap: 8px !important;
+    border-radius: 10px !important;
+  }
+
+  .floor-badge-icon {
+    width: 30px !important;
+    height: 30px !important;
+    font-size: 14px !important;
+    border-radius: 7px !important;
+  }
+
+  .floor-badge-title {
+    font-size: 13px !important;
+  }
+
+  /* View Mode Switcher (2D / 3D) on Mobile */
+  .view-mode-switcher {
+    top: 8px !important;
+    right: 8px !important;
+    padding: 2px !important;
+    border-radius: 10px !important;
+  }
+
+  .view-mode-btn {
+    padding: 5px 9px !important;
+    font-size: 11px !important;
+    border-radius: 8px !important;
+  }
+
+  .view-mode-btn-text {
+    font-size: 11px !important;
+  }
+
+  /* Category Filter Pills on Mobile */
+  .category-filters-scroll {
+    max-width: calc(100vw - 28px) !important;
+    padding: 3px 6px !important;
+    gap: 4px !important;
+    scrollbar-width: none !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+  .category-filters-scroll::-webkit-scrollbar {
+    display: none;
+  }
+
+  .category-filters-scroll button {
+    padding: 3.5px 8px !important;
+    font-size: 10.5px !important;
+  }
+
+  /* Zoom controls on Mobile */
+  .floor-zoom-controls {
+    bottom: 10px !important;
+    right: 10px !important;
+    padding: 3px 5px !important;
+    border-radius: 10px !important;
   }
 
   .floor-buttons-grid {
