@@ -14,27 +14,19 @@ export interface Contributor {
 
 export const CONTRIBUTORS: Contributor[] = [
   {
-    name: "Kiro",
-    handle: "@pwntable",
-    githubUrl: "https://github.com/pwntable",
-    avatarUrl: "https://github.com/pwntable.png",
-    fallbackAvatarUrl: "https://avatars.githubusercontent.com/u/220985859?v=4",
-    active: true,
-  },
-  {
-    name: "Aizat",
-    handle: "@muhammadaizat0185",
-    githubUrl: "https://github.com/muhammadaizat0185",
-    avatarUrl: "https://github.com/muhammadaizat0185.png",
-    fallbackAvatarUrl: "https://avatars.githubusercontent.com/u/258392918?v=4",
-    active: true,
-  },
-  {
     name: "Yunn",
     handle: "@hzqfarhan",
     githubUrl: "https://github.com/hzqfarhan",
     avatarUrl: "https://github.com/hzqfarhan.png",
     fallbackAvatarUrl: "https://avatars.githubusercontent.com/u/203814306?v=4",
+    active: true,
+  },
+  {
+    name: "Kiro",
+    handle: "@pwntable",
+    githubUrl: "https://github.com/pwntable",
+    avatarUrl: "https://github.com/pwntable.png",
+    fallbackAvatarUrl: "https://avatars.githubusercontent.com/u/220985859?v=4",
     active: true,
   },
 ];
