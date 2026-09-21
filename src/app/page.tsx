@@ -108,42 +108,7 @@ function DirectoryContent() {
         <ProjectFooter />
       </main>
 
-      {/* Floating Mobile Bottom Search Bar */}
-      <div
-        className="mobile-search-bar"
-        style={{
-          position: 'fixed',
-          bottom: 'calc(16px + env(safe-area-inset-bottom, 0px))',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          zIndex: 90,
-          display: 'none',
-          width: 'auto',
-        }}
-      >
-        <button
-          onClick={() => setIsSearchOpen(true)}
-          style={{
-            backgroundColor: '#B91C1C',
-            color: '#FFFFFF',
-            borderRadius: '9999px',
-            padding: '11px 20px',
-            boxShadow: '0 8px 24px rgba(185, 28, 28, 0.42), 0 2px 8px rgba(0, 0, 0, 0.12)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: '8px',
-            fontSize: '13px',
-            fontWeight: 800,
-            cursor: 'pointer',
-            border: 'none',
-            whiteSpace: 'nowrap',
-          }}
-        >
-          <Search size={16} />
-          <span>Cari Bilik di Aras {currentFloor.levelCode}</span>
-        </button>
-      </div>
+
 
       {/* Search Modal */}
       <SearchModal

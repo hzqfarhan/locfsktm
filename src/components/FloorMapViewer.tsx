@@ -125,6 +125,7 @@ export default function FloorMapViewer({
             onSelectRoom={onSelectRoom}
             onClearSelectedRoom={onClearSelectedRoom}
             onOpenDetailModal={onOpenDetailModal}
+            onSelectFloor={onSelectFloor}
           />
         ) : (
           <Building3DViewer

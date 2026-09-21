@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useMemo, useEffect } from 'react';
 import { Floor, Room, RoomCategory } from '../types/directory';
+import { FLOORS_DATA } from '../data/floors';
 import {
   ZoomIn,
   ZoomOut,
@@ -17,15 +18,19 @@ import {
   Moon,
   MapPin,
   Car,
+  ChevronLeft,
+  ChevronRight,
 } from 'lucide-react';
 
 interface InteractiveFloorPlanProps {
   floor: Floor;
+  floors?: Floor[];
   activeWingId: string | null;
   selectedRoom: Room | null;
   onSelectRoom: (room: Room) => void;
   onClearSelectedRoom?: () => void;
   onOpenDetailModal?: (room: Room) => void;
+  onSelectFloor?: (floorId: number) => void;
 }
 
 interface RoomNode {
@@ -124,11 +129,13 @@ function renderWrappedText(
 
 export default function InteractiveFloorPlan({
   floor,
+  floors = FLOORS_DATA,
   activeWingId,
   selectedRoom,
   onSelectRoom,
   onClearSelectedRoom,
   onOpenDetailModal,
+  onSelectFloor,
 }: InteractiveFloorPlanProps) {
   const [zoom, setZoom] = useState<number>(1);
   const [pan, setPan] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
@@ -140,12 +147,12 @@ export default function InteractiveFloorPlan({
 
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Set default rotation to -90° (left), pan y: -45, and zoom 0.92 on mobile so entire building is centered with bottom clearance
+  // Set default rotation to -90° (left), pan x: 0, y: 0, and zoom 1.5 (150%) on mobile
   useEffect(() => {
     if (typeof window !== 'undefined' && window.innerWidth <= 640) {
       setRotation(-90);
-      setZoom(0.92);
-      setPan({ x: 0, y: -45 });
+      setZoom(1.5);
+      setPan({ x: 0, y: 0 });
     }
   }, []);
 
@@ -172,8 +179,8 @@ export default function InteractiveFloorPlan({
   useEffect(() => {
     setHoveredNode(null);
     if (typeof window !== 'undefined' && window.innerWidth <= 640) {
-      setPan({ x: 0, y: -45 });
-      setZoom(0.92);
+      setPan({ x: 0, y: 0 });
+      setZoom(1.5);
       setRotation(-90);
     }
   }, [floor.id]);
@@ -309,7 +316,7 @@ export default function InteractiveFloorPlan({
       ];
 
       return {
-        viewBox: '0 0 1060 620',
+        viewBox: '-80 0 1140 620',
         youAreHere: { x: 525, y: 274 },
         nodes: menaraAndKananNodes,
         leftWingGroup: {
@@ -430,7 +437,7 @@ export default function InteractiveFloorPlan({
       ];
 
       return {
-        viewBox: '0 0 1060 620',
+        viewBox: '-80 0 1140 620',
         youAreHere: { x: 525, y: 274 },
         nodes: menaraAndKananNodes,
         leftWingGroup: {
@@ -514,7 +521,7 @@ export default function InteractiveFloorPlan({
       ];
 
       return {
-        viewBox: '0 0 1060 620',
+        viewBox: '-80 0 1140 620',
         youAreHere: { x: 525, y: 274 },
         nodes: menaraAndKananNodes,
         leftWingGroup: {
@@ -603,7 +610,7 @@ export default function InteractiveFloorPlan({
       ];
 
       return {
-        viewBox: '0 0 1060 620',
+        viewBox: '-80 0 1140 620',
         youAreHere: { x: 525, y: 274 },
         nodes: menaraAndKananNodes,
         leftWingGroup: {
@@ -681,7 +688,7 @@ export default function InteractiveFloorPlan({
       ];
 
       return {
-        viewBox: '0 0 1060 620',
+        viewBox: '-80 0 1140 620',
         youAreHere: { x: 525, y: 274 },
         nodes,
         renderOuterLayer: () => (
@@ -741,7 +748,7 @@ export default function InteractiveFloorPlan({
       ];
 
       return {
-        viewBox: '0 0 1060 620',
+        viewBox: '-80 0 1140 620',
         youAreHere: { x: 525, y: 274 },
         nodes,
         renderOuterLayer: () => (
@@ -795,7 +802,7 @@ export default function InteractiveFloorPlan({
     ];
 
     return {
-      viewBox: '0 0 1060 620',
+      viewBox: '-80 0 1140 620',
       youAreHere: { x: 525, y: 274 },
       nodes,
       renderOuterLayer: () => (
@@ -864,12 +871,12 @@ export default function InteractiveFloorPlan({
   };
 
   // Zoom & Pan Handlers
-  const handleZoomIn = () => setZoom((prev) => Math.min(prev + 0.25, 3.5));
+  const handleZoomIn = () => setZoom((prev) => Math.min(prev + 0.25, 4.5));
   const handleZoomOut = () => setZoom((prev) => Math.max(prev - 0.25, 0.6));
   const handleResetZoom = () => {
     const isMobile = typeof window !== 'undefined' && window.innerWidth <= 640;
-    setZoom(isMobile ? 0.92 : 1);
-    setPan({ x: 0, y: isMobile ? -45 : 0 });
+    setZoom(isMobile ? 1.5 : 1);
+    setPan({ x: 0, y: 0 });
     setRotation(isMobile ? -90 : 0);
   };
 
@@ -1186,79 +1193,119 @@ export default function InteractiveFloorPlan({
         flexDirection: 'column',
       }}
     >
-      {/* Top-Left Floating Info & Category Filter Badge */}
+      {/* Top Floating Floor Toggle & Category Filter Badge */}
       <div
         className="floor-info-overlay"
         style={{
           position: 'absolute',
           top: '12px',
-          left: '12px',
+          left: '50%',
+          transform: 'translateX(-50%)',
           zIndex: 20,
           display: 'flex',
           flexDirection: 'column',
+          alignItems: 'center',
           gap: '8px',
           pointerEvents: 'none',
+          width: 'max-content',
+          maxWidth: 'calc(100% - 24px)',
         }}
       >
-        {/* Stylized Kiosk Floor Title */}
+        {/* Floor Toggle (G, 1, 2, 3, 4, 5, 6, 7) */}
         <div
           className="floor-title-badge"
           style={{
             backgroundColor: 'rgba(255, 255, 255, 0.96)',
             backdropFilter: 'blur(8px)',
             border: '1px solid #FEE2E2',
-            borderRadius: '14px',
-            padding: '8px 16px',
+            borderRadius: '12px',
+            padding: '4px',
             boxShadow: '0 4px 16px rgba(185, 28, 28, 0.1)',
             display: 'flex',
             alignItems: 'center',
-            gap: '12px',
+            gap: '3px',
             pointerEvents: 'auto',
+            width: 'fit-content',
           }}
         >
-          <div
-            className="floor-badge-icon"
+          <button
+            onClick={() => onSelectFloor && floor.id > 0 && onSelectFloor(floor.id - 1)}
+            disabled={floor.id === 0}
+            title="Turun satu tingkat"
+            aria-label="Turun satu tingkat"
+            className="floor-nav-btn"
             style={{
-              width: '36px',
-              height: '36px',
-              borderRadius: '9px',
-              backgroundColor: '#B91C1C',
-              color: '#FFFFFF',
+              width: '28px',
+              height: '28px',
+              borderRadius: '7px',
+              backgroundColor: floor.id === 0 ? '#F8FAFC' : '#FFFFFF',
+              color: floor.id === 0 ? '#CBD5E1' : '#B91C1C',
+              border: floor.id === 0 ? '1px solid #E2E8F0' : '1px solid #FECACA',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              fontSize: '17px',
-              fontWeight: 900,
-              boxShadow: '0 2px 8px rgba(185, 28, 28, 0.35)',
+              cursor: floor.id === 0 ? 'not-allowed' : 'pointer',
+              transition: 'all 120ms ease',
               flexShrink: 0,
             }}
           >
-            {floor.levelCode}
-          </div>
-          <div style={{ minWidth: 0 }}>
-            <div
-              className="floor-badge-title"
-              style={{
-                fontSize: '16px',
-                fontWeight: 900,
-                color: '#991B1B',
-                lineHeight: 1.1,
-                letterSpacing: '-0.02em',
-                textTransform: 'uppercase',
-                whiteSpace: 'nowrap',
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
-              }}
-            >
-              {floor.name}
-            </div>
-            <div className="floor-badge-sub hide-mobile" style={{ fontSize: '11px', color: '#64748B', fontWeight: 600, whiteSpace: 'nowrap' }}>
-              {floor.nameMalay} • {floor.stats.totalRooms} Ruang Berdaftar
-            </div>
-            <div className="floor-badge-sub show-mobile-only" style={{ fontSize: '10.5px', color: '#64748B', fontWeight: 600, whiteSpace: 'nowrap' }}>
-              {floor.stats.totalRooms} Ruang Berdaftar
-            </div>
-          </div>
+            <ChevronLeft size={14} />
+          </button>
+
+          {floors.map((f) => {
+            const isSelected = f.id === floor.id;
+            return (
+              <button
+                key={f.id}
+                onClick={() => onSelectFloor && onSelectFloor(f.id)}
+                title={`${f.nameMalay} (${f.name})`}
+                className={`floor-toggle-btn ${isSelected ? 'active' : ''}`}
+                style={{
+                  width: '28px',
+                  height: '28px',
+                  borderRadius: '7px',
+                  fontSize: '12px',
+                  fontWeight: 900,
+                  backgroundColor: isSelected ? '#B91C1C' : '#FFFFFF',
+                  color: isSelected ? '#FFFFFF' : '#475569',
+                  border: isSelected ? '1px solid #B91C1C' : '1px solid #E2E8F0',
+                  boxShadow: isSelected ? '0 2px 8px rgba(185, 28, 28, 0.35)' : 'none',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  transition: 'all 120ms ease',
+                  flexShrink: 0,
+                }}
+              >
+                {f.levelCode}
+              </button>
+            );
+          })}
+
+          <button
+            onClick={() => onSelectFloor && floor.id < floors.length - 1 && onSelectFloor(floor.id + 1)}
+            disabled={floor.id === floors.length - 1}
+            title="Naik satu tingkat"
+            aria-label="Naik satu tingkat"
+            className="floor-nav-btn"
+            style={{
+              width: '28px',
+              height: '28px',
+              borderRadius: '7px',
+              backgroundColor: floor.id === floors.length - 1 ? '#F8FAFC' : '#FFFFFF',
+              color: floor.id === floors.length - 1 ? '#CBD5E1' : '#B91C1C',
+              border: floor.id === floors.length - 1 ? '1px solid #E2E8F0' : '1px solid #FECACA',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              cursor: floor.id === floors.length - 1 ? 'not-allowed' : 'pointer',
+              transition: 'all 120ms ease',
+              flexShrink: 0,
+            }}
+          >
+            <ChevronRight size={14} />
+          </button>
         </div>
 
         {/* Quick Category Filter Pills */}
@@ -1267,6 +1314,7 @@ export default function InteractiveFloorPlan({
           style={{
             display: 'flex',
             alignItems: 'center',
+            justifyContent: 'center',
             gap: '5px',
             backgroundColor: 'rgba(255, 255, 255, 0.94)',
             backdropFilter: 'blur(8px)',
@@ -1284,7 +1332,6 @@ export default function InteractiveFloorPlan({
             { id: 'office', label: 'Pejabat', icon: Building2 },
             { id: 'lab', label: 'Makmal', icon: Laptop },
             { id: 'class', label: 'Kuliah', icon: GraduationCap },
-            { id: 'facility', label: 'Kemudahan', icon: Sparkles },
           ].map((cat) => {
             const Icon = cat.icon;
             const isActive = categoryFilter === cat.id;
@@ -1352,6 +1399,7 @@ export default function InteractiveFloorPlan({
           style={{
             width: '100%',
             height: '100%',
+            overflow: 'visible',
             transform: `translate(${pan.x}px, ${pan.y}px) rotate(${rotation}deg) scale(${zoom})`,
             transformOrigin: 'center center',
             transition: isDragging ? 'none' : 'transform 150ms ease-out',
