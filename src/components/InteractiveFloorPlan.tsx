@@ -132,12 +132,40 @@ export default function InteractiveFloorPlan({
 }: InteractiveFloorPlanProps) {
   const [zoom, setZoom] = useState<number>(1);
   const [pan, setPan] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
+  const [rotation, setRotation] = useState<number>(0);
   const [isDragging, setIsDragging] = useState<boolean>(false);
   const [dragStart, setDragStart] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
   const [hoveredNode, setHoveredNode] = useState<{ node: RoomNode; room?: Room; clientX: number; clientY: number } | null>(null);
   const [categoryFilter, setCategoryFilter] = useState<'all' | RoomCategory>('all');
 
   const containerRef = useRef<HTMLDivElement>(null);
+
+  // Set default rotation to -90° (left) and default zoom on mobile for vertical alignment
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.innerWidth <= 640) {
+      setRotation(-90);
+      setZoom(1.25);
+    }
+  }, []);
+
+  // Gesture tracking refs for ultra-responsive mobile touch pinch & pan
+  const isDraggingRef = useRef<boolean>(false);
+  const dragStartRef = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
+  const panRef = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
+  const zoomRef = useRef<number>(1);
+  const touchStartDistRef = useRef<number | null>(null);
+  const touchStartZoomRef = useRef<number>(1);
+  const touchStartMidRef = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
+  const touchStartPanRef = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
+  const touchMovedRef = useRef<boolean>(false);
+
+  useEffect(() => {
+    panRef.current = pan;
+  }, [pan]);
+
+  useEffect(() => {
+    zoomRef.current = zoom;
+  }, [zoom]);
 
   // Clear any active tooltip when switching floors
   useEffect(() => {
@@ -830,32 +858,122 @@ export default function InteractiveFloorPlan({
   };
 
   // Zoom & Pan Handlers
-  const handleZoomIn = () => setZoom((prev) => Math.min(prev + 0.25, 2.5));
-  const handleZoomOut = () => setZoom((prev) => Math.max(prev - 0.25, 0.7));
+  const handleZoomIn = () => setZoom((prev) => Math.min(prev + 0.25, 3.5));
+  const handleZoomOut = () => setZoom((prev) => Math.max(prev - 0.25, 0.6));
   const handleResetZoom = () => {
-    setZoom(1);
+    const isMobile = typeof window !== 'undefined' && window.innerWidth <= 640;
+    setZoom(isMobile ? 1.25 : 1);
     setPan({ x: 0, y: 0 });
+    setRotation(isMobile ? -90 : 0);
+  };
+
+  const handleRotateLeft = () => {
+    setRotation((prev) => (prev - 90) % 360);
   };
 
   const handleMouseDown = (e: React.MouseEvent) => {
     if (e.button === 0) {
+      isDraggingRef.current = true;
       setIsDragging(true);
-      setDragStart({ x: e.clientX - pan.x, y: e.clientY - pan.y });
+      dragStartRef.current = { x: e.clientX - panRef.current.x, y: e.clientY - panRef.current.y };
+      setDragStart(dragStartRef.current);
     }
   };
 
   const handleMouseMove = (e: React.MouseEvent) => {
-    if (isDragging) {
-      setPan({ x: e.clientX - dragStart.x, y: e.clientY - dragStart.y });
+    if (isDraggingRef.current) {
+      setPan({ x: e.clientX - dragStartRef.current.x, y: e.clientY - dragStartRef.current.y });
     }
   };
 
-  const handleMouseUp = () => setIsDragging(false);
+  const handleMouseUp = () => {
+    isDraggingRef.current = false;
+    setIsDragging(false);
+  };
 
   const handleWheel = (e: React.WheelEvent) => {
     e.preventDefault();
     const zoomFactor = e.deltaY < 0 ? 1.1 : 0.9;
-    setZoom((prev) => Math.min(Math.max(prev * zoomFactor, 0.7), 2.5));
+    setZoom((prev) => Math.min(Math.max(prev * zoomFactor, 0.6), 3.5));
+  };
+
+  // Mobile Touch Gestures: Pinch-to-zoom & Smooth Swipe/Pan
+  const handleTouchStart = (e: React.TouchEvent) => {
+    if (e.touches.length === 1) {
+      isDraggingRef.current = true;
+      setIsDragging(true);
+      touchMovedRef.current = false;
+      const touch = e.touches[0];
+      dragStartRef.current = {
+        x: touch.clientX - panRef.current.x,
+        y: touch.clientY - panRef.current.y,
+      };
+      setDragStart(dragStartRef.current);
+    } else if (e.touches.length === 2) {
+      isDraggingRef.current = true;
+      setIsDragging(true);
+      touchMovedRef.current = true;
+      const touch1 = e.touches[0];
+      const touch2 = e.touches[1];
+      const dist = Math.hypot(touch1.clientX - touch2.clientX, touch1.clientY - touch2.clientY);
+      touchStartDistRef.current = dist;
+      touchStartZoomRef.current = zoomRef.current;
+      touchStartMidRef.current = {
+        x: (touch1.clientX + touch2.clientX) / 2,
+        y: (touch1.clientY + touch2.clientY) / 2,
+      };
+      touchStartPanRef.current = { ...panRef.current };
+    }
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (e.touches.length === 1 && isDraggingRef.current) {
+      const touch = e.touches[0];
+      const newX = touch.clientX - dragStartRef.current.x;
+      const newY = touch.clientY - dragStartRef.current.y;
+      if (Math.abs(newX - panRef.current.x) > 4 || Math.abs(newY - panRef.current.y) > 4) {
+        touchMovedRef.current = true;
+      }
+      setPan({ x: newX, y: newY });
+    } else if (e.touches.length === 2 && touchStartDistRef.current !== null) {
+      touchMovedRef.current = true;
+      const touch1 = e.touches[0];
+      const touch2 = e.touches[1];
+      const currentDist = Math.hypot(touch1.clientX - touch2.clientX, touch1.clientY - touch2.clientY);
+      if (touchStartDistRef.current > 0) {
+        const scale = currentDist / touchStartDistRef.current;
+        const newZoom = Math.min(Math.max(touchStartZoomRef.current * scale, 0.6), 3.5);
+        setZoom(newZoom);
+
+        const currentMidX = (touch1.clientX + touch2.clientX) / 2;
+        const currentMidY = (touch1.clientY + touch2.clientY) / 2;
+        const deltaX = currentMidX - touchStartMidRef.current.x;
+        const deltaY = currentMidY - touchStartMidRef.current.y;
+        setPan({
+          x: touchStartPanRef.current.x + deltaX,
+          y: touchStartPanRef.current.y + deltaY,
+        });
+      }
+    }
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (e.touches.length === 0) {
+      isDraggingRef.current = false;
+      setIsDragging(false);
+      touchStartDistRef.current = null;
+      setTimeout(() => {
+        touchMovedRef.current = false;
+      }, 100);
+    } else if (e.touches.length === 1) {
+      touchStartDistRef.current = null;
+      const touch = e.touches[0];
+      dragStartRef.current = {
+        x: touch.clientX - panRef.current.x,
+        y: touch.clientY - panRef.current.y,
+      };
+      setDragStart(dragStartRef.current);
+    }
   };
 
   // Reusable node renderer
@@ -887,6 +1005,9 @@ export default function InteractiveFloorPlan({
         }}
         onClick={(e) => {
           e.stopPropagation();
+          if (touchMovedRef.current) {
+            return; // Prevent selecting room if user was swiping or pinching
+          }
           if (roomData) {
             onSelectRoom(roomData);
           }
@@ -1198,6 +1319,10 @@ export default function InteractiveFloorPlan({
         onMouseUp={handleMouseUp}
         onMouseLeave={handleMouseUp}
         onWheel={handleWheel}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+        onTouchCancel={handleTouchEnd}
         style={{
           width: '100%',
           flex: 1,
@@ -1211,6 +1336,9 @@ export default function InteractiveFloorPlan({
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
+          touchAction: 'none',
+          userSelect: 'none',
+          WebkitUserSelect: 'none',
         }}
       >
         <svg
@@ -1218,7 +1346,7 @@ export default function InteractiveFloorPlan({
           style={{
             width: '100%',
             height: '100%',
-            transform: `translate(${pan.x}px, ${pan.y}px) scale(${zoom})`,
+            transform: `translate(${pan.x}px, ${pan.y}px) rotate(${rotation}deg) scale(${zoom})`,
             transformOrigin: 'center center',
             transition: isDragging ? 'none' : 'transform 150ms ease-out',
             filter: 'drop-shadow(0 4px 16px rgba(15, 23, 42, 0.06))',
@@ -1417,6 +1545,28 @@ export default function InteractiveFloorPlan({
         </button>
 
         <div style={{ width: '1px', height: '18px', backgroundColor: '#E2E8F0', margin: '0 2px' }} />
+
+        <button
+          onClick={handleRotateLeft}
+          title="Pusing 90° ke Kiri"
+          aria-label="Pusing 90 darjah ke kiri"
+          style={{
+            padding: '6px 8px',
+            borderRadius: '8px',
+            color: '#991B1B',
+            backgroundColor: '#FEF2F2',
+            border: '1px solid #FECACA',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '3px',
+            fontSize: '11px',
+            fontWeight: 800,
+            cursor: 'pointer',
+          }}
+        >
+          <RotateCcw size={13} />
+          <span>90°</span>
+        </button>
 
         <button
           onClick={handleResetZoom}
