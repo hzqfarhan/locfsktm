@@ -103,7 +103,7 @@ export default function RoomDetailModal({
                   borderRadius: '9999px',
                   fontSize: '11px',
                   fontWeight: 900,
-                  letterSpacing: '0.04em',
+                  letterSpacing: '0.08em',
                   boxShadow: '0 2px 6px rgba(0, 0, 0, 0.15)'
                 }}>
                   {room.shortform}
@@ -163,7 +163,7 @@ export default function RoomDetailModal({
                     borderRadius: '9999px',
                     fontSize: '11px',
                     fontWeight: 800,
-                    letterSpacing: '0.04em',
+                    letterSpacing: '0.08em',
                   }}>
                     {room.shortform}
                   </span>

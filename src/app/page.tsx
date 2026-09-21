@@ -18,6 +18,7 @@ function DirectoryContent() {
   const [activeWingId, setActiveWingId] = useState<string | null>(null);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [selectedRoom, setSelectedRoom] = useState<Room | null>(null);
+  const [detailModalRoom, setDetailModalRoom] = useState<Room | null>(null);
 
   // Sync with URL query parameters if present (e.g. ?floor=3&room=3-surau)
   useEffect(() => {
@@ -58,6 +59,12 @@ function DirectoryContent() {
     setSelectedFloorId(floorId);
     setActiveWingId(null);
     setSelectedRoom(room);
+    setDetailModalRoom(null); // Keep modal closed so the user sees the highlighted room and greyed map!
+  };
+
+  const handleRoomClick = (room: Room) => {
+    setSelectedRoom(room);
+    setDetailModalRoom(room);
   };
 
   return (
@@ -90,8 +97,10 @@ function DirectoryContent() {
           activeWingId={activeWingId}
           onSelectWing={setActiveWingId}
           selectedRoom={selectedRoom}
-          onSelectRoom={(room) => setSelectedRoom(room)}
+          onSelectRoom={handleRoomClick}
           onSelectFloor={handleSelectFloor}
+          onClearSelectedRoom={() => setSelectedRoom(null)}
+          onOpenDetailModal={(room) => setDetailModalRoom(room)}
         />
 
         {/* Liquid Glassmorphic Collaborators & Project Footer */}
@@ -142,9 +151,9 @@ function DirectoryContent() {
 
       {/* Room Detail Modal / Drawer */}
       <RoomDetailModal
-        room={selectedRoom}
+        room={detailModalRoom}
         floor={currentFloor}
-        onClose={() => setSelectedRoom(null)}
+        onClose={() => setDetailModalRoom(null)}
       />
     </div>
   );

@@ -361,7 +361,7 @@ export default function RoomCatalog({
                                 borderRadius: '9999px',
                                 fontSize: '10px',
                                 fontWeight: 800,
-                                letterSpacing: '0.04em',
+                                letterSpacing: '0.08em',
                                 boxShadow: '0 1px 3px rgba(220, 38, 38, 0.25)',
                               }}
                             >

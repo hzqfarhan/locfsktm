@@ -13,6 +13,8 @@ interface FloorMapViewerProps {
   selectedRoom?: Room | null;
   onSelectRoom?: (room: Room) => void;
   onSelectFloor?: (floorId: number) => void;
+  onClearSelectedRoom?: () => void;
+  onOpenDetailModal?: (room: Room) => void;
 }
 
 export default function FloorMapViewer({
@@ -21,6 +23,8 @@ export default function FloorMapViewer({
   selectedRoom = null,
   onSelectRoom = () => {},
   onSelectFloor = () => {},
+  onClearSelectedRoom,
+  onOpenDetailModal,
 }: FloorMapViewerProps) {
   const [viewMode, setViewMode] = useState<'2d' | '3d'>('2d');
 
@@ -115,6 +119,8 @@ export default function FloorMapViewer({
             activeWingId={activeWingId}
             selectedRoom={selectedRoom}
             onSelectRoom={onSelectRoom}
+            onClearSelectedRoom={onClearSelectedRoom}
+            onOpenDetailModal={onOpenDetailModal}
           />
         ) : (
           <Building3DViewer

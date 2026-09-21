@@ -290,7 +290,7 @@ export default function SearchModal({
                         color: '#FFFFFF',
                         padding: '1px 8px',
                         borderRadius: '9999px',
-                        letterSpacing: '0.04em',
+                        letterSpacing: '0.08em',
                         boxShadow: '0 1px 3px rgba(220, 38, 38, 0.25)',
                         flexShrink: 0
                       }}>

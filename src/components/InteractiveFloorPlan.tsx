@@ -24,6 +24,8 @@ interface InteractiveFloorPlanProps {
   activeWingId: string | null;
   selectedRoom: Room | null;
   onSelectRoom: (room: Room) => void;
+  onClearSelectedRoom?: () => void;
+  onOpenDetailModal?: (room: Room) => void;
 }
 
 interface RoomNode {
@@ -125,6 +127,8 @@ export default function InteractiveFloorPlan({
   activeWingId,
   selectedRoom,
   onSelectRoom,
+  onClearSelectedRoom,
+  onOpenDetailModal,
 }: InteractiveFloorPlanProps) {
   const [zoom, setZoom] = useState<number>(1);
   const [pan, setPan] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
@@ -782,23 +786,31 @@ export default function InteractiveFloorPlan({
 
   // Color styles per category (Light Mode Only + UTHM Red)
   const getCategoryStyles = (category: RoomCategory, isSelected: boolean, isDimmed: boolean) => {
-    if (isSelected) {
-      return {
-        fill: '#FEE2E2',
-        stroke: '#B91C1C',
-        strokeWidth: 3,
-        textColor: '#991B1B',
-        opacity: 1,
-      };
-    }
     if (isDimmed) {
       return {
-        fill: '#F8FAFC',
-        stroke: '#E2E8F0',
+        fill: '#F1F5F9',
+        stroke: '#CBD5E1',
         strokeWidth: 1,
         textColor: '#94A3B8',
-        opacity: 0.28,
+        opacity: 0.22,
       };
+    }
+
+    if (isSelected) {
+      switch (category) {
+        case 'office':
+          return { fill: '#FFE4E6', stroke: '#E11D48', strokeWidth: 3.5, textColor: '#881337', opacity: 1 };
+        case 'lab':
+          return { fill: '#DBEAFE', stroke: '#2563EB', strokeWidth: 3.5, textColor: '#1E3A8A', opacity: 1 };
+        case 'class':
+          return { fill: '#FEF9C3', stroke: '#CA8A04', strokeWidth: 3.5, textColor: '#713F12', opacity: 1 };
+        case 'facility':
+          return { fill: '#DCFCE7', stroke: '#16A34A', strokeWidth: 3.5, textColor: '#14532D', opacity: 1 };
+        case 'meeting':
+          return { fill: '#F3E8FF', stroke: '#9333EA', strokeWidth: 3.5, textColor: '#581C87', opacity: 1 };
+        default:
+          return { fill: '#FEE2E2', stroke: '#DC2626', strokeWidth: 3.5, textColor: '#991B1B', opacity: 1 };
+      }
     }
 
     switch (category) {
@@ -849,11 +861,22 @@ export default function InteractiveFloorPlan({
   // Reusable node renderer
   const renderNode = (node: RoomNode, compact = false) => {
     const roomData = getRoomForNode(node);
-    const isSelected = selectedRoom?.id === node.id || (roomData && selectedRoom?.id === roomData.id);
+    const isSelected = Boolean(
+      selectedRoom &&
+        (selectedRoom.id.toLowerCase() === node.id.toLowerCase() ||
+          (roomData &&
+            (selectedRoom.id.toLowerCase() === roomData.id.toLowerCase() ||
+              selectedRoom.code.toLowerCase() === roomData.code.toLowerCase() ||
+              (selectedRoom.shortform &&
+                roomData.shortform &&
+                selectedRoom.shortform.toLowerCase() === roomData.shortform.toLowerCase()))))
+    );
     const isDimmed =
-      (activeWingId !== null && node.wingId !== activeWingId) ||
-      (categoryFilter !== 'all' && node.category !== categoryFilter);
-    const style = getCategoryStyles(node.category, Boolean(isSelected), isDimmed);
+      selectedRoom !== null
+        ? !isSelected
+        : (activeWingId !== null && node.wingId !== activeWingId) ||
+          (categoryFilter !== 'all' && node.category !== categoryFilter);
+    const style = getCategoryStyles(node.category, isSelected, isDimmed);
 
     return (
       <g
@@ -903,8 +926,8 @@ export default function InteractiveFloorPlan({
           strokeWidth={style.strokeWidth}
           opacity={style.opacity}
           style={{
-            transition: 'fill 100ms ease, stroke 100ms ease, opacity 100ms ease',
-            filter: isSelected ? 'drop-shadow(0 0 10px rgba(185, 28, 28, 0.45))' : undefined,
+            transition: 'fill 120ms ease, stroke 120ms ease, opacity 120ms ease',
+            filter: isSelected ? 'drop-shadow(0 0 14px rgba(220, 38, 38, 0.6))' : undefined,
           }}
         />
 
@@ -917,27 +940,28 @@ export default function InteractiveFloorPlan({
           stroke={style.stroke}
           strokeWidth="2.5"
           strokeLinecap="round"
+          opacity={isDimmed ? 0.2 : 1}
         />
 
         {/* Small Shortform Pill Badge in SVG Room */}
         {roomData?.shortform && !node.isSpecialIcon && (
-          <g style={{ pointerEvents: 'none' }}>
+          <g style={{ pointerEvents: 'none', opacity: isDimmed ? 0.18 : 1 }}>
             <rect
               x={node.x + 3}
               y={node.y + 3}
-              width={Math.max(roomData.shortform.length * 5.2 + 8, 22)}
+              width={Math.max(roomData.shortform.length * 5.8 + 10, 24)}
               height={11}
               rx={3}
-              fill="#DC2626"
+              fill={isSelected ? '#DC2626' : '#DC2626'}
             />
             <text
-              x={node.x + 3 + Math.max(roomData.shortform.length * 5.2 + 8, 22) / 2}
+              x={node.x + 3 + Math.max(roomData.shortform.length * 5.8 + 10, 24) / 2}
               y={node.y + 11.2}
               textAnchor="middle"
               fill="#FFFFFF"
               fontSize="6.5px"
               fontWeight={900}
-              letterSpacing="0.02em"
+              letterSpacing="0.08em"
               style={{ fontFamily: 'Inter, system-ui, sans-serif' }}
             >
               {roomData.shortform}
@@ -947,7 +971,7 @@ export default function InteractiveFloorPlan({
 
         {/* Kiosk Service Badges for Lifts, Toilets, Surau */}
         {node.isSpecialIcon === 'lift' && (
-          <g>
+          <g opacity={isDimmed ? 0.2 : 1}>
             <rect
               x={node.x + node.w / 2 - 8}
               y={node.y + 4}
@@ -967,7 +991,7 @@ export default function InteractiveFloorPlan({
         )}
 
         {node.isSpecialIcon === 'toilet' && (
-          <g>
+          <g opacity={isDimmed ? 0.2 : 1}>
             <rect
               x={node.x + node.w / 2 - 8}
               y={node.y + 4}
@@ -987,7 +1011,7 @@ export default function InteractiveFloorPlan({
         )}
 
         {node.isSpecialIcon === 'surau' && (
-          <g>
+          <g opacity={isDimmed ? 0.2 : 1}>
             <rect
               x={node.x + node.w / 2 - 8}
               y={node.y + 4}
@@ -1277,7 +1301,7 @@ export default function InteractiveFloorPlan({
                       color: '#FFFFFF',
                       padding: '2px 7px',
                       borderRadius: '9999px',
-                      letterSpacing: '0.04em',
+                      letterSpacing: '0.08em',
                       boxShadow: '0 1px 3px rgba(220, 38, 38, 0.25)',
                     }}
                   >
@@ -1459,6 +1483,97 @@ export default function InteractiveFloorPlan({
           <span style={{ fontWeight: 600 }}>Surau</span>
         </div>
       </div>
+      {/* Active Searched Room Floating Focus Bar */}
+      {selectedRoom && (
+        <div
+          style={{
+            position: 'absolute',
+            bottom: '72px',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            zIndex: 35,
+            backgroundColor: 'rgba(255, 255, 255, 0.98)',
+            backdropFilter: 'blur(12px)',
+            border: '1px solid #FECACA',
+            borderRadius: '16px',
+            padding: '8px 16px',
+            boxShadow: '0 10px 30px -5px rgba(185, 28, 28, 0.25)',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '14px',
+            maxWidth: 'calc(100vw - 32px)',
+            animation: 'fadeIn 180ms ease',
+          }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            {selectedRoom.shortform && (
+              <span
+                style={{
+                  backgroundColor: '#DC2626',
+                  color: '#FFFFFF',
+                  padding: '2px 8px',
+                  borderRadius: '9999px',
+                  fontSize: '11px',
+                  fontWeight: 800,
+                  letterSpacing: '0.08em',
+                  boxShadow: '0 1px 3px rgba(220, 38, 38, 0.3)',
+                }}
+              >
+                {selectedRoom.shortform}
+              </span>
+            )}
+            <div>
+              <div style={{ fontSize: '13px', fontWeight: 800, color: '#0F172A', lineHeight: 1.2 }}>
+                {selectedRoom.name}
+              </div>
+              <div style={{ fontSize: '11px', color: '#64748B' }}>
+                Aras {floor.levelCode} • {selectedRoom.code} • {selectedRoom.wingName}
+              </div>
+            </div>
+          </div>
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+            {onOpenDetailModal && (
+              <button
+                onClick={() => onOpenDetailModal(selectedRoom)}
+                style={{
+                  backgroundColor: '#B91C1C',
+                  color: '#FFFFFF',
+                  border: 'none',
+                  borderRadius: '8px',
+                  padding: '6px 12px',
+                  fontSize: '11.5px',
+                  fontWeight: 700,
+                  cursor: 'pointer',
+                  boxShadow: '0 2px 6px rgba(185, 28, 28, 0.25)',
+                  whiteSpace: 'nowrap',
+                }}
+              >
+                Perincian
+              </button>
+            )}
+            {onClearSelectedRoom && (
+              <button
+                onClick={onClearSelectedRoom}
+                title="Papar semua bilik"
+                style={{
+                  backgroundColor: '#F1F5F9',
+                  color: '#475569',
+                  border: '1px solid #CBD5E1',
+                  borderRadius: '8px',
+                  padding: '6px 10px',
+                  fontSize: '11.5px',
+                  fontWeight: 700,
+                  cursor: 'pointer',
+                  whiteSpace: 'nowrap',
+                }}
+              >
+                Reset
+              </button>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
