@@ -276,6 +276,39 @@ button {
   box-shadow: 0 8px 20px -4px rgba(185, 28, 28, 0.18);
 }
 
+.contributor-card-highlighted {
+  background: linear-gradient(135deg, rgba(254, 242, 242, 0.95) 0%, rgba(255, 255, 255, 0.9) 100%);
+  border: 1.5px solid rgba(220, 38, 38, 0.45);
+  box-shadow: 0 4px 16px -2px rgba(185, 28, 28, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.contributor-card-highlighted:hover {
+  background: #ffffff;
+  border-color: #b91c1c;
+  box-shadow: 0 8px 24px -3px rgba(185, 28, 28, 0.26);
+}
+
+.contributor-avatar-highlighted {
+  border-color: #ef4444 !important;
+  box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.25);
+}
+
+.contributor-lead-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 9.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 1.5px 6px;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%);
+  color: #ffffff;
+  line-height: 1.3;
+  box-shadow: 0 2px 6px rgba(185, 28, 28, 0.25);
+}
+
 .contributor-avatar-wrap {
   position: relative;
   width: 42px;

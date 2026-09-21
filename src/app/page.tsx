@@ -153,7 +153,10 @@ function DirectoryContent() {
       <RoomDetailModal
         room={detailModalRoom}
         floor={currentFloor}
-        onClose={() => setDetailModalRoom(null)}
+        onClose={() => {
+          setDetailModalRoom(null);
+          setSelectedRoom(null);
+        }}
       />
     </div>
   );

@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Layers, Users, ExternalLink, Heart } from 'lucide-react';
+import { Layers, Users, ExternalLink, Heart, Sparkles } from 'lucide-react';
 
 export interface Contributor {
   name: string;
@@ -10,6 +10,7 @@ export interface Contributor {
   avatarUrl: string;
   fallbackAvatarUrl: string;
   active: boolean;
+  highlighted?: boolean;
 }
 
 export const CONTRIBUTORS: Contributor[] = [
@@ -20,6 +21,7 @@ export const CONTRIBUTORS: Contributor[] = [
     avatarUrl: "https://github.com/hzqfarhan.png",
     fallbackAvatarUrl: "https://avatars.githubusercontent.com/u/203814306?v=4",
     active: true,
+    highlighted: true,
   },
   {
     name: "Kiro",
@@ -62,14 +64,14 @@ export default function ProjectFooter() {
                 href={contributor.githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="contributor-card"
+                className={`contributor-card ${contributor.highlighted ? 'contributor-card-highlighted' : ''}`}
                 title={`GitHub: ${contributor.handle}`}
               >
                 <div className="contributor-avatar-wrap">
                   <img
                     src={contributor.avatarUrl}
                     alt={`${contributor.name} avatar`}
-                    className="contributor-avatar"
+                    className={`contributor-avatar ${contributor.highlighted ? 'contributor-avatar-highlighted' : ''}`}
                     loading="lazy"
                     onError={(e) => {
                       const target = e.currentTarget;
@@ -82,7 +84,15 @@ export default function ProjectFooter() {
                   )}
                 </div>
                 <div className="contributor-info">
-                  <span className="contributor-name">{contributor.name}</span>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <span className="contributor-name">{contributor.name}</span>
+                    {contributor.highlighted && (
+                      <span className="contributor-lead-badge">
+                        <Sparkles size={9} strokeWidth={2.5} />
+                        Lead
+                      </span>
+                    )}
+                  </div>
                   <span className="contributor-handle">{contributor.handle}</span>
                 </div>
                 <div className="contributor-link-icon" aria-hidden="true">
