@@ -140,11 +140,12 @@ export default function InteractiveFloorPlan({
 
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Set default rotation to -90° (left) and default zoom 1 on mobile to see entire building at first open
+  // Set default rotation to -90° (left), pan y: -45, and zoom 0.92 on mobile so entire building is centered with bottom clearance
   useEffect(() => {
     if (typeof window !== 'undefined' && window.innerWidth <= 640) {
       setRotation(-90);
-      setZoom(1);
+      setZoom(0.92);
+      setPan({ x: 0, y: -45 });
     }
   }, []);
 
@@ -167,9 +168,14 @@ export default function InteractiveFloorPlan({
     zoomRef.current = zoom;
   }, [zoom]);
 
-  // Clear any active tooltip when switching floors
+  // Clear any active tooltip when switching floors, and reset mobile alignment
   useEffect(() => {
     setHoveredNode(null);
+    if (typeof window !== 'undefined' && window.innerWidth <= 640) {
+      setPan({ x: 0, y: -45 });
+      setZoom(0.92);
+      setRotation(-90);
+    }
   }, [floor.id]);
 
   // Map room data from floor.wings for instant lookup
@@ -862,8 +868,8 @@ export default function InteractiveFloorPlan({
   const handleZoomOut = () => setZoom((prev) => Math.max(prev - 0.25, 0.6));
   const handleResetZoom = () => {
     const isMobile = typeof window !== 'undefined' && window.innerWidth <= 640;
-    setZoom(1);
-    setPan({ x: 0, y: 0 });
+    setZoom(isMobile ? 0.92 : 1);
+    setPan({ x: 0, y: isMobile ? -45 : 0 });
     setRotation(isMobile ? -90 : 0);
   };
 

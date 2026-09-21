@@ -255,9 +255,9 @@ button {
     font-size: 10.5px !important;
   }
 
-  /* Zoom controls on Mobile */
+  /* Zoom controls on Mobile: positioned above the floating search pill */
   .floor-zoom-controls {
-    bottom: 10px !important;
+    bottom: 64px !important;
     right: 10px !important;
     padding: 3px 5px !important;
     border-radius: 10px !important;
