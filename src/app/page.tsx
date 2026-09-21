@@ -1,69 +1,172 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+'use client';
+
+import { useState, useEffect, Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
+import { FLOORS_DATA, getAllRooms } from '../data/floors';
+import { Floor, Room } from '../types/directory';
+import Navbar from '../components/Navbar';
+import FloorMapViewer from '../components/FloorMapViewer';
+import SearchModal from '../components/SearchModal';
+import RoomDetailModal from '../components/RoomDetailModal';
+import PwaRegister from '../components/PwaRegister';
+import ProjectFooter from '../components/ProjectFooter';
+import { Search } from 'lucide-react';
+
+function DirectoryContent() {
+  const searchParams = useSearchParams();
+  const [selectedFloorId, setSelectedFloorId] = useState<number>(0);
+  const [activeWingId, setActiveWingId] = useState<string | null>(null);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [selectedRoom, setSelectedRoom] = useState<Room | null>(null);
+
+  // Sync with URL query parameters if present (e.g. ?floor=3&room=3-surau)
+  useEffect(() => {
+    const floorParam = searchParams.get('floor');
+    const roomParam = searchParams.get('room');
+
+    if (floorParam !== null) {
+      const parsedFloor = parseInt(floorParam, 10);
+      if (!isNaN(parsedFloor) && parsedFloor >= 0 && parsedFloor <= 7) {
+        setSelectedFloorId(parsedFloor);
+      }
+    }
+
+    if (roomParam) {
+      const allRooms = getAllRooms();
+      const matchedRoom = allRooms.find(
+        (r) => r.id === roomParam || r.code.toLowerCase() === roomParam.toLowerCase()
+      );
+      if (matchedRoom) {
+        setSelectedRoom(matchedRoom);
+        setSelectedFloorId(matchedRoom.floorId);
+      }
+    }
+  }, [searchParams]);
+
+  const currentFloor: Floor = FLOORS_DATA[selectedFloorId] || FLOORS_DATA[0];
+
+  const handleSelectFloor = (floorId: number) => {
+    setSelectedFloorId(floorId);
+    setActiveWingId(null); // Reset wing filter on floor switch
+    setSelectedRoom(null); // Reset selected room on floor switch
+  };
+
+  const handleSelectSearchResult = (floorId: number, room: Room) => {
+    setSelectedFloorId(floorId);
+    setActiveWingId(null);
+    setSelectedRoom(room);
+  };
+
+  return (
+    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: '#F8FAFC' }}>
+      <PwaRegister />
+
+      {/* Top Navbar with Integrated Floor Selector & Search */}
+      <Navbar
+        floors={FLOORS_DATA}
+        selectedFloorId={selectedFloorId}
+        onSelectFloor={handleSelectFloor}
+        onOpenSearch={() => setIsSearchOpen(true)}
+      />
+
+      {/* Main Floor Map Centric View */}
+      <main
+        style={{
+          flex: 1,
+          maxWidth: '1440px',
+          width: '100%',
+          margin: '0 auto',
+          padding: '12px 14px 40px 14px',
+          display: 'flex',
+          flexDirection: 'column',
+        }}
+      >
+        {/* Floor Map & Twin View Container */}
+        <FloorMapViewer
+          floor={currentFloor}
+          activeWingId={activeWingId}
+          onSelectWing={setActiveWingId}
+          selectedRoom={selectedRoom}
+          onSelectRoom={(room) => setSelectedRoom(room)}
+          onSelectFloor={handleSelectFloor}
+        />
+
+        {/* Liquid Glassmorphic Collaborators & Project Footer */}
+        <ProjectFooter />
+      </main>
+
+      {/* Floating Mobile Bottom Search Bar */}
+      <div
+        className="mobile-search-bar"
+        style={{
+          position: 'fixed',
+          bottom: '16px',
+          left: '16px',
+          right: '16px',
+          zIndex: 90,
+          display: 'none',
+        }}
+      >
+        <button
+          onClick={() => setIsSearchOpen(true)}
+          style={{
+            width: '100%',
+            backgroundColor: '#B91C1C',
+            color: '#FFFFFF',
+            borderRadius: '9999px',
+            padding: '14px 20px',
+            boxShadow: '0 8px 24px rgba(185, 28, 28, 0.45)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '10px',
+            fontSize: '14px',
+            fontWeight: 800,
+            cursor: 'pointer',
+          }}
+        >
+          <Search size={18} />
+          <span>Cari Bilik / Makmal di Aras {currentFloor.levelCode}</span>
+        </button>
+      </div>
+
+      {/* Search Modal */}
+      <SearchModal
+        isOpen={isSearchOpen}
+        onClose={() => setIsSearchOpen(false)}
+        onSelectResult={handleSelectSearchResult}
+      />
+
+      {/* Room Detail Modal / Drawer */}
+      <RoomDetailModal
+        room={selectedRoom}
+        floor={currentFloor}
+        onClose={() => setSelectedRoom(null)}
+      />
+    </div>
+  );
+}
 
 export default function Home() {
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>
-            To get started, edit the{" "}
-            <code className={styles.code}>page.tsx</code> file.
-          </h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <Suspense
+      fallback={
+        <div
+          style={{
+            minHeight: '100vh',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            backgroundColor: '#F8FAFC',
+            color: '#B91C1C',
+            fontWeight: 800,
+          }}
+        >
+          Memuatkan Direktori Aras FSKTM...
         </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+      }
+    >
+      <DirectoryContent />
+    </Suspense>
   );
 }

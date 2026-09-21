@@ -1,0 +1,1320 @@
+import { Floor } from '../types/directory';
+
+export const FLOORS_DATA: Floor[] = [
+  {
+    id: 0,
+    name: "Ground Floor",
+    nameMalay: "Aras Bawah",
+    levelCode: "G",
+    mapImage: "/directory/IMG_1815.JPG",
+    description: "Pejabat Pentadbiran Fakulti, Pusat Teknologi Maklumat, Bilik Pascasiswazah & Makmal Multimedia.",
+    highlights: ["Pejabat Pentadbiran", "Bilik Pascasiswazah", "Makmal Realiti Maya & Sains Data"],
+    stats: {
+      totalRooms: 15,
+      labs: 5,
+      classrooms: 6,
+      offices: 2,
+      facilities: 2,
+    },
+    wings: [
+      {
+        id: "menara-tengah",
+        name: "Lobi & Menara Tengah",
+        description: "Pintu masuk utama, lif fakulti, tandas dan pusat pentadbiran.",
+        rooms: [
+          {
+            id: "g-admin",
+            code: "PENTADBIRAN",
+            name: "Pejabat Pentadbiran FSKTM",
+            nameEn: "FSKTM Administration Office",
+            category: "office",
+            floorId: 0,
+            wingId: "menara-tengah",
+            wingName: "Menara Tengah",
+            description: "Urusan pendaftaran, surat menyurat, pentadbiran dekan & hal ehwal akademik fakulti.",
+            facilities: ["Kaunter Urusan", "Penyaman Udara", "Ruang Menunggu"],
+            directions: "Masuk dari pintu utama lobi, terus ke bahagian tengah.",
+            tags: ["dekan", "pejabat", "akademik", "surat", "borang"]
+          },
+          {
+            id: "g-lif",
+            code: "LIF-G",
+            name: "Lif Menara Utama (2 Unit)",
+            nameEn: "Main Tower Elevators",
+            category: "facility",
+            floorId: 0,
+            wingId: "menara-tengah",
+            wingName: "Menara Tengah",
+            description: "Lif akses ke semua tingkat dari Aras Bawah hingga Aras 7.",
+            facilities: ["Akses Kerusi Roda", "Braille"],
+            directions: "Bersebelahan lobi utama sebelum laluan ke sayap kiri dan kanan.",
+            tags: ["lif", "elevator", "aras"]
+          },
+          {
+            id: "g-tandas-tengah",
+            code: "TANDAS-G1",
+            name: "Tandas Lelaki & Wanita (Lobi)",
+            nameEn: "Restrooms (Central Lobby)",
+            category: "facility",
+            floorId: 0,
+            wingId: "menara-tengah",
+            wingName: "Menara Tengah",
+            description: "Kemudahan tandas berdekatan lobi utama dan pejabat pentadbiran.",
+            facilities: ["Tandas OKU", "Cermin", "Air Bersih"],
+            directions: "Di koridor belakang berdekatan kawasan lif.",
+            tags: ["toilet", "tandas", "washroom", "restroom"]
+          }
+        ]
+      },
+      {
+        id: "sayap-kiri",
+        name: "Sayap Kiri (Postgraduate & IT Centre)",
+        description: "Bilik penyelidikan pascasiswazah, pusat teknologi maklumat dan pantri fakulti.",
+        rooms: [
+          {
+            id: "g-ptm",
+            code: "PTM",
+            name: "Pusat Teknologi Maklumat",
+            nameEn: "Information Technology Centre",
+            category: "lab",
+            floorId: 0,
+            wingId: "sayap-kiri",
+            wingName: "Sayap Kiri",
+            description: "Pusat sokongan teknikal IT fakulti, server dan penyelenggaraan sistem.",
+            facilities: ["Penyaman Udara", "Rangkaian LAN/Wi-Fi", "Kaunter Sokongan"],
+            directions: "Sayap kiri, bilik hujung sebelah kiri.",
+            tags: ["it", "server", "komputer", "sokongan"]
+          },
+          {
+            id: "g-pasca",
+            code: "PASCA",
+            name: "Bilik Pascasiswazah",
+            nameEn: "Postgraduate Research Room",
+            category: "class",
+            floorId: 0,
+            wingId: "sayap-kiri",
+            wingName: "Sayap Kiri",
+            description: "Ruang kerja dan penyelidikan khas untuk pelajar sarjana (Master) & doktor falsafah (PhD).",
+            facilities: ["Stesen Komputer", "Penyaman Udara", "Wi-Fi Berkelajuan Tinggi"],
+            directions: "Sayap kiri, menghadap koridor utama.",
+            tags: ["master", "phd", "research", "pascasiswazah"]
+          },
+          {
+            id: "g-siswazah-1",
+            code: "SISWAZAH-1",
+            name: "Bilik Siswazah 1",
+            nameEn: "Graduate Room 1",
+            category: "class",
+            floorId: 0,
+            wingId: "sayap-kiri",
+            wingName: "Sayap Kiri",
+            description: "Ruang kerja perbincangan dan kajian pascasiswazah.",
+            facilities: ["Meja Belajar", "Penyaman Udara", "Palam Kuasa"],
+            directions: "Sayap kiri, barisan hadapan.",
+            tags: ["siswazah", "study", "perbincangan"]
+          },
+          {
+            id: "g-siswazah-2",
+            code: "SISWAZAH-2",
+            name: "Bilik Siswazah 2",
+            nameEn: "Graduate Room 2",
+            category: "class",
+            floorId: 0,
+            wingId: "sayap-kiri",
+            wingName: "Sayap Kiri",
+            description: "Ruang perbincangan penyelidikan pelajar siswazah.",
+            facilities: ["Meja Belajar", "Penyaman Udara"],
+            directions: "Sayap kiri bersebelahan Bilik Siswazah 1.",
+            tags: ["siswazah", "study"]
+          },
+          {
+            id: "g-siswazah-3",
+            code: "SISWAZAH-3",
+            name: "Bilik Siswazah 3",
+            nameEn: "Graduate Room 3",
+            category: "class",
+            floorId: 0,
+            wingId: "sayap-kiri",
+            wingName: "Sayap Kiri",
+            description: "Ruang kajian dan kerja siswazah.",
+            facilities: ["Meja Belajar", "Penyaman Udara"],
+            directions: "Sayap kiri, menghampiri Pusat Teknologi Maklumat.",
+            tags: ["siswazah", "study"]
+          },
+          {
+            id: "g-siswazah-4",
+            code: "SISWAZAH-4",
+            name: "Bilik Siswazah 4",
+            nameEn: "Graduate Room 4",
+            category: "class",
+            floorId: 0,
+            wingId: "sayap-kiri",
+            wingName: "Sayap Kiri",
+            description: "Ruang penyelidikan siswazah berdekatan tandas sayap kiri.",
+            facilities: ["Meja Belajar", "Penyaman Udara"],
+            directions: "Sayap kiri barisan belakang.",
+            tags: ["siswazah", "study"]
+          },
+          {
+            id: "g-siswazah-5",
+            code: "SISWAZAH-5",
+            name: "Bilik Siswazah 5",
+            nameEn: "Graduate Room 5",
+            category: "class",
+            floorId: 0,
+            wingId: "sayap-kiri",
+            wingName: "Sayap Kiri",
+            description: "Ruang penyelidikan siswazah.",
+            facilities: ["Meja Belajar", "Penyaman Udara"],
+            directions: "Sayap kiri barisan belakang sebelah Bilik 4.",
+            tags: ["siswazah", "study"]
+          },
+          {
+            id: "g-siswazah-6",
+            code: "SISWAZAH-6",
+            name: "Bilik Siswazah 6",
+            nameEn: "Graduate Room 6",
+            category: "class",
+            floorId: 0,
+            wingId: "sayap-kiri",
+            wingName: "Sayap Kiri",
+            description: "Ruang penyelidikan siswazah.",
+            facilities: ["Meja Belajar", "Penyaman Udara"],
+            directions: "Sayap kiri barisan belakang sebelah Bilik Pasca.",
+            tags: ["siswazah", "study"]
+          },
+          {
+            id: "g-pantri",
+            code: "PANTRI-G",
+            name: "Pantri Staf & Siswazah",
+            nameEn: "Staff & Graduate Pantry",
+            category: "facility",
+            floorId: 0,
+            wingId: "sayap-kiri",
+            wingName: "Sayap Kiri",
+            description: "Ruang santai penyediaan minuman dan hidangan ringan.",
+            facilities: ["Singki", "Penapis Air", "Meja Rehat"],
+            directions: "Hujung sayap kiri bersebelahan tandas.",
+            tags: ["pantri", "makan", "minum", "rehat"]
+          },
+          {
+            id: "g-tandas-kiri",
+            code: "TANDAS-G2",
+            name: "Tandas Sayap Kiri (Tengah)",
+            nameEn: "Left Wing Restrooms (Mid)",
+            category: "facility",
+            floorId: 0,
+            wingId: "sayap-kiri",
+            wingName: "Sayap Kiri",
+            description: "Tandas lelaki dan wanita sayap kiri bersebelahan Bilik Siswazah 4.",
+            facilities: ["Tandas Bersih"],
+            directions: "Sayap kiri barisan belakang bersebelahan Bilik Siswazah 4.",
+            tags: ["tandas", "toilet", "restroom"]
+          },
+          {
+            id: "g-tandas-end",
+            code: "TANDAS-G3",
+            name: "Tandas Hujung Sayap Kiri",
+            nameEn: "Far End Left Wing Restrooms",
+            category: "facility",
+            floorId: 0,
+            wingId: "sayap-kiri",
+            wingName: "Sayap Kiri",
+            description: "Tandas di bahagian hujung sayap kiri bersebelahan pantri.",
+            facilities: ["Tandas Bersih"],
+            directions: "Hujung sayap kiri bersebelahan pantri.",
+            tags: ["tandas", "toilet", "restroom"]
+          }
+        ]
+      },
+      {
+        id: "sayap-kanan",
+        name: "Sayap Kanan (Makmal Multimedia & Sains Data)",
+        description: "Makmal grafik, produksi media, AR/VR dan analisis sains data fakulti.",
+        rooms: [
+          {
+            id: "g-makmal-grafik",
+            code: "MAK-GRAFIK",
+            name: "Makmal Grafik dan Animasi",
+            nameEn: "Graphics and Animation Laboratory",
+            category: "lab",
+            floorId: 0,
+            wingId: "sayap-kanan",
+            wingName: "Sayap Kanan",
+            description: "Makmal komputer berprestasi tinggi untuk pemodelan 3D, animasi dan penyuntingan grafik.",
+            facilities: ["PC Spesifikasi Tinggi (GPU)", "Penyaman Udara", "Projektor", "Papan Putih"],
+            directions: "Sayap kanan dari lobi, bilik pertama sebelah kiri koridor.",
+            tags: ["grafik", "animasi", "3d", "multimedia", "makmal"]
+          },
+          {
+            id: "g-studio-av",
+            code: "STUDIO-AV",
+            name: "Studio Audio dan Video",
+            nameEn: "Audio and Video Studio",
+            category: "lab",
+            floorId: 0,
+            wingId: "sayap-kanan",
+            wingName: "Sayap Kanan",
+            description: "Studio rakaman audio berkualiti tinggi, rakaman video, chroma key green screen dan podcast.",
+            facilities: ["Ruang Kalis Bunyi", "Kamera Studio", "Peralatan Audio", "Green Screen"],
+            directions: "Sayap kanan sebelah Makmal Grafik dan Animasi.",
+            tags: ["studio", "audio", "video", "rakaman", "podcast"]
+          },
+          {
+            id: "g-makmal-vr",
+            code: "MAK-VR",
+            name: "Makmal Realiti Maya",
+            nameEn: "Virtual Reality (VR) Laboratory",
+            category: "lab",
+            floorId: 0,
+            wingId: "sayap-kanan",
+            wingName: "Sayap Kanan",
+            description: "Pembangunan dan pengujian aplikasi VR, AR dan Mixed Reality (Meta Quest, HTC Vive).",
+            facilities: ["Headset VR/AR", "Sensor Gerakan", "Penyaman Udara"],
+            directions: "Sayap kanan bertentangan Makmal Grafik.",
+            tags: ["vr", "virtual reality", "ar", "metaverse", "makmal"]
+          },
+          {
+            id: "g-makmal-data",
+            code: "MAK-DATA",
+            name: "Makmal Sains Data",
+            nameEn: "Data Science Laboratory",
+            category: "lab",
+            floorId: 0,
+            wingId: "sayap-kanan",
+            wingName: "Sayap Kanan",
+            description: "Pengajaran dan penyelidikan analitik data raya, kecerdasan buatan (AI) dan machine learning.",
+            facilities: ["Stesen Kerja AI", "Projektor Pintar", "Penyaman Udara"],
+            directions: "Sayap kanan bertentangan Studio Audio Video.",
+            tags: ["data", "ai", "sains data", "analytics", "makmal"]
+          },
+          {
+            id: "g-tandas-kanan",
+            code: "TANDAS-G3",
+            name: "Tandas Sayap Kanan",
+            nameEn: "Right Wing Restrooms",
+            category: "facility",
+            floorId: 0,
+            wingId: "sayap-kanan",
+            wingName: "Sayap Kanan",
+            description: "Tandas lelaki dan wanita sayap kanan bersebelahan Makmal Sains Data.",
+            facilities: ["Tandas Bersih"],
+            directions: "Hujung koridor sayap kanan bersebelahan Makmal Sains Data.",
+            tags: ["tandas", "toilet"]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 1,
+    name: "First Floor",
+    nameMalay: "Aras 1",
+    levelCode: "1",
+    mapImage: "/directory/IMG_1816.JPG",
+    description: "Ruang Membaca Pelajar, Makmal Infosys, Pejabat Ketua Jabatan & Makmal Kejuruteraan Perisian.",
+    highlights: ["Ruang Membaca Pelajar", "Pejabat Ketua Jabatan", "Makmal Infosys & Perisian"],
+    stats: {
+      totalRooms: 14,
+      labs: 4,
+      classrooms: 1,
+      offices: 7,
+      facilities: 2,
+    },
+    wings: [
+      {
+        id: "sayap-kiri",
+        name: "Sayap Kiri (Ruang Belajar & Infosys)",
+        description: "Zon santai membaca pelajar, kajian kendiri dan makmal Infosys.",
+        rooms: [
+          {
+            id: "1-ruang-membaca",
+            code: "BACA-01",
+            name: "Ruang Membaca Pelajar",
+            nameEn: "Student Reading & Study Lounge",
+            category: "class",
+            floorId: 1,
+            wingId: "sayap-kiri",
+            wingName: "Sayap Kiri",
+            description: "Kawasan pembelajaran santai untuk pelajar mengulangkaji dan menyiapkan tugasan secara berkumpulan.",
+            facilities: ["Meja Belajar Luas", "Wi-Fi Kampus", "Soket Kuasa", "Penyaman Udara"],
+            directions: "Naik tangga atau lif ke Aras 1, belok ke sayap kiri.",
+            tags: ["belajar", "study", "membaca", "santai", "lounge"]
+          },
+          {
+            id: "1-makmal-infosys",
+            code: "MAK-INFOSYS",
+            name: "Makmal Infosys",
+            nameEn: "Infosys Laboratory",
+            category: "lab",
+            floorId: 1,
+            wingId: "sayap-kiri",
+            wingName: "Sayap Kiri",
+            description: "Makmal pengajaran sistem maklumat dan aplikasi perniagaan perusahaan.",
+            facilities: ["40+ PC Komputer", "Projektor", "Penyaman Udara", "Rangkaian LAN"],
+            directions: "Sayap kiri bersebelahan Ruang Membaca Pelajar.",
+            tags: ["infosys", "sistem maklumat", "makmal", "komputer"]
+          },
+          {
+            id: "1-tandas-kiri",
+            code: "TANDAS-1A",
+            name: "Tandas Sayap Kiri Aras 1",
+            nameEn: "Left Wing Restrooms Level 1",
+            category: "facility",
+            floorId: 1,
+            wingId: "sayap-kiri",
+            wingName: "Sayap Kiri",
+            description: "Tandas lelaki dan wanita sayap kiri.",
+            facilities: ["Tandas Bersih"],
+            directions: "Laluan antara koridor tengah dan sayap kiri.",
+            tags: ["tandas", "toilet"]
+          },
+          {
+            id: "1-kubikel-1",
+            code: "KUBIKEL-1",
+            name: "Ruang Kajian Pelajar 1",
+            nameEn: "Student Study Cubicle 1",
+            category: "class",
+            floorId: 1,
+            wingId: "sayap-kiri",
+            wingName: "Sayap Kiri",
+            description: "Ruang perbincangan dan kajian kendiri pelajar.",
+            facilities: ["Meja Belajar", "Soket Kuasa"],
+            directions: "Hujung sayap kiri Aras 1.",
+            tags: ["belajar", "kajian", "cubicle"]
+          },
+          {
+            id: "1-kubikel-2",
+            code: "KUBIKEL-2",
+            name: "Ruang Kajian Pelajar 2",
+            nameEn: "Student Study Cubicle 2",
+            category: "class",
+            floorId: 1,
+            wingId: "sayap-kiri",
+            wingName: "Sayap Kiri",
+            description: "Ruang perbincangan dan kajian kendiri pelajar.",
+            facilities: ["Meja Belajar", "Soket Kuasa"],
+            directions: "Hujung sayap kiri Aras 1.",
+            tags: ["belajar", "kajian", "cubicle"]
+          },
+          {
+            id: "1-kubikel-3",
+            code: "KUBIKEL-3",
+            name: "Ruang Kajian Pelajar 3",
+            nameEn: "Student Study Cubicle 3",
+            category: "class",
+            floorId: 1,
+            wingId: "sayap-kiri",
+            wingName: "Sayap Kiri",
+            description: "Ruang perbincangan dan kajian kendiri pelajar.",
+            facilities: ["Meja Belajar", "Soket Kuasa"],
+            directions: "Hujung sayap kiri Aras 1.",
+            tags: ["belajar", "kajian", "cubicle"]
+          }
+        ]
+      },
+      {
+        id: "menara-tengah",
+        name: "Menara Tengah (Pejabat PB-101)",
+        description: "Pejabat kakitangan akademik dan pensyarah FSKTM.",
+        rooms: [
+          {
+            id: "1-pb-101-05a",
+            code: "PB-101-05A",
+            name: "Pejabat Pensyarah PB-101-05A",
+            nameEn: "Lecturer Office PB-101-05A",
+            category: "office",
+            floorId: 1,
+            wingId: "menara-tengah",
+            wingName: "Menara Tengah",
+            description: "Bilik pensyarah akademik FSKTM.",
+            facilities: ["Penyaman Udara", "Interkom"],
+            directions: "Menara tengah, koridor kiri.",
+            tags: ["pensyarah", "lecturer", "bilik", "pb-101"]
+          },
+          {
+            id: "1-pb-101-06",
+            code: "PB-101-06",
+            name: "Pejabat Pensyarah PB-101-06",
+            nameEn: "Lecturer Office PB-101-06",
+            category: "office",
+            floorId: 1,
+            wingId: "menara-tengah",
+            wingName: "Menara Tengah",
+            description: "Bilik pensyarah akademik FSKTM.",
+            facilities: ["Penyaman Udara"],
+            directions: "Menara tengah sebelah PB-101-05A.",
+            tags: ["pensyarah", "lecturer", "pb-101"]
+          },
+          {
+            id: "1-pb-101-07",
+            code: "PB-101-07",
+            name: "Pejabat Pensyarah PB-101-07",
+            nameEn: "Lecturer Office PB-101-07",
+            category: "office",
+            floorId: 1,
+            wingId: "menara-tengah",
+            wingName: "Menara Tengah",
+            description: "Bilik pensyarah akademik FSKTM.",
+            facilities: ["Penyaman Udara"],
+            directions: "Menara tengah sebelah PB-101-06.",
+            tags: ["pensyarah", "lecturer", "pb-101"]
+          },
+          {
+            id: "1-pb-101-08",
+            code: "PB-101-08",
+            name: "Pejabat Pensyarah PB-101-08",
+            nameEn: "Lecturer Office PB-101-08",
+            category: "office",
+            floorId: 1,
+            wingId: "menara-tengah",
+            wingName: "Menara Tengah",
+            description: "Bilik pensyarah akademik FSKTM.",
+            facilities: ["Penyaman Udara"],
+            directions: "Menara tengah koridor kanan.",
+            tags: ["pensyarah", "lecturer", "pb-101"]
+          },
+          {
+            id: "1-pb-101-09",
+            code: "PB-101-09",
+            name: "Pejabat Pensyarah PB-101-09",
+            nameEn: "Lecturer Office PB-101-09",
+            category: "office",
+            floorId: 1,
+            wingId: "menara-tengah",
+            wingName: "Menara Tengah",
+            description: "Bilik pensyarah akademik FSKTM.",
+            facilities: ["Penyaman Udara"],
+            directions: "Menara tengah berhampiran lif Aras 1.",
+            tags: ["pensyarah", "lecturer", "pb-101"]
+          },
+          {
+            id: "1-lif",
+            code: "LIF-1",
+            name: "Lif Menara Utama (Aras 1)",
+            nameEn: "Main Tower Elevators Level 1",
+            category: "facility",
+            floorId: 1,
+            wingId: "menara-tengah",
+            wingName: "Menara Tengah",
+            description: "Akses lif ke Aras G hingga Aras 7.",
+            facilities: ["Lif 2 Unit"],
+            directions: "Pusat lobi menara Aras 1.",
+            tags: ["lif", "elevator"]
+          }
+        ]
+      },
+      {
+        id: "sayap-kanan",
+        name: "Sayap Kanan (Jabatan & Makmal Perisian)",
+        description: "Pejabat pentadbiran jabatan dan makmal kejuruteraan perisian.",
+        rooms: [
+          {
+            id: "1-kj",
+            code: "PEJ-KJ",
+            name: "Pejabat Ketua Jabatan",
+            nameEn: "Head of Department (HOD) Office",
+            category: "office",
+            floorId: 1,
+            wingId: "sayap-kanan",
+            wingName: "Sayap Kanan",
+            description: "Pejabat rasmi Ketua Jabatan Kejuruteraan Perisian / Keselamatan Maklumat.",
+            facilities: ["Penyaman Udara", "Ruang Menunggu"],
+            directions: "Masuk sayap kanan, bilik pertama di sebelah kiri koridor.",
+            tags: ["kj", "ketua jabatan", "pejabat", "hod"]
+          },
+          {
+            id: "1-pej-ict",
+            code: "PEJ-ICT",
+            name: "Pejabat ICT",
+            nameEn: "ICT Office",
+            category: "office",
+            floorId: 1,
+            wingId: "sayap-kanan",
+            wingName: "Sayap Kanan",
+            description: "Unit pengurusan sokongan teknologi maklumat dan perkhidmatan rangkaian.",
+            facilities: ["Penyaman Udara", "Kaunter Perkhidmatan"],
+            directions: "Sayap kanan sebelah hujung bertentangan makmal pengaturcaraan.",
+            tags: ["ict", "teknikal", "pejabat"]
+          },
+          {
+            id: "1-makmal-se",
+            code: "MAK-SE",
+            name: "Makmal Kejuruteraan Perisian",
+            nameEn: "Software Engineering Laboratory",
+            category: "lab",
+            floorId: 1,
+            wingId: "sayap-kanan",
+            wingName: "Sayap Kanan",
+            description: "Makmal praktikal untuk pemodelan UML, metodologi Agile dan pembangunan sistem berskala besar.",
+            facilities: ["PC Pembangun", "Projektor", "Papan Putih", "Penyaman Udara"],
+            directions: "Sayap kanan sebelah Pejabat Ketua Jabatan.",
+            tags: ["software engineering", "kejuruteraan perisian", "se", "makmal"]
+          },
+          {
+            id: "1-makmal-dev",
+            code: "MAK-DEV",
+            name: "Makmal Pembangunan Perisian",
+            nameEn: "Software Development Laboratory",
+            category: "lab",
+            floorId: 1,
+            wingId: "sayap-kanan",
+            wingName: "Sayap Kanan",
+            description: "Makmal bengkel pengaturcaraan aplikasi web, mudah alih dan perisian gunaan.",
+            facilities: ["PC Lengkap IDE", "Projektor", "Penyaman Udara"],
+            directions: "Sayap kanan sebelah kanan koridor bertentangan Makmal SE.",
+            tags: ["pembangunan perisian", "coding", "development", "makmal"]
+          },
+          {
+            id: "1-makmal-prog",
+            code: "MAK-PROG",
+            name: "Makmal Pengaturcaraan",
+            nameEn: "Programming Laboratory",
+            category: "lab",
+            floorId: 1,
+            wingId: "sayap-kanan",
+            wingName: "Sayap Kanan",
+            description: "Makmal asas algoritma dan bahasa pengaturcaraan (C++, Java, Python).",
+            facilities: ["Komputer Lengkap", "Penyaman Udara", "Projektor"],
+            directions: "Sayap kanan bahagian hujung bersebelahan tandas.",
+            tags: ["pengaturcaraan", "programming", "c++", "java", "python"]
+          },
+          {
+            id: "1-tandas-kanan",
+            code: "TANDAS-1B",
+            name: "Tandas Sayap Kanan Aras 1",
+            nameEn: "Right Wing Restrooms Level 1",
+            category: "facility",
+            floorId: 1,
+            wingId: "sayap-kanan",
+            wingName: "Sayap Kanan",
+            description: "Tandas lelaki dan wanita sayap kanan.",
+            facilities: ["Tandas Bersih"],
+            directions: "Hujung koridor sayap kanan bersebelahan Makmal Pengaturcaraan.",
+            tags: ["tandas", "toilet"]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 2,
+    name: "Second Floor",
+    nameMalay: "Aras 2",
+    levelCode: "2",
+    mapImage: "/directory/IMG_1817.JPG",
+    description: "Bilik Seminar, Bilik Tutorial (1, 2, 5), Akademi Cisco, Akademi Aruba & Makmal Forensik Digital.",
+    highlights: ["Bilik Seminar & Tutorial", "Akademi Rangkaian Cisco & Aruba", "Makmal Keselamatan Komputer"],
+    stats: {
+      totalRooms: 18,
+      labs: 4,
+      classrooms: 4,
+      offices: 9,
+      facilities: 1,
+    },
+    wings: [
+      {
+        id: "sayap-kiri",
+        name: "Sayap Kiri (Bilik Seminar & Tutorial)",
+        description: "Dewan seminar fakulti dan bilik kelas tutorial interaktif.",
+        rooms: [
+          {
+            id: "2-seminar",
+            code: "SEMINAR",
+            name: "Bilik Seminar",
+            nameEn: "Seminar Room",
+            category: "class",
+            floorId: 2,
+            wingId: "sayap-kiri",
+            wingName: "Sayap Kiri",
+            description: "Dewan kuliah berkapasiti besar untuk syarahan jemputan, bengkel, viva dan taklimat fakulti.",
+            facilities: ["Kapasiti 100+ Orang", "Sistem Audio & Mikrofon", "Dua Projektor", "Penyaman Udara"],
+            directions: "Sayap kiri, bilik paling luas di sebelah kiri laluan.",
+            tags: ["seminar", "dewan", "kuliah", "viva", "bengkel"]
+          },
+          {
+            id: "2-tutorial-1",
+            code: "TUTORIAL-1",
+            name: "Bilik Tutorial 1",
+            nameEn: "Tutorial Room 1",
+            category: "class",
+            floorId: 2,
+            wingId: "sayap-kiri",
+            wingName: "Sayap Kiri",
+            description: "Bilik perbincangan kelas tutorial dan pembentangan kumpulan.",
+            facilities: ["Kapasiti 35 Pelajar", "Penyaman Udara", "Projektor", "Papan Putih"],
+            directions: "Sayap kiri bersebelahan Bilik Seminar.",
+            tags: ["tutorial", "kelas", "kuliah", "bilik tutorial 1"]
+          },
+          {
+            id: "2-tutorial-2",
+            code: "TUTORIAL-2",
+            name: "Bilik Tutorial 2",
+            nameEn: "Tutorial Room 2",
+            category: "class",
+            floorId: 2,
+            wingId: "sayap-kiri",
+            wingName: "Sayap Kiri",
+            description: "Bilik kelas tutorial dan perbincangan akademik.",
+            facilities: ["Kapasiti 35 Pelajar", "Penyaman Udara", "Projektor"],
+            directions: "Sayap kiri bersebelahan Bilik Tutorial 1.",
+            tags: ["tutorial", "kelas", "bilik tutorial 2"]
+          },
+          {
+            id: "2-tutorial-5",
+            code: "TUTORIAL-5",
+            name: "Bilik Tutorial 5",
+            nameEn: "Tutorial Room 5",
+            category: "class",
+            floorId: 2,
+            wingId: "sayap-kiri",
+            wingName: "Sayap Kiri",
+            description: "Bilik kelas tutorial.",
+            facilities: ["Kapasiti 35 Pelajar", "Penyaman Udara", "Projektor"],
+            directions: "Sayap kiri bertentangan pintu masuk dari koridor tengah.",
+            tags: ["tutorial", "kelas", "bilik tutorial 5"]
+          },
+          {
+            id: "2-tandas-kiri",
+            code: "TANDAS-2A",
+            name: "Tandas Sayap Kiri Aras 2",
+            nameEn: "Left Wing Restrooms Level 2",
+            category: "facility",
+            floorId: 2,
+            wingId: "sayap-kiri",
+            wingName: "Sayap Kiri",
+            description: "Tandas lelaki dan wanita berdekatan persimpangan sayap kiri.",
+            facilities: ["Tandas Bersih"],
+            directions: "Di selekoh laluan masuk sayap kiri.",
+            tags: ["tandas", "toilet"]
+          }
+        ]
+      },
+      {
+        id: "menara-tengah",
+        name: "Menara Tengah (Mesyuarat & PB-200)",
+        description: "Bilik mesyuarat pengurusan fakulti dan pejabat akademik aras 2.",
+        rooms: [
+          {
+            id: "2-mesyuarat-pengurusan",
+            code: "MESY-PENGURUSAN",
+            name: "Bilik Mesyuarat Pengurusan FSKTM",
+            nameEn: "FSKTM Management Meeting Room",
+            category: "meeting",
+            floorId: 2,
+            wingId: "menara-tengah",
+            wingName: "Menara Tengah",
+            description: "Bilik mesyuarat rasmi jawatankuasa pengurusan dan dekan fakulti.",
+            facilities: ["Meja Persidangan", "Paparan Pintar", "Persidangan Video", "Penyaman Udara"],
+            directions: "Menara tengah bahagian atas koridor.",
+            tags: ["mesyuarat", "meeting", "pengurusan", "management"]
+          },
+          {
+            id: "2-pb-101-09",
+            code: "PB-101-09",
+            name: "Bilik Pensyarah PB-101-09",
+            category: "office",
+            floorId: 2,
+            wingId: "menara-tengah",
+            wingName: "Menara Tengah",
+            directions: "Menara tengah sayap atas.",
+            tags: ["pensyarah", "pb-101"]
+          },
+          {
+            id: "2-pb-102-01",
+            code: "PB-102-01",
+            name: "Bilik Pensyarah PB-102-01",
+            category: "office",
+            floorId: 2,
+            wingId: "menara-tengah",
+            wingName: "Menara Tengah",
+            directions: "Menara tengah sayap atas.",
+            tags: ["pensyarah", "pb-102"]
+          },
+          {
+            id: "2-pb-213",
+            code: "PB-213",
+            name: "Bilik PB-213",
+            category: "office",
+            floorId: 2,
+            wingId: "menara-tengah",
+            wingName: "Menara Tengah",
+            directions: "Menara tengah berdekatan pintu sayap kanan.",
+            tags: ["pb-213", "pejabat"]
+          },
+          {
+            id: "2-pb-202",
+            code: "PB-202",
+            name: "Bilik Pensyarah PB-202",
+            category: "office",
+            floorId: 2,
+            wingId: "menara-tengah",
+            wingName: "Menara Tengah",
+            directions: "Menara tengah koridor selatan.",
+            tags: ["pb-202", "pensyarah"]
+          },
+          {
+            id: "2-pb-203",
+            code: "PB-203",
+            name: "Bilik Pensyarah PB-203",
+            category: "office",
+            floorId: 2,
+            wingId: "menara-tengah",
+            wingName: "Menara Tengah",
+            directions: "Menara tengah koridor selatan.",
+            tags: ["pb-203", "pensyarah"]
+          },
+          {
+            id: "2-pb-204",
+            code: "PB-204",
+            name: "Bilik Pensyarah PB-204",
+            category: "office",
+            floorId: 2,
+            wingId: "menara-tengah",
+            wingName: "Menara Tengah",
+            directions: "Menara tengah koridor selatan.",
+            tags: ["pb-204", "pensyarah"]
+          },
+          {
+            id: "2-pb-205",
+            code: "PB-205",
+            name: "Bilik Pensyarah PB-205",
+            category: "office",
+            floorId: 2,
+            wingId: "menara-tengah",
+            wingName: "Menara Tengah",
+            directions: "Menara tengah koridor selatan.",
+            tags: ["pb-205", "pensyarah"]
+          },
+          {
+            id: "2-pb-206",
+            code: "PB-206",
+            name: "Bilik Pensyarah PB-206",
+            category: "office",
+            floorId: 2,
+            wingId: "menara-tengah",
+            wingName: "Menara Tengah",
+            directions: "Menara tengah koridor selatan bertentangan PB-205.",
+            tags: ["pb-206", "pensyarah"]
+          },
+          {
+            id: "2-pb-207",
+            code: "PB-207",
+            name: "Bilik Pensyarah PB-207",
+            category: "office",
+            floorId: 2,
+            wingId: "menara-tengah",
+            wingName: "Menara Tengah",
+            directions: "Menara tengah koridor selatan bertentangan PB-204.",
+            tags: ["pb-207", "pensyarah"]
+          },
+          {
+            id: "2-pb-208",
+            code: "PB-208",
+            name: "Bilik Pensyarah PB-208",
+            category: "office",
+            floorId: 2,
+            wingId: "menara-tengah",
+            wingName: "Menara Tengah",
+            directions: "Menara tengah koridor selatan bertentangan PB-203.",
+            tags: ["pb-208", "pensyarah"]
+          },
+          {
+            id: "2-lif",
+            code: "LIF-2",
+            name: "Lif Menara Utama (Aras 2)",
+            category: "facility",
+            floorId: 2,
+            wingId: "menara-tengah",
+            wingName: "Menara Tengah",
+            directions: "Lobi lif tengah Aras 2.",
+            tags: ["lif"]
+          }
+        ]
+      },
+      {
+        id: "sayap-kanan",
+        name: "Sayap Kanan (Rangkaian & Keselamatan Siber)",
+        description: "Pusat kecemerlangan industri keselamatan siber, Cisco & HP Aruba.",
+        rooms: [
+          {
+            id: "2-makmal-forensik",
+            code: "MAK-FORENSIK",
+            name: "Makmal Forensik Digital",
+            nameEn: "Digital Forensics Laboratory",
+            category: "lab",
+            floorId: 2,
+            wingId: "sayap-kanan",
+            wingName: "Sayap Kanan",
+            description: "Makmal khusus siasatan jenayah siber, pemulihan data dan analisis keselamatan.",
+            facilities: ["Peralatan Forensik Khas", "Perisian EnCase/Autopsy", "Penyaman Udara"],
+            directions: "Sayap kanan, bilik pertama di bahagian atas koridor.",
+            tags: ["forensik", "digital forensics", "cybersecurity", "keselamatan", "makmal"]
+          },
+          {
+            id: "2-akademi-aruba",
+            code: "AKAD-ARUBA",
+            name: "Akademi HP Aruba",
+            nameEn: "HP Aruba Networking Academy",
+            category: "lab",
+            floorId: 2,
+            wingId: "sayap-kanan",
+            wingName: "Sayap Kanan",
+            description: "Pusat latihan pensijilan industri rangkaian tanpa wayar dan pensuisan Aruba.",
+            facilities: ["Rak Suis Aruba", "Access Point Latihan", "Penyaman Udara"],
+            directions: "Sayap kanan sebelah Makmal Forensik Digital.",
+            tags: ["aruba", "hp", "rangkaian", "wifi", "pensijilan"]
+          },
+          {
+            id: "2-akademi-cisco",
+            code: "AKAD-CISCO",
+            name: "Akademi Rangkaian Cisco",
+            nameEn: "Cisco Networking Academy",
+            category: "lab",
+            floorId: 2,
+            wingId: "sayap-kanan",
+            wingName: "Sayap Kanan",
+            description: "Pusat persediaan peperiksaan pensijilan Cisco CCNA / CCNP dengan rak penghala (router) fizikal.",
+            facilities: ["Rak Router & Switch Cisco", "Kabel Patch", "Penyaman Udara"],
+            directions: "Sayap kanan bahagian bawah koridor.",
+            tags: ["cisco", "ccna", "ccnp", "router", "networking", "makmal"]
+          },
+          {
+            id: "2-makmal-keselamatan",
+            code: "MAK-KESELAMATAN",
+            name: "Makmal Keselamatan Komputer",
+            nameEn: "Computer Security Laboratory",
+            category: "lab",
+            floorId: 2,
+            wingId: "sayap-kanan",
+            wingName: "Sayap Kanan",
+            description: "Makmal penggodaman beretika (ethical hacking), pertahanan siber dan kriptografi.",
+            facilities: ["Rangkaian Terasing (Sandbox)", "PC Berprestasi Tinggi", "Penyaman Udara"],
+            directions: "Sayap kanan bertentangan Akademi HP Aruba.",
+            tags: ["keselamatan", "security", "hacking", "kriptografi", "makmal"]
+          },
+          {
+            id: "2-surau",
+            code: "SURAU-2",
+            name: "Surau Aras 2",
+            nameEn: "Prayer Room Level 2",
+            category: "facility",
+            floorId: 2,
+            wingId: "sayap-kanan",
+            wingName: "Sayap Kanan",
+            description: "Kemudahan ruang solat fakulti di Aras 2 bersebelahan Akademi HP Aruba.",
+            facilities: ["Ruang Solat Muslim & Muslimah", "Tempat Wuduk"],
+            directions: "Sayap kanan bahagian hujung atas bersebelahan Akademi HP Aruba.",
+            tags: ["surau", "solat", "prayer room", "ibadah"]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 3,
+    name: "Third Floor",
+    nameMalay: "Aras 3",
+    levelCode: "3",
+    mapImage: "/directory/IMG_1818.JPG",
+    description: "Auditorium Fakulti, Surau (Bilik Solat), SMC Centre, Makmal Web, Sistem & Pengaturcaraan Internet.",
+    highlights: ["Auditorium FSKTM", "Surau Solat", "Soft Computing (SMC)", "Makmal Web & Internet"],
+    stats: {
+      totalRooms: 23,
+      labs: 4,
+      classrooms: 3,
+      offices: 14,
+      facilities: 2,
+    },
+    wings: [
+      {
+        id: "sayap-kanan",
+        name: "Sayap Kanan (Auditorium, Surau & Web Labs)",
+        description: "Pusat aktiviti utama fakulti, solat dan makmal teknologi web.",
+        rooms: [
+          {
+            id: "3-auditorium",
+            code: "AUDITORIUM",
+            name: "Auditorium FSKTM",
+            nameEn: "FSKTM Main Auditorium",
+            category: "class",
+            floorId: 3,
+            wingId: "sayap-kanan",
+            wingName: "Sayap Kanan",
+            description: "Auditorium serbaguna berkapasiti besar dengan susunan kerusi bertingkat teater untuk seminar dan majlis rasmi.",
+            facilities: ["Kapasiti 200+ Tempat Duduk", "Sistem PA Profesional", "Pentas & Podium", "Projektor HD"],
+            directions: "Dari lif Aras 3, belok kanan ke sayap kanan. Pintu masuk utama di sebelah kiri koridor.",
+            tags: ["auditorium", "dewan", "ceramah", "taklimat", "seminar", "majlis"]
+          },
+          {
+            id: "3-surau",
+            code: "SURAU",
+            name: "Surau (Bilik Solat Muslim / Muslimah)",
+            nameEn: "Prayer Room (Surau)",
+            category: "facility",
+            floorId: 3,
+            wingId: "sayap-kanan",
+            wingName: "Sayap Kanan",
+            description: "Kemudahan ruang solat yang selesa dan tenang lengkap dengan tempat wuduk berasingan untuk lelaki dan wanita.",
+            facilities: ["Ruang Solat Muslim & Muslimah", "Tempat Wuduk Selesa", "Sejadah & Telekung", "Penyaman Udara"],
+            directions: "Hujung sayap kanan Aras 3, bersebelahan Makmal Pengaturcaraan Internet.",
+            tags: ["surau", "solat", "prayer room", "wuduk", "ibadah"]
+          },
+          {
+            id: "3-makmal-internet",
+            code: "MAK-INTERNET",
+            name: "Makmal Pengaturcaraan Internet",
+            nameEn: "Internet Programming Laboratory",
+            category: "lab",
+            floorId: 3,
+            wingId: "sayap-kanan",
+            wingName: "Sayap Kanan",
+            description: "Makmal pengajaran protokol rangkaian internet, API backend, soket dan aplikasi rangkaian.",
+            facilities: ["Stesen Kerja Lengkap", "Penyaman Udara", "Projektor"],
+            directions: "Sayap kanan berdekatan Surau.",
+            tags: ["internet", "makmal", "backend", "api", "network"]
+          },
+          {
+            id: "3-makmal-sistem",
+            code: "MAK-SISTEM",
+            name: "Makmal Sistem Komputer",
+            nameEn: "Computer Systems Laboratory",
+            category: "lab",
+            floorId: 3,
+            wingId: "sayap-kanan",
+            wingName: "Sayap Kanan",
+            description: "Makmal senibina komputer, sistem pengoperasian (OS Linux/Unix) dan mikropemproses.",
+            facilities: ["PC Dual Boot Linux/Windows", "Projektor", "Penyaman Udara"],
+            directions: "Sayap kanan bertentangan Auditorium.",
+            tags: ["sistem", "os", "linux", "senibina", "makmal"]
+          },
+          {
+            id: "3-makmal-web",
+            code: "MAK-WEB",
+            name: "Makmal Teknologi Web",
+            nameEn: "Web Technology Laboratory",
+            category: "lab",
+            floorId: 3,
+            wingId: "sayap-kanan",
+            wingName: "Sayap Kanan",
+            description: "Pembangunan laman web moden (HTML, CSS, JavaScript, React, Next.js dan Full Stack).",
+            facilities: ["PC Generasi Terkini", "Projektor", "Penyaman Udara"],
+            directions: "Sayap kanan bersebelahan Makmal Sistem Komputer.",
+            tags: ["web", "frontend", "fullstack", "makmal", "html", "javascript"]
+          },
+          {
+            id: "3-tandas-kanan",
+            code: "TANDAS-3B",
+            name: "Tandas Sayap Kanan Aras 3",
+            nameEn: "Right Wing Restrooms Level 3",
+            category: "facility",
+            floorId: 3,
+            wingId: "sayap-kanan",
+            wingName: "Sayap Kanan",
+            description: "Kemudahan tandas berdekatan Makmal Web dan Surau.",
+            facilities: ["Tandas Bersih"],
+            directions: "Hujung sayap kanan Aras 3.",
+            tags: ["tandas", "toilet"]
+          }
+        ]
+      },
+      {
+        id: "sayap-kiri",
+        name: "Sayap Kiri (Pusat Penyelidikan SMC & Tutorial)",
+        description: "Pusat penyelidikan kecerdasan buatan dan bilik aktiviti staf.",
+        rooms: [
+          {
+            id: "3-smc",
+            code: "SMC-CENTRE",
+            name: "Soft Computing and Data Mining Centre (SMC)",
+            nameEn: "Soft Computing & Data Mining Centre",
+            category: "lab",
+            floorId: 3,
+            wingId: "sayap-kiri",
+            wingName: "Sayap Kiri",
+            description: "Pusat penyelidikan terkemuka fakulti bagi kecerdasan buatan, algoritma pengoptimuman dan perlombongan data.",
+            facilities: ["Stesen Pengkomputeran GPU", "Penyaman Udara", "Ruang Mesyuarat Penyelidik"],
+            directions: "Sayap kiri, ruang bilik utama di sebelah kanan laluan.",
+            tags: ["smc", "soft computing", "ai", "data mining", "penyelidikan"]
+          },
+          {
+            id: "3-bilik-aktiviti",
+            code: "AKTIVITI-STAF",
+            name: "Bilik Aktiviti Staf",
+            nameEn: "Staff Activity Room",
+            category: "office",
+            floorId: 3,
+            wingId: "sayap-kiri",
+            wingName: "Sayap Kiri",
+            description: "Ruang aktiviti rekreasi dan perjumpaan santai kakitangan FSKTM.",
+            facilities: ["Penyaman Udara", "Meja Santai"],
+            directions: "Sayap kiri di bahagian hujung bilik.",
+            tags: ["staf", "aktiviti", "rekreasi"]
+          },
+          {
+            id: "3-tutorial-4",
+            code: "TUTORIAL-4",
+            name: "Bilik Tutorial 4",
+            nameEn: "Tutorial Room 4",
+            category: "class",
+            floorId: 3,
+            wingId: "sayap-kiri",
+            wingName: "Sayap Kiri",
+            description: "Bilik kelas tutorial dan perbincangan kurikulum.",
+            facilities: ["Kapasiti 35 Orang", "Projektor", "Papan Putih", "Penyaman Udara"],
+            directions: "Sayap kiri bersebelahan Bilik Aktiviti Staf.",
+            tags: ["tutorial", "kelas", "bilik tutorial 4"]
+          },
+          {
+            id: "3-tandas-kiri",
+            code: "TANDAS-3A",
+            name: "Tandas Sayap Kiri Aras 3",
+            category: "facility",
+            floorId: 3,
+            wingId: "sayap-kiri",
+            wingName: "Sayap Kiri",
+            directions: "Di selekoh laluan masuk sayap kiri.",
+            tags: ["tandas"]
+          }
+        ]
+      },
+      {
+        id: "menara-tengah",
+        name: "Menara Tengah (Pejabat PB-301 & PB-302)",
+        description: "Blok pejabat pensyarah dan penyelidik Aras 3.",
+        rooms: [
+          { id: "3-pb-301-07", code: "PB-301-07", name: "Bilik Pensyarah PB-301-07", category: "office", floorId: 3, wingId: "menara-tengah", wingName: "Menara Tengah", tags: ["pensyarah", "pb-301"] },
+          { id: "3-pb-301-08", code: "PB-301-08", name: "Bilik Pensyarah PB-301-08", category: "office", floorId: 3, wingId: "menara-tengah", wingName: "Menara Tengah", tags: ["pensyarah", "pb-301"] },
+          { id: "3-pb-301-09", code: "PB-301-09", name: "Bilik Pensyarah PB-301-09", category: "office", floorId: 3, wingId: "menara-tengah", wingName: "Menara Tengah", tags: ["pensyarah", "pb-301"] },
+          { id: "3-pejabat-am", code: "PB-301-10", name: "Bilik Pensyarah PB-301-10", category: "office", floorId: 3, wingId: "menara-tengah", wingName: "Menara Tengah", tags: ["pensyarah", "pb-301"] },
+          { id: "3-pb-301-11", code: "PB-301-11", name: "Bilik Pensyarah PB-301-11", category: "office", floorId: 3, wingId: "menara-tengah", wingName: "Menara Tengah", tags: ["pensyarah", "pb-301"] },
+          { id: "3-pb-301-12", code: "PB-301-12", name: "Bilik Pensyarah PB-301-12", category: "office", floorId: 3, wingId: "menara-tengah", wingName: "Menara Tengah", tags: ["pensyarah", "pb-301"] },
+          { id: "3-pb-301-13", code: "PB-301-13", name: "Bilik Pensyarah PB-301-13", category: "office", floorId: 3, wingId: "menara-tengah", wingName: "Menara Tengah", tags: ["pensyarah", "pb-301"] },
+          { id: "3-tandas", code: "TANDAS-3", name: "Tandas Menara Aras 3", category: "facility", floorId: 3, wingId: "menara-tengah", wingName: "Menara Tengah", tags: ["tandas"] },
+          { id: "3-pb-302-01", code: "PB-302-01", name: "Bilik Pensyarah PB-302-01", category: "office", floorId: 3, wingId: "menara-tengah", wingName: "Menara Tengah", tags: ["pensyarah", "pb-302"] },
+          { id: "3-pb-302-02", code: "PB-302-02", name: "Bilik Pensyarah PB-302-02", category: "office", floorId: 3, wingId: "menara-tengah", wingName: "Menara Tengah", tags: ["pensyarah", "pb-302"] },
+          { id: "3-pb-302-03", code: "PB-302-03", name: "Bilik Pensyarah PB-302-03", category: "office", floorId: 3, wingId: "menara-tengah", wingName: "Menara Tengah", tags: ["pensyarah", "pb-302"] },
+          { id: "3-pb-302-04", code: "PB-302-04", name: "Bilik Pensyarah PB-302-04", category: "office", floorId: 3, wingId: "menara-tengah", wingName: "Menara Tengah", tags: ["pensyarah", "pb-302"] },
+          { id: "3-pb-302-05", code: "PB-302-05", name: "Bilik Pensyarah PB-302-05", category: "office", floorId: 3, wingId: "menara-tengah", wingName: "Menara Tengah", tags: ["pensyarah", "pb-302"] },
+          { id: "3-pb-302-06", code: "PB-302-06", name: "Bilik Pensyarah PB-302-06", category: "office", floorId: 3, wingId: "menara-tengah", wingName: "Menara Tengah", tags: ["pensyarah", "pb-302"] },
+          { id: "3-pb-302-07", code: "PB-302-07", name: "Bilik Pensyarah PB-302-07", category: "office", floorId: 3, wingId: "menara-tengah", wingName: "Menara Tengah", tags: ["pensyarah", "pb-302"] },
+          { id: "3-pb-302-08", code: "PB-302-08", name: "Bilik Pensyarah PB-302-08", category: "office", floorId: 3, wingId: "menara-tengah", wingName: "Menara Tengah", tags: ["pensyarah", "pb-302"] },
+          { id: "3-lif", code: "LIF-3", name: "Lif Menara Utama (Aras 3)", category: "facility", floorId: 3, wingId: "menara-tengah", wingName: "Menara Tengah", tags: ["lif"] }
+        ]
+      }
+    ]
+  },
+  {
+    id: 4,
+    name: "Fourth Floor",
+    nameMalay: "Aras 4",
+    levelCode: "4",
+    mapImage: "/directory/IMG_1819.JPG",
+    description: "Blok Pejabat Pensyarah dan Penyelidikan FSKTM Siri PB-401.",
+    highlights: ["Pejabat Pensyarah PB-401 (16 Bilik)", "Lobi Lif & Kemudahan"],
+    stats: {
+      totalRooms: 17,
+      labs: 0,
+      classrooms: 0,
+      offices: 16,
+      facilities: 1,
+    },
+    wings: [
+      {
+        id: "menara-utama",
+        name: "Blok Menara PB-401",
+        description: "Pejabat individu pensyarah kanan, profesor madya dan penyelidik fakulti.",
+        rooms: [
+          { id: "4-pb-401-08", code: "PB-401-08", name: "Bilik Pensyarah PB-401-08", category: "office", floorId: 4, wingId: "menara-utama", wingName: "Blok Menara", tags: ["pensyarah", "pb-401"] },
+          { id: "4-pb-401-09", code: "PB-401-09", name: "Bilik Pensyarah PB-401-09", category: "office", floorId: 4, wingId: "menara-utama", wingName: "Blok Menara", tags: ["pensyarah", "pb-401"] },
+          { id: "4-pb-401-10", code: "PB-401-10", name: "Bilik Pensyarah PB-401-10", category: "office", floorId: 4, wingId: "menara-utama", wingName: "Blok Menara", tags: ["pensyarah", "pb-401"] },
+          { id: "4-pb-401-11", code: "PB-401-11", name: "Bilik Pensyarah PB-401-11", category: "office", floorId: 4, wingId: "menara-utama", wingName: "Blok Menara", tags: ["pensyarah", "pb-401"] },
+          { id: "4-pb-401-12", code: "PB-401-12", name: "Bilik Pensyarah PB-401-12", category: "office", floorId: 4, wingId: "menara-utama", wingName: "Blok Menara", tags: ["pensyarah", "pb-401"] },
+          { id: "4-pb-401-13", code: "PB-401-13", name: "Bilik Pensyarah PB-401-13", category: "office", floorId: 4, wingId: "menara-utama", wingName: "Blok Menara", tags: ["pensyarah", "pb-401"] },
+          { id: "4-pb-401-14", code: "PB-401-14", name: "Bilik Pensyarah PB-401-14", category: "office", floorId: 4, wingId: "menara-utama", wingName: "Blok Menara", tags: ["pensyarah", "pb-401"] },
+          { id: "4-pb-401-16", code: "PB-401-16", name: "Bilik Pensyarah PB-401-16", category: "office", floorId: 4, wingId: "menara-utama", wingName: "Blok Menara", tags: ["pensyarah", "pb-401"] },
+          { id: "4-pb-401-17", code: "PB-401-17", name: "Bilik Pensyarah PB-401-17", category: "office", floorId: 4, wingId: "menara-utama", wingName: "Blok Menara", tags: ["pensyarah", "pb-401"] },
+          { id: "4-pb-401-18", code: "PB-401-18", name: "Bilik Pensyarah PB-401-18", category: "office", floorId: 4, wingId: "menara-utama", wingName: "Blok Menara", tags: ["pensyarah", "pb-401"] },
+          { id: "4-pb-401-19", code: "PB-401-19", name: "Bilik Pensyarah PB-401-19", category: "office", floorId: 4, wingId: "menara-utama", wingName: "Blok Menara", tags: ["pensyarah", "pb-401"] },
+          { id: "4-pb-401-20", code: "PB-401-20", name: "Bilik Pensyarah PB-401-20", category: "office", floorId: 4, wingId: "menara-utama", wingName: "Blok Menara", tags: ["pensyarah", "pb-401"] },
+          { id: "4-pb-401-21", code: "PB-401-21", name: "Bilik Pensyarah PB-401-21", category: "office", floorId: 4, wingId: "menara-utama", wingName: "Blok Menara", tags: ["pensyarah", "pb-401"] },
+          { id: "4-pb-401-22", code: "PB-401-22", name: "Bilik Pensyarah PB-401-22", category: "office", floorId: 4, wingId: "menara-utama", wingName: "Blok Menara", tags: ["pensyarah", "pb-401"] },
+          { id: "4-pb-401-23", code: "PB-401-23", name: "Bilik Pensyarah PB-401-23", category: "office", floorId: 4, wingId: "menara-utama", wingName: "Blok Menara", tags: ["pensyarah", "pb-401"] },
+          { id: "4-pb-401-24", code: "PB-401-24", name: "Bilik Pensyarah PB-401-24", category: "office", floorId: 4, wingId: "menara-utama", wingName: "Blok Menara", tags: ["pensyarah", "pb-401"] },
+          { id: "4-lif", code: "LIF-4", name: "Lif Menara Aras 4", category: "facility", floorId: 4, wingId: "menara-utama", wingName: "Blok Menara", tags: ["lif"] },
+          { id: "4-tandas", code: "TANDAS-4", name: "Tandas Aras 4", category: "facility", floorId: 4, wingId: "menara-utama", wingName: "Blok Menara", tags: ["tandas"] }
+        ]
+      }
+    ]
+  },
+  {
+    id: 5,
+    name: "Fifth Floor",
+    nameMalay: "Aras 5",
+    levelCode: "5",
+    mapImage: "/directory/IMG_1820.JPG",
+    description: "Blok Pejabat Pensyarah dan Penyelidikan FSKTM Siri PB-501.",
+    highlights: ["Pejabat Pensyarah PB-501 (17 Bilik)", "Lobi Lif & Kemudahan"],
+    stats: {
+      totalRooms: 18,
+      labs: 0,
+      classrooms: 0,
+      offices: 17,
+      facilities: 1,
+    },
+    wings: [
+      {
+        id: "menara-utama",
+        name: "Blok Menara PB-501",
+        description: "Pejabat individu pensyarah fakulti Aras 5.",
+        rooms: [
+          { id: "5-pb-501-03", code: "PB-501-03", name: "Bilik Pensyarah PB-501-03", category: "office", floorId: 5, wingId: "menara-utama", wingName: "Blok Menara", tags: ["pensyarah", "pb-501"] },
+          { id: "5-pb-501-04", code: "PB-501-04", name: "Bilik Pensyarah PB-501-04", category: "office", floorId: 5, wingId: "menara-utama", wingName: "Blok Menara", tags: ["pensyarah", "pb-501"] },
+          { id: "5-pb-501-05", code: "PB-501-05", name: "Bilik Pensyarah PB-501-05", category: "office", floorId: 5, wingId: "menara-utama", wingName: "Blok Menara", tags: ["pensyarah", "pb-501"] },
+          { id: "5-pb-501-06", code: "PB-501-06", name: "Bilik Pensyarah PB-501-06", category: "office", floorId: 5, wingId: "menara-utama", wingName: "Blok Menara", tags: ["pensyarah", "pb-501"] },
+          { id: "5-pb-501-07", code: "PB-501-07", name: "Bilik Pensyarah PB-501-07", category: "office", floorId: 5, wingId: "menara-utama", wingName: "Blok Menara", tags: ["pensyarah", "pb-501"] },
+          { id: "5-pb-501-08", code: "PB-501-08", name: "Bilik Pensyarah PB-501-08", category: "office", floorId: 5, wingId: "menara-utama", wingName: "Blok Menara", tags: ["pensyarah", "pb-501"] },
+          { id: "5-pb-501-09", code: "PB-501-09", name: "Bilik Pensyarah PB-501-09", category: "office", floorId: 5, wingId: "menara-utama", wingName: "Blok Menara", tags: ["pensyarah", "pb-501"] },
+          { id: "5-pb-501-11", code: "PB-501-11", name: "Bilik Pensyarah PB-501-11", category: "office", floorId: 5, wingId: "menara-utama", wingName: "Blok Menara", tags: ["pensyarah", "pb-501"] },
+          { id: "5-pb-501-12", code: "PB-501-12", name: "Bilik Pensyarah PB-501-12", category: "office", floorId: 5, wingId: "menara-utama", wingName: "Blok Menara", tags: ["pensyarah", "pb-501"] },
+          { id: "5-pb-501-13", code: "PB-501-13", name: "Bilik Pensyarah PB-501-13", category: "office", floorId: 5, wingId: "menara-utama", wingName: "Blok Menara", tags: ["pensyarah", "pb-501"] },
+          { id: "5-pb-501-14", code: "PB-501-14", name: "Bilik Pensyarah PB-501-14", category: "office", floorId: 5, wingId: "menara-utama", wingName: "Blok Menara", tags: ["pensyarah", "pb-501"] },
+          { id: "5-pb-501-15", code: "PB-501-15", name: "Bilik Pensyarah PB-501-15", category: "office", floorId: 5, wingId: "menara-utama", wingName: "Blok Menara", tags: ["pensyarah", "pb-501"] },
+          { id: "5-pb-501-16", code: "PB-501-16", name: "Bilik Pensyarah PB-501-16", category: "office", floorId: 5, wingId: "menara-utama", wingName: "Blok Menara", tags: ["pensyarah", "pb-501"] },
+          { id: "5-pb-501-17", code: "PB-501-17", name: "Bilik Pensyarah PB-501-17", category: "office", floorId: 5, wingId: "menara-utama", wingName: "Blok Menara", tags: ["pensyarah", "pb-501"] },
+          { id: "5-pb-501-18", code: "PB-501-18", name: "Bilik Pensyarah PB-501-18", category: "office", floorId: 5, wingId: "menara-utama", wingName: "Blok Menara", tags: ["pensyarah", "pb-501"] },
+          { id: "5-pb-501-19", code: "PB-501-19", name: "Bilik Pensyarah PB-501-19", category: "office", floorId: 5, wingId: "menara-utama", wingName: "Blok Menara", tags: ["pensyarah", "pb-501"] },
+          { id: "5-pb-501-20", code: "PB-501-20", name: "Bilik Pensyarah PB-501-20", category: "office", floorId: 5, wingId: "menara-utama", wingName: "Blok Menara", tags: ["pensyarah", "pb-501"] },
+          { id: "5-lif", code: "LIF-5", name: "Lif Menara Aras 5", category: "facility", floorId: 5, wingId: "menara-utama", wingName: "Blok Menara", tags: ["lif"] },
+          { id: "5-tandas", code: "TANDAS-5", name: "Tandas Aras 5", category: "facility", floorId: 5, wingId: "menara-utama", wingName: "Blok Menara", tags: ["tandas"] }
+        ]
+      }
+    ]
+  },
+  {
+    id: 6,
+    name: "Sixth Floor",
+    nameMalay: "Aras 6",
+    levelCode: "6",
+    mapImage: "/directory/IMG_1821.JPG",
+    description: "Blok Pejabat Pensyarah dan Penyelidikan FSKTM Siri PB-601.",
+    highlights: ["Pejabat Pensyarah PB-601 (17 Bilik)", "Lobi Lif & Kemudahan"],
+    stats: {
+      totalRooms: 18,
+      labs: 0,
+      classrooms: 0,
+      offices: 17,
+      facilities: 1,
+    },
+    wings: [
+      {
+        id: "menara-utama",
+        name: "Blok Menara PB-601",
+        description: "Pejabat individu pensyarah fakulti Aras 6.",
+        rooms: [
+          { id: "6-pb-601-03", code: "PB-601-03", name: "Bilik Pensyarah PB-601-03", category: "office", floorId: 6, wingId: "menara-utama", wingName: "Blok Menara", tags: ["pensyarah", "pb-601"] },
+          { id: "6-pb-601-04", code: "PB-601-04", name: "Bilik Pensyarah PB-601-04", category: "office", floorId: 6, wingId: "menara-utama", wingName: "Blok Menara", tags: ["pensyarah", "pb-601"] },
+          { id: "6-pb-601-05", code: "PB-601-05", name: "Bilik Pensyarah PB-601-05", category: "office", floorId: 6, wingId: "menara-utama", wingName: "Blok Menara", tags: ["pensyarah", "pb-601"] },
+          { id: "6-pb-601-06", code: "PB-601-06", name: "Bilik Pensyarah PB-601-06", category: "office", floorId: 6, wingId: "menara-utama", wingName: "Blok Menara", tags: ["pensyarah", "pb-601"] },
+          { id: "6-pb-601-07", code: "PB-601-07", name: "Bilik Pensyarah PB-601-07", category: "office", floorId: 6, wingId: "menara-utama", wingName: "Blok Menara", tags: ["pensyarah", "pb-601"] },
+          { id: "6-pb-601-08", code: "PB-601-08", name: "Bilik Pensyarah PB-601-08", category: "office", floorId: 6, wingId: "menara-utama", wingName: "Blok Menara", tags: ["pensyarah", "pb-601"] },
+          { id: "6-pb-601-09", code: "PB-601-09", name: "Bilik Pensyarah PB-601-09", category: "office", floorId: 6, wingId: "menara-utama", wingName: "Blok Menara", tags: ["pensyarah", "pb-601"] },
+          { id: "6-pb-601-11", code: "PB-601-11", name: "Bilik Pensyarah PB-601-11", category: "office", floorId: 6, wingId: "menara-utama", wingName: "Blok Menara", tags: ["pensyarah", "pb-601"] },
+          { id: "6-pb-601-12", code: "PB-601-12", name: "Bilik Pensyarah PB-601-12", category: "office", floorId: 6, wingId: "menara-utama", wingName: "Blok Menara", tags: ["pensyarah", "pb-601"] },
+          { id: "6-pb-601-13", code: "PB-601-13", name: "Bilik Pensyarah PB-601-13", category: "office", floorId: 6, wingId: "menara-utama", wingName: "Blok Menara", tags: ["pensyarah", "pb-601"] },
+          { id: "6-pb-601-14", code: "PB-601-14", name: "Bilik Pensyarah PB-601-14", category: "office", floorId: 6, wingId: "menara-utama", wingName: "Blok Menara", tags: ["pensyarah", "pb-601"] },
+          { id: "6-pb-601-15", code: "PB-601-15", name: "Bilik Pensyarah PB-601-15", category: "office", floorId: 6, wingId: "menara-utama", wingName: "Blok Menara", tags: ["pensyarah", "pb-601"] },
+          { id: "6-pb-601-16", code: "PB-601-16", name: "Bilik Pensyarah PB-601-16", category: "office", floorId: 6, wingId: "menara-utama", wingName: "Blok Menara", tags: ["pensyarah", "pb-601"] },
+          { id: "6-pb-601-17", code: "PB-601-17", name: "Bilik Pensyarah PB-601-17", category: "office", floorId: 6, wingId: "menara-utama", wingName: "Blok Menara", tags: ["pensyarah", "pb-601"] },
+          { id: "6-pb-601-18", code: "PB-601-18", name: "Bilik Pensyarah PB-601-18", category: "office", floorId: 6, wingId: "menara-utama", wingName: "Blok Menara", tags: ["pensyarah", "pb-601"] },
+          { id: "6-pb-601-19", code: "PB-601-19", name: "Bilik Pensyarah PB-601-19", category: "office", floorId: 6, wingId: "menara-utama", wingName: "Blok Menara", tags: ["pensyarah", "pb-601"] },
+          { id: "6-pb-601-20", code: "PB-601-20", name: "Bilik Pensyarah PB-601-20", category: "office", floorId: 6, wingId: "menara-utama", wingName: "Blok Menara", tags: ["pensyarah", "pb-601"] },
+          { id: "6-lif", code: "LIF-6", name: "Lif Menara Aras 6", category: "facility", floorId: 6, wingId: "menara-utama", wingName: "Blok Menara", tags: ["lif"] },
+          { id: "6-tandas", code: "TANDAS-6", name: "Tandas Aras 6", category: "facility", floorId: 6, wingId: "menara-utama", wingName: "Blok Menara", tags: ["tandas"] }
+        ]
+      }
+    ]
+  },
+  {
+    id: 7,
+    name: "Seventh Floor",
+    nameMalay: "Aras 7",
+    levelCode: "7",
+    mapImage: "/directory/IMG_1822.JPG",
+    description: "Aras Tertinggi Menara FSKTM: Bilik Mesyuarat Utama, Bilik Mesyuarat Eksekutif & Pejabat Kanan Siri PB-701.",
+    highlights: ["Bilik Mesyuarat Utama", "Bilik Mesyuarat Eksekutif", "Pejabat Kanan Siri PB-701"],
+    stats: {
+      totalRooms: 13,
+      labs: 0,
+      classrooms: 0,
+      offices: 10,
+      facilities: 3,
+    },
+    wings: [
+      {
+        id: "aras-eksekutif",
+        name: "Aras Eksekutif & Mesyuarat",
+        description: "Bilik persidangan utama senat/fakulti, bilik eksekutif dan pejabat penyelidik kanan.",
+        rooms: [
+          {
+            id: "7-mesyuarat-utama",
+            code: "MESY-UTAMA",
+            name: "Bilik Mesyuarat Utama",
+            nameEn: "Main Senate & Faculty Boardroom",
+            category: "meeting",
+            floorId: 7,
+            wingId: "aras-eksekutif",
+            wingName: "Aras Eksekutif",
+            description: "Dewan persidangan utama bertaraf eksekutif untuk mesyuarat senat fakulti, lawatan delegasi luar dan majlis menandatangani MoU.",
+            facilities: ["Meja Persidangan Oval", "Sistem Mikrofon Meja", "Projektor & Paparan LED", "Penyaman Udara Terpusat"],
+            directions: "Puncak Menara Aras 7, pintu masuk utama di bahagian atas lobi.",
+            tags: ["mesyuarat utama", "boardroom", "senat", "mou", "persidangan"]
+          },
+          {
+            id: "7-mesyuarat-eksekutif",
+            code: "MESY-EKSEKUTIF",
+            name: "Bilik Mesyuarat Eksekutif",
+            nameEn: "Executive Meeting Room",
+            category: "meeting",
+            floorId: 7,
+            wingId: "aras-eksekutif",
+            wingName: "Aras Eksekutif",
+            description: "Bilik perbincangan tertutup khas untuk kepimpinan eksekutif fakulti.",
+            facilities: ["Meja Persidangan Khas", "Paparan Interaktif", "Penyaman Udara"],
+            directions: "Aras 7 sebelah kanan Bilik Mesyuarat Utama.",
+            tags: ["mesyuarat", "eksekutif", "executive", "meeting"]
+          },
+          { id: "7-pb-701-09", code: "PB-701-09", name: "Bilik PB-701-09", category: "office", floorId: 7, wingId: "aras-eksekutif", wingName: "Aras Eksekutif", tags: ["pb-701", "pejabat"] },
+          { id: "7-pb-701-10", code: "PB-701-10", name: "Bilik PB-701-10", category: "office", floorId: 7, wingId: "aras-eksekutif", wingName: "Aras Eksekutif", tags: ["pb-701", "pejabat"] },
+          { id: "7-pb-701-11", code: "PB-701-11", name: "Bilik PB-701-11", category: "office", floorId: 7, wingId: "aras-eksekutif", wingName: "Aras Eksekutif", tags: ["pb-701", "pejabat"] },
+          { id: "7-pb-701-12", code: "PB-701-12", name: "Bilik PB-701-12", category: "office", floorId: 7, wingId: "aras-eksekutif", wingName: "Aras Eksekutif", tags: ["pb-701", "pejabat"] },
+          { id: "7-pb-701-13", code: "PB-701-13", name: "Bilik PB-701-13", category: "office", floorId: 7, wingId: "aras-eksekutif", wingName: "Aras Eksekutif", tags: ["pb-701", "pejabat"] },
+          { id: "7-pb-701-14", code: "PB-701-14", name: "Bilik PB-701-14", category: "office", floorId: 7, wingId: "aras-eksekutif", wingName: "Aras Eksekutif", tags: ["pb-701", "pejabat"] },
+          { id: "7-pb-701-15", code: "PB-701-15", name: "Bilik PB-701-15", category: "office", floorId: 7, wingId: "aras-eksekutif", wingName: "Aras Eksekutif", tags: ["pb-701", "pejabat"] },
+          { id: "7-pb-701-16", code: "PB-701-16", name: "Bilik PB-701-16", category: "office", floorId: 7, wingId: "aras-eksekutif", wingName: "Aras Eksekutif", tags: ["pb-701", "pejabat"] },
+          { id: "7-pb-701-17", code: "PB-701-17", name: "Bilik PB-701-17", category: "office", floorId: 7, wingId: "aras-eksekutif", wingName: "Aras Eksekutif", tags: ["pb-701", "pejabat"] },
+          { id: "7-pb-701-18", code: "PB-701-18", name: "Bilik PB-701-18", category: "office", floorId: 7, wingId: "aras-eksekutif", wingName: "Aras Eksekutif", tags: ["pb-701", "pejabat"] },
+          { id: "7-lif", code: "LIF-7", name: "Lif Menara Aras 7", category: "facility", floorId: 7, wingId: "aras-eksekutif", wingName: "Aras Eksekutif", tags: ["lif"] },
+          { id: "7-tandas", code: "TANDAS-7", name: "Tandas Aras 7", category: "facility", floorId: 7, wingId: "aras-eksekutif", wingName: "Aras Eksekutif", tags: ["tandas"] }
+        ]
+      }
+    ]
+  }
+];
+
+// Helper functions for easy querying
+export const getAllRooms = () => {
+  const all: any[] = [];
+  FLOORS_DATA.forEach(floor => {
+    floor.wings.forEach(wing => {
+      wing.rooms.forEach(room => {
+        all.push({
+          ...room,
+          floorLevel: floor.levelCode,
+          floorName: floor.nameMalay,
+        });
+      });
+    });
+  });
+  return all;
+};

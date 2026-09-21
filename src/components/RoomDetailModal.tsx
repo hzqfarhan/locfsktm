@@ -1,0 +1,295 @@
+'use client';
+
+import { useState } from 'react';
+import { Room, Floor } from '../types/directory';
+import { X, Copy, Check, MapPin, Sparkles, Navigation, Share2 } from 'lucide-react';
+
+interface RoomDetailModalProps {
+  room: Room | null;
+  floor: Floor | null;
+  onClose: () => void;
+}
+
+export default function RoomDetailModal({
+  room,
+  floor,
+  onClose,
+}: RoomDetailModalProps) {
+  const [copiedCode, setCopiedCode] = useState(false);
+  const [copiedLink, setCopiedLink] = useState(false);
+
+  if (!room || !floor) return null;
+
+  const handleCopyCode = () => {
+    navigator.clipboard.writeText(room.code);
+    setCopiedCode(true);
+    setTimeout(() => setCopiedCode(false), 2000);
+  };
+
+  const handleShareLink = () => {
+    const url = `${window.location.origin}/?floor=${floor.id}&room=${room.id}`;
+    navigator.clipboard.writeText(url);
+    setCopiedLink(true);
+    setTimeout(() => setCopiedLink(false), 2000);
+  };
+
+  return (
+    <div
+      style={{
+        position: 'fixed',
+        inset: 0,
+        zIndex: 9998,
+        backgroundColor: 'rgba(15, 23, 42, 0.6)',
+        backdropFilter: 'blur(6px)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '16px',
+        animation: 'fadeIn 160ms ease'
+      }}
+      onClick={onClose}
+    >
+      <div
+        style={{
+          backgroundColor: '#FFFFFF',
+          width: '100%',
+          maxWidth: '560px',
+          borderRadius: '24px',
+          boxShadow: '0 25px 50px -12px rgba(185, 28, 28, 0.25)',
+          border: '1px solid #FECACA',
+          overflow: 'hidden',
+          display: 'flex',
+          flexDirection: 'column',
+          maxHeight: '90vh'
+        }}
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Modal Header */}
+        <div style={{
+          padding: '20px 24px',
+          backgroundColor: '#B91C1C',
+          color: '#FFFFFF',
+          display: 'flex',
+          alignItems: 'flex-start',
+          justifyContent: 'space-between',
+          gap: '12px'
+        }}>
+          <div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
+              <span style={{
+                backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                padding: '2px 8px',
+                borderRadius: '6px',
+                fontSize: '11px',
+                fontWeight: 700,
+                letterSpacing: '0.04em'
+              }}>
+                {floor.nameMalay} ({floor.levelCode})
+              </span>
+              <span style={{
+                backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                padding: '2px 8px',
+                borderRadius: '6px',
+                fontSize: '11px',
+                fontWeight: 600
+              }}>
+                {room.wingName}
+              </span>
+            </div>
+            <h2 style={{ fontSize: '20px', fontWeight: 900, lineHeight: 1.2 }}>
+              {room.name}
+            </h2>
+            {room.nameEn && (
+              <div style={{ fontSize: '13px', color: '#FECACA', marginTop: '2px' }}>
+                {room.nameEn}
+              </div>
+            )}
+          </div>
+
+          <button
+            onClick={onClose}
+            aria-label="Tutup"
+            style={{
+              backgroundColor: 'rgba(255, 255, 255, 0.15)',
+              color: '#FFFFFF',
+              width: '32px',
+              height: '32px',
+              borderRadius: '9999px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              flexShrink: 0
+            }}
+          >
+            <X size={18} />
+          </button>
+        </div>
+
+        {/* Modal Body */}
+        <div style={{ padding: '20px 24px', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          {/* Room Code Bar */}
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            backgroundColor: '#FEF2F2',
+            padding: '12px 16px',
+            borderRadius: '12px',
+            border: '1px solid #FEE2E2'
+          }}>
+            <div>
+              <div style={{ fontSize: '11px', color: '#7F1D1D', fontWeight: 600 }}>KOD LOKASI RASMI</div>
+              <div style={{ fontSize: '18px', fontWeight: 900, color: '#991B1B' }}>{room.code}</div>
+            </div>
+            <div style={{ display: 'flex', gap: '6px' }}>
+              <button
+                onClick={handleCopyCode}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  backgroundColor: '#FFFFFF',
+                  border: '1px solid #FECACA',
+                  color: copiedCode ? '#16A34A' : '#B91C1C',
+                  padding: '6px 12px',
+                  borderRadius: '8px',
+                  fontSize: '12px',
+                  fontWeight: 700
+                }}
+              >
+                {copiedCode ? <Check size={14} /> : <Copy size={14} />}
+                <span>{copiedCode ? 'Disalin!' : 'Salin Kod'}</span>
+              </button>
+
+              <button
+                onClick={handleShareLink}
+                title="Kongsi Pautan"
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  backgroundColor: '#FFFFFF',
+                  border: '1px solid #FECACA',
+                  color: copiedLink ? '#16A34A' : '#B91C1C',
+                  padding: '6px 12px',
+                  borderRadius: '8px',
+                  fontSize: '12px',
+                  fontWeight: 700
+                }}
+              >
+                {copiedLink ? <Check size={14} /> : <Share2 size={14} />}
+                <span>{copiedLink ? 'Pautan Disalin!' : 'Kongsi'}</span>
+              </button>
+            </div>
+          </div>
+
+          {/* Description */}
+          {room.description && (
+            <div>
+              <div style={{ fontSize: '12px', fontWeight: 800, color: '#991B1B', marginBottom: '6px' }}>
+                PERIHAL RUANG
+              </div>
+              <p style={{ fontSize: '14px', color: '#334155', lineHeight: 1.5 }}>
+                {room.description}
+              </p>
+            </div>
+          )}
+
+          {/* Directions */}
+          {room.directions && (
+            <div style={{
+              backgroundColor: '#F8FAFC',
+              padding: '12px 16px',
+              borderRadius: '12px',
+              border: '1px solid #E2E8F0',
+              display: 'flex',
+              gap: '10px',
+              alignItems: 'flex-start'
+            }}>
+              <Navigation size={18} color="#DC2626" style={{ flexShrink: 0, marginTop: '2px' }} />
+              <div>
+                <div style={{ fontSize: '12px', fontWeight: 800, color: '#0F172A' }}>
+                  Panduan Dari Lif Utama:
+                </div>
+                <div style={{ fontSize: '13px', color: '#475569', marginTop: '2px' }}>
+                  {room.directions}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Facilities */}
+          {room.facilities && room.facilities.length > 0 && (
+            <div>
+              <div style={{ fontSize: '12px', fontWeight: 800, color: '#991B1B', marginBottom: '8px' }}>
+                KEMUDAHAN DISEDIAKAN
+              </div>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+                {room.facilities.map((f, idx) => (
+                  <span
+                    key={idx}
+                    style={{
+                      backgroundColor: '#FEF2F2',
+                      color: '#991B1B',
+                      border: '1px solid #FECACA',
+                      padding: '4px 10px',
+                      borderRadius: '8px',
+                      fontSize: '12px',
+                      fontWeight: 600,
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '5px'
+                    }}
+                  >
+                    <Sparkles size={12} color="#DC2626" />
+                    {f}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Quick Location Hint */}
+          <div
+            style={{
+              padding: '12px 14px',
+              backgroundColor: '#FEF2F2',
+              borderRadius: '12px',
+              border: '1px solid #FEE2E2',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              gap: '12px',
+            }}
+          >
+            <div>
+              <div style={{ fontSize: '11px', color: '#991B1B', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+                Kedudukan di Bangunan
+              </div>
+              <div style={{ fontSize: '13px', fontWeight: 700, color: '#1E293B', marginTop: '2px' }}>
+                Aras {floor.levelCode} • {floor.nameMalay} ({room.wingName || 'FSKTM'})
+              </div>
+            </div>
+            <button
+              onClick={onClose}
+              style={{
+                padding: '7px 14px',
+                borderRadius: '8px',
+                backgroundColor: '#B91C1C',
+                color: '#FFFFFF',
+                fontSize: '12px',
+                fontWeight: 700,
+                border: 'none',
+                cursor: 'pointer',
+                whiteSpace: 'nowrap',
+                boxShadow: '0 2px 6px rgba(185, 28, 28, 0.25)',
+              }}
+            >
+              Kembali ke Pelan
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

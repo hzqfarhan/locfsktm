@@ -1,0 +1,19 @@
+{
+  "name": "FSKTM Floor Directory | UTHM",
+  "short_name": "FSKTM Map",
+  "description": "Interactive 8-floor campus directory and navigation for FSKTM UTHM students & visitors",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FFFFFF",
+  "theme_color": "#B91C1C",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icons/icon.svg",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["education", "navigation", "utilities"]
+}

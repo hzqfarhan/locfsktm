@@ -39,3 +39,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Raw asset duplicates (active files are in /public)
+/directory/
+/reffsktm/

@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="gradRed" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#DC2626" />
+      <stop offset="100%" stop-color="#991B1B" />
+    </linearGradient>
+    <linearGradient id="gradAccent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="100%" stop-color="#FEE2E2" />
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#7F1D1D" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+
+  <!-- Background rounded squircle -->
+  <rect width="512" height="512" rx="112" fill="url(#gradRed)" />
+
+  <!-- Decorative subtle grid -->
+  <circle cx="256" cy="256" r="200" fill="none" stroke="#FFFFFF" stroke-opacity="0.08" stroke-width="2" />
+  <circle cx="256" cy="256" r="140" fill="none" stroke="#FFFFFF" stroke-opacity="0.08" stroke-width="2" />
+
+  <!-- Building / Tower Icon -->
+  <g filter="url(#shadow)" transform="translate(106, 80)">
+    <!-- Central Tower -->
+    <rect x="90" y="60" width="120" height="260" rx="20" fill="url(#gradAccent)" />
+    <!-- Tower Roof Curved Top -->
+    <path d="M70 60 C90 25 210 25 230 60 Z" fill="#FFFFFF" />
+    
+    <!-- Left Wing -->
+    <rect x="0" y="160" width="80" height="160" rx="12" fill="#FEE2E2" />
+    <!-- Right Wing -->
+    <rect x="220" y="160" width="80" height="160" rx="12" fill="#FEE2E2" />
+    
+    <!-- Tower Windows -->
+    <rect x="110" y="80" width="20" height="24" rx="4" fill="#B91C1C" />
+    <rect x="170" y="80" width="20" height="24" rx="4" fill="#B91C1C" />
+    
+    <rect x="110" y="120" width="20" height="24" rx="4" fill="#B91C1C" />
+    <rect x="170" y="120" width="20" height="24" rx="4" fill="#B91C1C" />
+    
+    <rect x="110" y="160" width="20" height="24" rx="4" fill="#B91C1C" />
+    <rect x="170" y="160" width="20" height="24" rx="4" fill="#B91C1C" />
+    
+    <rect x="110" y="200" width="20" height="24" rx="4" fill="#B91C1C" />
+    <rect x="170" y="200" width="20" height="24" rx="4" fill="#B91C1C" />
+
+    <rect x="110" y="240" width="20" height="24" rx="4" fill="#B91C1C" />
+    <rect x="170" y="240" width="20" height="24" rx="4" fill="#B91C1C" />
+
+    <!-- Wing Windows -->
+    <rect x="18" y="185" width="44" height="16" rx="3" fill="#DC2626" />
+    <rect x="18" y="220" width="44" height="16" rx="3" fill="#DC2626" />
+    <rect x="18" y="255" width="44" height="16" rx="3" fill="#DC2626" />
+
+    <rect x="238" y="185" width="44" height="16" rx="3" fill="#DC2626" />
+    <rect x="238" y="220" width="44" height="16" rx="3" fill="#DC2626" />
+    <rect x="238" y="255" width="44" height="16" rx="3" fill="#DC2626" />
+
+    <!-- Entrance Door -->
+    <rect x="135" y="285" width="30" height="35" rx="6" fill="#991B1B" />
+  </g>
+
+  <!-- Faculty Text Banner -->
+  <text x="256" y="440" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="900" font-size="34" letter-spacing="4" fill="#FFFFFF">FSKTM DIRECTORY</text>
+  <text x="256" y="475" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="600" font-size="20" letter-spacing="2" fill="#FECACA">UTHM • 8 LEVELS</text>
+</svg>
