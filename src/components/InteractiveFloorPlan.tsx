@@ -140,11 +140,11 @@ export default function InteractiveFloorPlan({
 
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Set default rotation to -90° (left) and default zoom on mobile for vertical alignment
+  // Set default rotation to -90° (left) and default zoom 1 on mobile to see entire building at first open
   useEffect(() => {
     if (typeof window !== 'undefined' && window.innerWidth <= 640) {
       setRotation(-90);
-      setZoom(1.25);
+      setZoom(1);
     }
   }, []);
 
@@ -862,7 +862,7 @@ export default function InteractiveFloorPlan({
   const handleZoomOut = () => setZoom((prev) => Math.max(prev - 0.25, 0.6));
   const handleResetZoom = () => {
     const isMobile = typeof window !== 'undefined' && window.innerWidth <= 640;
-    setZoom(isMobile ? 1.25 : 1);
+    setZoom(1);
     setPan({ x: 0, y: 0 });
     setRotation(isMobile ? -90 : 0);
   };
