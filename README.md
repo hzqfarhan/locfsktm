@@ -1,6 +1,12 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
+## 🏛️ 3D Architectural Model
+
+The project includes an authentic 3D model of the **UTHM FSKTM** faculty complex (Blender `.blend` and web-ready `.glb` formats).
+See the full specification and asset details in [**`FSKTM_3D_MODEL.md`**](file:///c:/Users/haziq/locfsktm/FSKTM_3D_MODEL.md).
+
+- **Blender Project**: [`models/fsktm.blend`](file:///c:/Users/haziq/locfsktm/models/fsktm.blend)
+- **Web 3D Asset**: [`public/models/fsktm.glb`](file:///c:/Users/haziq/locfsktm/public/models/fsktm.glb)
 
 First, run the development server:
 
