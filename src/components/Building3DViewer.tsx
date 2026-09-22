@@ -14,7 +14,9 @@ import {
   Info,
   Maximize2,
   ChevronRight,
-  Maximize
+  Maximize,
+  ZoomIn,
+  ZoomOut,
 } from 'lucide-react';
 
 interface Building3DViewerProps {
@@ -70,6 +72,23 @@ export default function Building3DViewer({
         controls.target.set(0, 0, 0);
         break;
     }
+    controls.update();
+  }, []);
+
+  const handleZoomIn = useCallback(() => {
+    const camera = cameraRef.current;
+    const controls = controlsRef.current;
+    if (!camera || !controls) return;
+    camera.position.lerp(controls.target, 0.25);
+    controls.update();
+  }, []);
+
+  const handleZoomOut = useCallback(() => {
+    const camera = cameraRef.current;
+    const controls = controlsRef.current;
+    if (!camera || !controls) return;
+    const dir = new THREE.Vector3().subVectors(camera.position, controls.target).normalize();
+    camera.position.addScaledVector(dir, 10);
     controls.update();
   }, []);
 
@@ -149,6 +168,7 @@ export default function Building3DViewer({
     controls.minDistance = 12;
     controls.maxDistance = 120;
     controls.target.set(0, 14, 0);
+    controls.enableZoom = false; // Disable wheel zoom so scrolling desktop strictly scrolls the web page
     controlsRef.current = controls;
 
     // 5. Lighting (Bright, sunny Malaysian daylight)
@@ -760,6 +780,50 @@ export default function Building3DViewer({
           >
             Menara
           </button>
+
+          <div style={{ width: '1px', height: '18px', backgroundColor: '#E2E8F0', margin: '0 2px' }} />
+
+          <button
+            onClick={handleZoomOut}
+            title="Zoom Keluar"
+            aria-label="Zoom keluar"
+            style={{
+              padding: '5px 7px',
+              borderRadius: '6px',
+              fontSize: '11px',
+              fontWeight: 700,
+              backgroundColor: '#FEF2F2',
+              color: '#991B1B',
+              border: '1px solid #FECACA',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              cursor: 'pointer',
+            }}
+          >
+            <ZoomOut size={13} />
+          </button>
+
+          <button
+            onClick={handleZoomIn}
+            title="Zoom Masuk"
+            aria-label="Zoom masuk"
+            style={{
+              padding: '5px 7px',
+              borderRadius: '6px',
+              fontSize: '11px',
+              fontWeight: 700,
+              backgroundColor: '#FEF2F2',
+              color: '#991B1B',
+              border: '1px solid #FECACA',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              cursor: 'pointer',
+            }}
+          >
+            <ZoomIn size={13} />
+          </button>
         </div>
       </div>
 
@@ -774,6 +838,7 @@ export default function Building3DViewer({
           position: 'relative',
           overflow: 'hidden',
           backgroundColor: '#F1F5F9',
+          touchAction: 'pan-y',
         }}
       >
         {/* Floating Active Floor Badge on Top-Left */}

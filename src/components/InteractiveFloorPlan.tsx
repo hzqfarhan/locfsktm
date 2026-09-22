@@ -147,12 +147,23 @@ export default function InteractiveFloorPlan({
 
   const containerRef = useRef<HTMLDivElement>(null);
 
+  const [isMobile, setIsMobile] = useState<boolean>(false);
+
   // Set default rotation to -90° (left), pan x: 0, y: 0, and zoom 1.5 (150%) on mobile
   useEffect(() => {
-    if (typeof window !== 'undefined' && window.innerWidth <= 640) {
-      setRotation(-90);
-      setZoom(1.5);
-      setPan({ x: 0, y: 0 });
+    if (typeof window !== 'undefined') {
+      const checkMobile = () => {
+        const mobile = window.innerWidth <= 640;
+        setIsMobile(mobile);
+        if (mobile) {
+          setRotation(-90);
+          setZoom(1.5);
+          setPan({ x: 0, y: 0 });
+        }
+      };
+      checkMobile();
+      window.addEventListener('resize', checkMobile);
+      return () => window.removeEventListener('resize', checkMobile);
     }
   }, []);
 
@@ -1416,7 +1427,7 @@ export default function InteractiveFloorPlan({
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          touchAction: 'none',
+          touchAction: isMobile ? 'none' : 'pan-y',
           userSelect: 'none',
           WebkitUserSelect: 'none',
         }}
