@@ -89,7 +89,20 @@ export default function SearchModal({
       const matchTags = room.tags ? room.tags.some((t) => t.toLowerCase().includes(q)) : false;
       const matchDesc = room.description ? room.description.toLowerCase().includes(q) : false;
 
-      return matchName || matchCode || matchShortform || matchEn || matchFloor || matchWing || matchTags || matchDesc;
+      const lecs = room.lecturers || (room.lecturer ? [room.lecturer] : []);
+      const matchLecturer = lecs.some(
+        (l) =>
+          l.name.toLowerCase().includes(q) ||
+          (l.cleanName && l.cleanName.toLowerCase().includes(q)) ||
+          (l.username && l.username.toLowerCase().includes(q)) ||
+          (l.email && l.email.toLowerCase().includes(q)) ||
+          l.currentSubjects.some(
+            (s) => s.code.toLowerCase().includes(q) || s.name.toLowerCase().includes(q)
+          ) ||
+          l.specialities.some((sp) => sp.toLowerCase().includes(q))
+      );
+
+      return matchName || matchCode || matchShortform || matchEn || matchFloor || matchWing || matchTags || matchDesc || matchLecturer;
     });
   }, [allRoomsList, query]);
 
@@ -141,7 +154,7 @@ export default function SearchModal({
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Cari bilik, makmal, singkatan (cth: MRM, CISCO, ISYS, BT1)..."
+            placeholder="Cari pensyarah, subjek (cth: BIT34503), bilik, makmal..."
             style={{
               flex: 1,
               border: 'none',
@@ -313,6 +326,38 @@ export default function SearchModal({
                     <span>•</span>
                     <span>{item.wingName}</span>
                   </div>
+
+                  {/* If lecturer room, display matched subject */}
+                  {(() => {
+                    const lecs = item.room.lecturers || (item.room.lecturer ? [item.room.lecturer] : []);
+                    if (lecs.length === 0) return null;
+                    const q = query.trim().toLowerCase();
+                    const matchedSub = q
+                      ? lecs.flatMap((l) => l.currentSubjects).find((s) => s.code.toLowerCase().includes(q) || s.name.toLowerCase().includes(q))
+                      : null;
+                    if (matchedSub) {
+                      return (
+                        <div style={{ marginTop: '4px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                          <span style={{
+                            fontSize: '11px',
+                            fontWeight: 800,
+                            backgroundColor: '#FEF2F2',
+                            color: '#991B1B',
+                            border: '1px solid #FECACA',
+                            padding: '1px 6px',
+                            borderRadius: '4px',
+                            fontFamily: 'monospace'
+                          }}>
+                            {matchedSub.code}
+                          </span>
+                          <span style={{ fontSize: '11px', color: '#B91C1C', fontWeight: 600 }}>
+                            {matchedSub.name}
+                          </span>
+                        </div>
+                      );
+                    }
+                    return null;
+                  })()}
                 </div>
               </div>
 

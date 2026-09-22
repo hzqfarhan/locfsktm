@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Room, Floor } from '../types/directory';
-import { X, Copy, Check, MapPin, Sparkles, Navigation, Share2 } from 'lucide-react';
+import { X, Copy, Check, MapPin, Sparkles, Navigation, Share2, Mail, Phone, ExternalLink, BookOpen, GraduationCap, User, Award } from 'lucide-react';
 
 interface RoomDetailModalProps {
   room: Room | null;
@@ -211,6 +211,302 @@ export default function RoomDetailModal({
               </button>
             </div>
           </div>
+
+          {/* Lecturer Profiles (if this room is an office of one or more lecturers) */}
+          {(() => {
+            const lecturersList = room.lecturers && room.lecturers.length > 0
+              ? room.lecturers
+              : (room.lecturer ? [room.lecturer] : []);
+
+            if (lecturersList.length === 0) return null;
+
+            return (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+                {lecturersList.map((lec, lIdx) => (
+                  <div
+                    key={lec.id || lIdx}
+                    style={{
+                      backgroundColor: '#FFFFFF',
+                      borderRadius: '16px',
+                      border: '1px solid #FECACA',
+                      padding: '16px',
+                      boxShadow: '0 4px 12px rgba(185, 28, 28, 0.06)',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: '12px'
+                    }}
+                  >
+                    {/* Header: Avatar + Name + Title + Role */}
+                    <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
+                      <div style={{
+                        width: '56px',
+                        height: '56px',
+                        borderRadius: '50%',
+                        overflow: 'hidden',
+                        backgroundColor: '#FEE2E2',
+                        border: '2px solid #FECACA',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        flexShrink: 0
+                      }}>
+                        {lec.avatarUrl ? (
+                          <img
+                            src={lec.avatarUrl}
+                            alt={lec.name}
+                            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                            onError={(e) => {
+                              (e.target as HTMLElement).style.display = 'none';
+                            }}
+                          />
+                        ) : (
+                          <User size={28} color="#B91C1C" />
+                        )}
+                      </div>
+
+                      <div style={{ flex: 1, minWidth: 0 }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexWrap: 'wrap' }}>
+                          <span style={{
+                            fontSize: '11px',
+                            fontWeight: 800,
+                            color: '#B91C1C',
+                            backgroundColor: '#FEF2F2',
+                            padding: '2px 8px',
+                            borderRadius: '9999px',
+                            border: '1px solid #FECACA'
+                          }}>
+                            {lec.role || 'Pensyarah'}
+                          </span>
+                          {lec.title && (
+                            <span style={{ fontSize: '11px', fontWeight: 700, color: '#64748B' }}>
+                              {lec.title}
+                            </span>
+                          )}
+                        </div>
+                        <h3 style={{
+                          fontSize: '15px',
+                          fontWeight: 900,
+                          color: '#0F172A',
+                          marginTop: '4px',
+                          lineHeight: 1.3
+                        }}>
+                          {lec.name}
+                        </h3>
+                        <p style={{ fontSize: '12px', color: '#64748B', marginTop: '2px' }}>
+                          {lec.department}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Contact & Community Links */}
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', alignItems: 'center' }}>
+                      {lec.email && (
+                        <a
+                          href={`mailto:${lec.email}`}
+                          style={{
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '6px',
+                            padding: '6px 10px',
+                            borderRadius: '8px',
+                            backgroundColor: '#F8FAFC',
+                            border: '1px solid #E2E8F0',
+                            color: '#0F172A',
+                            fontSize: '12px',
+                            fontWeight: 600,
+                            textDecoration: 'none'
+                          }}
+                          title={lec.email}
+                        >
+                          <Mail size={13} color="#DC2626" />
+                          <span>{lec.email}</span>
+                        </a>
+                      )}
+
+                      {lec.phone && (
+                        <a
+                          href={`tel:${lec.phone.replace(/\s+/g, '')}`}
+                          style={{
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '6px',
+                            padding: '6px 10px',
+                            borderRadius: '8px',
+                            backgroundColor: '#F8FAFC',
+                            border: '1px solid #E2E8F0',
+                            color: '#0F172A',
+                            fontSize: '12px',
+                            fontWeight: 600,
+                            textDecoration: 'none'
+                          }}
+                        >
+                          <Phone size={13} color="#DC2626" />
+                          <span>{lec.phone}</span>
+                        </a>
+                      )}
+
+                      {lec.communityUrl && (
+                        <a
+                          href={lec.communityUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          style={{
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '6px',
+                            padding: '6px 10px',
+                            borderRadius: '8px',
+                            backgroundColor: '#FEF2F2',
+                            border: '1px solid #FECACA',
+                            color: '#991B1B',
+                            fontSize: '12px',
+                            fontWeight: 700,
+                            textDecoration: 'none',
+                            marginLeft: 'auto'
+                          }}
+                        >
+                          <ExternalLink size={13} />
+                          <span>Profil UTHM</span>
+                        </a>
+                      )}
+                    </div>
+
+                    {/* Kursus / Subjek Diajar (#TEA) */}
+                    <div>
+                      <div style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '6px',
+                        fontSize: '12px',
+                        fontWeight: 800,
+                        color: '#991B1B',
+                        marginBottom: '8px'
+                      }}>
+                        <BookOpen size={14} color="#DC2626" />
+                        <span>KURSUS / SUBJEK DIAJAR</span>
+                        {lec.currentSubjects && lec.currentSubjects.length > 0 && (
+                          <span style={{
+                            fontSize: '10px',
+                            fontWeight: 800,
+                            backgroundColor: '#DC2626',
+                            color: '#FFFFFF',
+                            padding: '1px 6px',
+                            borderRadius: '9999px',
+                            marginLeft: '4px'
+                          }}>
+                            {lec.currentSubjects.length}
+                          </span>
+                        )}
+                      </div>
+
+                      {lec.currentSubjects && lec.currentSubjects.length > 0 ? (
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                          {lec.currentSubjects.map((sub, sIdx) => (
+                            <div
+                              key={sIdx}
+                              style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'space-between',
+                                gap: '8px',
+                                padding: '8px 12px',
+                                borderRadius: '10px',
+                                backgroundColor: '#F8FAFC',
+                                border: '1px solid #E2E8F0'
+                              }}
+                            >
+                              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flex: 1, minWidth: 0 }}>
+                                <span style={{
+                                  fontFamily: 'monospace',
+                                  fontSize: '12px',
+                                  fontWeight: 900,
+                                  backgroundColor: '#FEF2F2',
+                                  color: '#991B1B',
+                                  border: '1px solid #FECACA',
+                                  padding: '2px 6px',
+                                  borderRadius: '6px',
+                                  whiteSpace: 'nowrap'
+                                }}>
+                                  {sub.code}
+                                </span>
+                                <span style={{
+                                  fontSize: '13px',
+                                  fontWeight: 600,
+                                  color: '#1E293B',
+                                  whiteSpace: 'nowrap',
+                                  overflow: 'hidden',
+                                  textOverflow: 'ellipsis'
+                                }}>
+                                  {sub.name}
+                                </span>
+                              </div>
+                              <span style={{
+                                fontSize: '11px',
+                                color: '#64748B',
+                                fontWeight: 600,
+                                whiteSpace: 'nowrap'
+                              }}>
+                                {sub.session.replace('Session', 'Sesi').replace('Semester', 'Sem')}
+                              </span>
+                            </div>
+                          ))}
+                        </div>
+                      ) : (
+                        <div style={{
+                          fontSize: '12px',
+                          color: '#64748B',
+                          fontStyle: 'italic',
+                          padding: '8px 12px',
+                          backgroundColor: '#F8FAFC',
+                          borderRadius: '8px',
+                          border: '1px dashed #CBD5E1'
+                        }}>
+                          Tiada rekod subjek aktif bagi sesi ini di portal UTHM.
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Kepakaran & Penyelidikan (#FOE) */}
+                    {lec.specialities && lec.specialities.length > 0 && (
+                      <div>
+                        <div style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '6px',
+                          fontSize: '12px',
+                          fontWeight: 800,
+                          color: '#991B1B',
+                          marginBottom: '6px'
+                        }}>
+                          <GraduationCap size={14} color="#DC2626" />
+                          <span>BIDANG KEPAKARAN & PENYELIDIKAN</span>
+                        </div>
+                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+                          {lec.specialities.map((spec, spIdx) => (
+                            <span
+                              key={spIdx}
+                              style={{
+                                backgroundColor: '#EFF6FF',
+                                color: '#1E40AF',
+                                border: '1px solid #BFDBFE',
+                                padding: '3px 8px',
+                                borderRadius: '6px',
+                                fontSize: '11px',
+                                fontWeight: 600
+                              }}
+                            >
+                              {spec}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            );
+          })()}
+
 
           {/* Description */}
           {room.description && (

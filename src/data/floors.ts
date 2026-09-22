@@ -1,4 +1,22 @@
-import { Floor } from '../types/directory';
+import { Floor, Lecturer } from '../types/directory';
+import rawLecturers from './lecturers.json';
+
+export const ALL_LECTURERS: Lecturer[] = rawLecturers as Lecturer[];
+
+export const normalizeRoomCode = (code: string): string => {
+  return (code || '').replace(/[-\s]/g, '').toUpperCase();
+};
+
+export const getLecturersForRoom = (roomCode: string): Lecturer[] => {
+  const norm = normalizeRoomCode(roomCode);
+  if (!norm) return [];
+  return ALL_LECTURERS.filter((l) => l.roomLocation && normalizeRoomCode(l.roomLocation) === norm);
+};
+
+export const getLecturerForRoom = (roomCode: string): Lecturer | undefined => {
+  const list = getLecturersForRoom(roomCode);
+  return list.length > 0 ? list[0] : undefined;
+};
 
 export const FLOORS_DATA: Floor[] = [
   {
@@ -63,6 +81,62 @@ export const FLOORS_DATA: Floor[] = [
             facilities: ["Tandas OKU", "Cermin", "Air Bersih"],
             directions: "Di koridor belakang berdekatan kawasan lif.",
             tags: ["toilet", "tandas", "washroom", "restroom"]
+          },
+          {
+            id: "g-pb-005-1",
+            code: "PB-005-1",
+            name: "Pejabat Pensyarah PB-005-1",
+            nameEn: "Lecturer Office PB-005-1",
+            category: "office",
+            floorId: 0,
+            wingId: "menara-tengah",
+            wingName: "Menara Tengah",
+            description: "Bilik pensyarah akademik FSKTM Aras Bawah.",
+            facilities: ["Penyaman Udara"],
+            directions: "Menara tengah, koridor hadapan berdekatan pejabat pentadbiran.",
+            tags: ["pensyarah", "lecturer", "pb-005-1"]
+          },
+          {
+            id: "g-pb-005-2",
+            code: "PB-005-2",
+            name: "Pejabat Pensyarah PB-005-2",
+            nameEn: "Lecturer Office PB-005-2",
+            category: "office",
+            floorId: 0,
+            wingId: "menara-tengah",
+            wingName: "Menara Tengah",
+            description: "Bilik pensyarah akademik FSKTM Aras Bawah.",
+            facilities: ["Penyaman Udara"],
+            directions: "Menara tengah bersebelahan PB-005-1.",
+            tags: ["pensyarah", "lecturer", "pb-005-2"]
+          },
+          {
+            id: "g-pb-005a",
+            code: "PB-005A",
+            name: "Pejabat Pensyarah PB-005A",
+            nameEn: "Lecturer Office PB-005A",
+            category: "office",
+            floorId: 0,
+            wingId: "menara-tengah",
+            wingName: "Menara Tengah",
+            description: "Bilik pensyarah akademik FSKTM Aras Bawah.",
+            facilities: ["Penyaman Udara"],
+            directions: "Menara tengah, koridor berdekatan pentadbiran fakulti.",
+            tags: ["pensyarah", "lecturer", "pb-005a"]
+          },
+          {
+            id: "g-pb-005b",
+            code: "PB-005B",
+            name: "Pejabat Pensyarah PB-005B",
+            nameEn: "Lecturer Office PB-005B",
+            category: "office",
+            floorId: 0,
+            wingId: "menara-tengah",
+            wingName: "Menara Tengah",
+            description: "Bilik pensyarah akademik FSKTM Aras Bawah.",
+            facilities: ["Penyaman Udara"],
+            directions: "Menara tengah, koridor berdekatan pentadbiran fakulti.",
+            tags: ["pensyarah", "lecturer", "pb-005b"]
           }
         ]
       },
@@ -495,6 +569,104 @@ export const FLOORS_DATA: Floor[] = [
             tags: ["pensyarah", "lecturer", "pb-101"]
           },
           {
+            id: "1-pb-102-02",
+            code: "PB-102-02",
+            name: "Pejabat Pensyarah PB-102-02",
+            nameEn: "Lecturer Office PB-102-02",
+            category: "office",
+            floorId: 1,
+            wingId: "menara-tengah",
+            wingName: "Menara Tengah",
+            description: "Bilik pensyarah akademik FSKTM Aras 1.",
+            facilities: ["Penyaman Udara"],
+            directions: "Menara tengah Aras 1.",
+            tags: ["pensyarah", "lecturer", "pb-102"]
+          },
+          {
+            id: "1-pb-102-03",
+            code: "PB-102-03",
+            name: "Pejabat Pensyarah PB-102-03",
+            nameEn: "Lecturer Office PB-102-03",
+            category: "office",
+            floorId: 1,
+            wingId: "menara-tengah",
+            wingName: "Menara Tengah",
+            description: "Bilik pensyarah akademik FSKTM Aras 1.",
+            facilities: ["Penyaman Udara"],
+            directions: "Menara tengah Aras 1.",
+            tags: ["pensyarah", "lecturer", "pb-102"]
+          },
+          {
+            id: "1-pb-102-04",
+            code: "PB-102-04",
+            name: "Pejabat Pensyarah PB-102-04",
+            nameEn: "Lecturer Office PB-102-04",
+            category: "office",
+            floorId: 1,
+            wingId: "menara-tengah",
+            wingName: "Menara Tengah",
+            description: "Bilik pensyarah akademik FSKTM Aras 1.",
+            facilities: ["Penyaman Udara"],
+            directions: "Menara tengah Aras 1.",
+            tags: ["pensyarah", "lecturer", "pb-102"]
+          },
+          {
+            id: "1-pc-102-05",
+            code: "PC-102-05",
+            name: "Pejabat Pensyarah PC-102-05",
+            nameEn: "Lecturer Office PC-102-05",
+            category: "office",
+            floorId: 1,
+            wingId: "menara-tengah",
+            wingName: "Menara Tengah",
+            description: "Bilik pensyarah akademik FSKTM Aras 1.",
+            facilities: ["Penyaman Udara"],
+            directions: "Menara tengah Aras 1.",
+            tags: ["pensyarah", "lecturer", "pc-102"]
+          },
+          {
+            id: "1-pc-102-07",
+            code: "PC-102-07",
+            name: "Pejabat Pensyarah PC-102-07",
+            nameEn: "Lecturer Office PC-102-07",
+            category: "office",
+            floorId: 1,
+            wingId: "menara-tengah",
+            wingName: "Menara Tengah",
+            description: "Bilik pensyarah akademik FSKTM Aras 1.",
+            facilities: ["Penyaman Udara"],
+            directions: "Menara tengah Aras 1.",
+            tags: ["pensyarah", "lecturer", "pc-102"]
+          },
+          {
+            id: "1-pc-102a",
+            code: "PC-102A",
+            name: "Pejabat Pensyarah PC-102A",
+            nameEn: "Lecturer Office PC-102A",
+            category: "office",
+            floorId: 1,
+            wingId: "menara-tengah",
+            wingName: "Menara Tengah",
+            description: "Bilik pensyarah akademik FSKTM Aras 1.",
+            facilities: ["Penyaman Udara"],
+            directions: "Menara tengah Aras 1.",
+            tags: ["pensyarah", "lecturer", "pc-102"]
+          },
+          {
+            id: "1-pc-102b",
+            code: "PC-102B",
+            name: "Pejabat Pensyarah PC-102B",
+            nameEn: "Lecturer Office PC-102B",
+            category: "office",
+            floorId: 1,
+            wingId: "menara-tengah",
+            wingName: "Menara Tengah",
+            description: "Bilik pensyarah akademik FSKTM Aras 1.",
+            facilities: ["Penyaman Udara"],
+            directions: "Menara tengah Aras 1.",
+            tags: ["pensyarah", "lecturer", "pc-102"]
+          },
+          {
             id: "1-lif",
             code: "LIF-1",
             name: "Lif Menara Utama (Aras 1)",
@@ -833,6 +1005,62 @@ export const FLOORS_DATA: Floor[] = [
             tags: ["pb-208", "pensyarah"]
           },
           {
+            id: "2-pb-201-09",
+            code: "PB-201-09",
+            name: "Bilik Pensyarah PB-201-09",
+            nameEn: "Lecturer Office PB-201-09",
+            category: "office",
+            floorId: 2,
+            wingId: "menara-tengah",
+            wingName: "Menara Tengah",
+            description: "Bilik pensyarah akademik FSKTM Aras 2.",
+            facilities: ["Penyaman Udara"],
+            directions: "Menara tengah Aras 2.",
+            tags: ["pensyarah", "lecturer", "pb-201"]
+          },
+          {
+            id: "2-pb-209",
+            code: "PB-209",
+            name: "Bilik Pensyarah PB-209",
+            nameEn: "Lecturer Office PB-209",
+            category: "office",
+            floorId: 2,
+            wingId: "menara-tengah",
+            wingName: "Menara Tengah",
+            description: "Bilik pensyarah akademik FSKTM Aras 2.",
+            facilities: ["Penyaman Udara"],
+            directions: "Menara tengah Aras 2.",
+            tags: ["pensyarah", "lecturer", "pb-209"]
+          },
+          {
+            id: "2-pb-210",
+            code: "PB-210",
+            name: "Bilik Pensyarah PB-210",
+            nameEn: "Lecturer Office PB-210",
+            category: "office",
+            floorId: 2,
+            wingId: "menara-tengah",
+            wingName: "Menara Tengah",
+            description: "Bilik pensyarah akademik FSKTM Aras 2.",
+            facilities: ["Penyaman Udara"],
+            directions: "Menara tengah Aras 2.",
+            tags: ["pensyarah", "lecturer", "pb-210"]
+          },
+          {
+            id: "2-pb-211",
+            code: "PB-211",
+            name: "Bilik Pensyarah PB-211",
+            nameEn: "Lecturer Office PB-211",
+            category: "office",
+            floorId: 2,
+            wingId: "menara-tengah",
+            wingName: "Menara Tengah",
+            description: "Bilik pensyarah akademik FSKTM Aras 2.",
+            facilities: ["Penyaman Udara"],
+            directions: "Menara tengah Aras 2.",
+            tags: ["pensyarah", "lecturer", "pb-211"]
+          },
+          {
             id: "2-lif",
             code: "LIF-2",
             name: "Lif Menara Utama (Aras 2)",
@@ -1163,6 +1391,7 @@ export const FLOORS_DATA: Floor[] = [
           { id: "4-pb-401-22", code: "PB-401-22", name: "Bilik Pensyarah PB-401-22", category: "office", floorId: 4, wingId: "menara-utama", wingName: "Blok Menara", tags: ["pensyarah", "pb-401"] },
           { id: "4-pb-401-23", code: "PB-401-23", name: "Bilik Pensyarah PB-401-23", category: "office", floorId: 4, wingId: "menara-utama", wingName: "Blok Menara", tags: ["pensyarah", "pb-401"] },
           { id: "4-pb-401-24", code: "PB-401-24", name: "Bilik Pensyarah PB-401-24", category: "office", floorId: 4, wingId: "menara-utama", wingName: "Blok Menara", tags: ["pensyarah", "pb-401"] },
+          { id: "4-pb-402-22", code: "PB-402-22", name: "Bilik Pensyarah PB-402-22", category: "office", floorId: 4, wingId: "menara-utama", wingName: "Blok Menara", tags: ["pensyarah", "pb-402"] },
           { id: "4-lif", code: "LIF-4", name: "Lif Menara Aras 4", category: "facility", floorId: 4, wingId: "menara-utama", wingName: "Blok Menara", tags: ["lif"] },
           { id: "4-tandas", code: "TANDAS-4", name: "Tandas Aras 4", category: "facility", floorId: 4, wingId: "menara-utama", wingName: "Blok Menara", tags: ["tandas"] }
         ]
@@ -1323,6 +1552,49 @@ export const FLOORS_DATA: Floor[] = [
     ]
   }
 ];
+
+// Dynamically enrich FLOORS_DATA with lecturers, rich names, and search tags
+FLOORS_DATA.forEach((floor) => {
+  floor.wings.forEach((wing) => {
+    wing.rooms.forEach((room) => {
+      const lecs = getLecturersForRoom(room.code);
+      if (lecs.length > 0) {
+        room.lecturers = lecs;
+        room.lecturer = lecs[0];
+
+        // Format room name to feature lecturer names
+        if (
+          room.name.startsWith("Bilik Pensyarah") ||
+          room.name.startsWith("Pejabat Pensyarah") ||
+          room.name.startsWith("Bilik PB-") ||
+          room.name.startsWith("Bilik PC-")
+        ) {
+          const namesStr = lecs.map((l) => l.name).join(' & ');
+          room.name = `${namesStr} (${room.code})`;
+          room.nameEn = `${lecs.map((l) => l.role).join(' & ')} • ${room.code}`;
+        }
+
+        // Set rich description
+        if (!room.description || room.description.includes("Bilik pensyarah")) {
+          room.description = `Pejabat rasmi: ${lecs.map((l) => l.name).join(', ')}. Jabatan: ${lecs[0].department}.`;
+        }
+
+        // Add search tags for lecturer name, cleanName, username, email, courses, and specialities
+        const lecTags = lecs.flatMap((l) => [
+          l.name.toLowerCase(),
+          l.cleanName?.toLowerCase() || '',
+          l.username?.toLowerCase() || '',
+          l.email.toLowerCase(),
+          ...l.currentSubjects.map((s) => s.code.toLowerCase()),
+          ...l.currentSubjects.map((s) => s.name.toLowerCase()),
+          ...l.specialities.map((sp) => sp.toLowerCase())
+        ]).filter(Boolean);
+        room.tags = Array.from(new Set([...(room.tags || []), ...lecTags]));
+      }
+    });
+  });
+});
+
 
 // Helper functions for easy querying
 export const getAllRooms = () => {

@@ -43,6 +43,7 @@ function DirectoryContent() {
       if (matchedRoom) {
         setSelectedRoom(matchedRoom);
         setSelectedFloorId(matchedRoom.floorId);
+        setDetailModalRoom(matchedRoom);
       }
     }
   }, [searchParams]);
