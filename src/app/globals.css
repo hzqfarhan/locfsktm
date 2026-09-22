@@ -102,6 +102,17 @@ button {
   background: #94a3b8;
 }
 
+/* Hide scrollbar for category-filters-scroll and floor-title-badge */
+.category-filters-scroll,
+.floor-title-badge {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.category-filters-scroll::-webkit-scrollbar,
+.floor-title-badge::-webkit-scrollbar {
+  display: none;
+}
+
 /* Utility Animations */
 @keyframes fadeIn {
   from {

@@ -21,7 +21,9 @@ export interface Lecturer {
   email: string;
   phone: string;
   roomLocation: string;
+  staffId?: string;
   avatarUrl?: string;
+  fallbackAvatarUrl?: string;
   communityUrl?: string;
   specialities: string[];
   currentSubjects: ActiveSubject[];

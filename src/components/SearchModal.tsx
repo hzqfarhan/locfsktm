@@ -290,6 +290,36 @@ export default function SearchModal({
                   </span>
                 </div>
 
+                {/* Lecturer Avatar Thumbnail if available */}
+                {item.room.lecturer?.avatarUrl && (
+                  <div style={{
+                    width: '38px',
+                    height: '38px',
+                    borderRadius: '50%',
+                    overflow: 'hidden',
+                    backgroundColor: '#FEE2E2',
+                    border: '1.5px solid #FECACA',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    flexShrink: 0,
+                  }}>
+                    <img
+                      src={item.room.lecturer.avatarUrl}
+                      alt={item.room.lecturer.name}
+                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                      onError={(e) => {
+                        const target = e.currentTarget;
+                        if (item.room.lecturer?.fallbackAvatarUrl && target.src !== item.room.lecturer.fallbackAvatarUrl) {
+                          target.src = item.room.lecturer.fallbackAvatarUrl;
+                        } else {
+                          target.style.display = 'none';
+                        }
+                      }}
+                    />
+                  </div>
+                )}
+
                 <div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexWrap: 'wrap' }}>
                     <span style={{ fontSize: '14px', fontWeight: 800, color: '#0F172A' }}>

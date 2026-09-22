@@ -53,7 +53,7 @@ def get_resilient_session(retries: int = 4, backoff_factor: float = 1.2) -> requ
 GLOBAL_SESSION = get_resilient_session()
 
 COURSE_CODE_REGEX = re.compile(r"\[(?P<code>[A-Z0-9]{6,8})\]|\b(?P<raw_code>[A-Z]{2,4}\d{1,5})\b")
-SESSION_REGEX = re.compile(r"(?:Session|Sesi)\s*202\d[/\-]?202\d\s*(?:Semester|Sem)\s*\d", re.IGNORECASE)
+SESSION_REGEX = re.compile(r"(?:Session|Sesi)\s*2026[/\-]?2027", re.IGNORECASE)
 IGNORE_KEYWORDS = [
     "assessor", "reviewer", "committee", "member", "task force", "invigilator",
     "speaker", "auditor", "panel", "judge", "facilitator", "penilai", "jawatankuasa",
@@ -181,8 +181,8 @@ def scrape_community_teaching(community_url: str) -> List[Dict[str, str]]:
                     if any(k in desc_val.lower() for k in IGNORE_KEYWORDS):
                         continue
 
-                    # Match recent semester sessions
-                    if not SESSION_REGEX.search(desc_val) and "2026" not in desc_val and "2025" not in desc_val:
+                    # Match strictly 2026/2027 semester sessions
+                    if not SESSION_REGEX.search(desc_val):
                         continue
 
                     code_match = COURSE_CODE_REGEX.search(desc_val)
@@ -304,9 +304,21 @@ def scrape_all_fsktm() -> List[Dict[str, Any]]:
                         phone = tel["phone"]
                     break
 
-            # Avatar URL
+            # Avatar URL & Staff ID (photofetch.md specification)
             img_el = row.find("img")
-            avatar_url = urljoin(DIRECTORY_URL, img_el["src"]) if img_el and img_el.get("src") else ""
+            faculty_avatar_url = urljoin(DIRECTORY_URL, img_el["src"]) if img_el and img_el.get("src") else ""
+            staff_id = ""
+            if faculty_avatar_url:
+                sid_m = re.search(r'/([A-Z0-9]{4,6})-', faculty_avatar_url, re.IGNORECASE)
+                if sid_m:
+                    staff_id = sid_m.group(1).upper()
+
+            manual_sids = {"nureize": "00694", "helmy": "01299"}
+            if not staff_id and uname in manual_sids:
+                staff_id = manual_sids[uname]
+
+            avatar_url = f"https://community.uthm.edu.my/images/profiles/{staff_id}.jpg" if staff_id else faculty_avatar_url
+            fallback_avatar_url = faculty_avatar_url
 
             # Community URL
             uname = email.split("@")[0] if email else ""
@@ -339,7 +351,9 @@ def scrape_all_fsktm() -> List[Dict[str, Any]]:
                 "email": email,
                 "phone": phone,
                 "roomLocation": room_location,
+                "staffId": staff_id,
                 "avatarUrl": avatar_url,
+                "fallbackAvatarUrl": fallback_avatar_url,
                 "communityUrl": community_url,
                 "specialities": specialities[:5],
                 "currentSubjects": [],

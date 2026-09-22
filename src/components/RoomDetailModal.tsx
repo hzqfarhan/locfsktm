@@ -256,12 +256,33 @@ export default function RoomDetailModal({
                             alt={lec.name}
                             style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                             onError={(e) => {
-                              (e.target as HTMLElement).style.display = 'none';
+                              const target = e.currentTarget;
+                              if (lec.fallbackAvatarUrl && target.src !== lec.fallbackAvatarUrl) {
+                                target.src = lec.fallbackAvatarUrl;
+                              } else {
+                                target.style.display = 'none';
+                                if (target.nextElementSibling) {
+                                  (target.nextElementSibling as HTMLElement).style.display = 'flex';
+                                }
+                              }
                             }}
                           />
-                        ) : (
-                          <User size={28} color="#B91C1C" />
-                        )}
+                        ) : null}
+                        <div
+                          style={{
+                            display: lec.avatarUrl ? 'none' : 'flex',
+                            width: '100%',
+                            height: '100%',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            backgroundColor: '#B91C1C',
+                            color: '#FFFFFF',
+                            fontSize: '20px',
+                            fontWeight: 800,
+                          }}
+                        >
+                          {lec.cleanName ? lec.cleanName.charAt(0) : 'U'}
+                        </div>
                       </div>
 
                       <div style={{ flex: 1, minWidth: 0 }}>
@@ -372,99 +393,107 @@ export default function RoomDetailModal({
                     </div>
 
                     {/* Kursus / Subjek Diajar (#TEA) */}
-                    <div>
-                      <div style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '6px',
-                        fontSize: '12px',
-                        fontWeight: 800,
-                        color: '#991B1B',
-                        marginBottom: '8px'
-                      }}>
-                        <BookOpen size={14} color="#DC2626" />
-                        <span>KURSUS / SUBJEK DIAJAR</span>
-                        {lec.currentSubjects && lec.currentSubjects.length > 0 && (
-                          <span style={{
-                            fontSize: '10px',
-                            fontWeight: 800,
-                            backgroundColor: '#DC2626',
-                            color: '#FFFFFF',
-                            padding: '1px 6px',
-                            borderRadius: '9999px',
-                            marginLeft: '4px'
-                          }}>
-                            {lec.currentSubjects.length}
-                          </span>
-                        )}
-                      </div>
+                    {(() => {
+                      const subjects2026 = (lec.currentSubjects || []).filter((s) =>
+                        s.session.includes('2026') || s.session.includes('2027') || s.year === '2026/2027'
+                      );
 
-                      {lec.currentSubjects && lec.currentSubjects.length > 0 ? (
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-                          {lec.currentSubjects.map((sub, sIdx) => (
-                            <div
-                              key={sIdx}
-                              style={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'space-between',
-                                gap: '8px',
-                                padding: '8px 12px',
-                                borderRadius: '10px',
-                                backgroundColor: '#F8FAFC',
-                                border: '1px solid #E2E8F0'
-                              }}
-                            >
-                              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flex: 1, minWidth: 0 }}>
-                                <span style={{
-                                  fontFamily: 'monospace',
-                                  fontSize: '12px',
-                                  fontWeight: 900,
-                                  backgroundColor: '#FEF2F2',
-                                  color: '#991B1B',
-                                  border: '1px solid #FECACA',
-                                  padding: '2px 6px',
-                                  borderRadius: '6px',
-                                  whiteSpace: 'nowrap'
-                                }}>
-                                  {sub.code}
-                                </span>
-                                <span style={{
-                                  fontSize: '13px',
-                                  fontWeight: 600,
-                                  color: '#1E293B',
-                                  whiteSpace: 'nowrap',
-                                  overflow: 'hidden',
-                                  textOverflow: 'ellipsis'
-                                }}>
-                                  {sub.name}
-                                </span>
-                              </div>
+                      return (
+                        <div>
+                          <div style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '6px',
+                            fontSize: '12px',
+                            fontWeight: 800,
+                            color: '#991B1B',
+                            marginBottom: '8px'
+                          }}>
+                            <BookOpen size={14} color="#DC2626" />
+                            <span>KURSUS / SUBJEK DIAJAR (SESI 2026/2027)</span>
+                            {subjects2026.length > 0 && (
                               <span style={{
-                                fontSize: '11px',
-                                color: '#64748B',
-                                fontWeight: 600,
-                                whiteSpace: 'nowrap'
+                                fontSize: '10px',
+                                fontWeight: 800,
+                                backgroundColor: '#DC2626',
+                                color: '#FFFFFF',
+                                padding: '1px 6px',
+                                borderRadius: '9999px',
+                                marginLeft: '4px'
                               }}>
-                                {sub.session.replace('Session', 'Sesi').replace('Semester', 'Sem')}
+                                {subjects2026.length}
                               </span>
+                            )}
+                          </div>
+
+                          {subjects2026.length > 0 ? (
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                              {subjects2026.map((sub, sIdx) => (
+                                <div
+                                  key={sIdx}
+                                  style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'space-between',
+                                    gap: '8px',
+                                    padding: '8px 12px',
+                                    borderRadius: '10px',
+                                    backgroundColor: '#F8FAFC',
+                                    border: '1px solid #E2E8F0'
+                                  }}
+                                >
+                                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flex: 1, minWidth: 0 }}>
+                                    <span style={{
+                                      fontFamily: 'monospace',
+                                      fontSize: '12px',
+                                      fontWeight: 900,
+                                      backgroundColor: '#FEF2F2',
+                                      color: '#991B1B',
+                                      border: '1px solid #FECACA',
+                                      padding: '2px 6px',
+                                      borderRadius: '6px',
+                                      whiteSpace: 'nowrap'
+                                    }}>
+                                      {sub.code}
+                                    </span>
+                                    <span style={{
+                                      fontSize: '13px',
+                                      fontWeight: 600,
+                                      color: '#1E293B',
+                                      whiteSpace: 'nowrap',
+                                      overflow: 'hidden',
+                                      textOverflow: 'ellipsis'
+                                    }}>
+                                      {sub.name}
+                                    </span>
+                                  </div>
+                                  <span style={{
+                                    fontSize: '11px',
+                                    color: '#64748B',
+                                    fontWeight: 600,
+                                    whiteSpace: 'nowrap'
+                                  }}>
+                                    {sub.session.replace('Session', 'Sesi').replace('Semester', 'Sem')}
+                                  </span>
+                                </div>
+                              ))}
                             </div>
-                          ))}
+                          ) : (
+                            <div style={{
+                              fontSize: '12px',
+                              color: '#64748B',
+                              fontStyle: 'italic',
+                              padding: '8px 12px',
+                              backgroundColor: '#F8FAFC',
+                              borderRadius: '8px',
+                              border: '1px dashed #CBD5E1'
+                            }}>
+                              Tiada rekod subjek aktif bagi sesi 2026/2027 di portal UTHM.
+                            </div>
+                          )}
                         </div>
-                      ) : (
-                        <div style={{
-                          fontSize: '12px',
-                          color: '#64748B',
-                          fontStyle: 'italic',
-                          padding: '8px 12px',
-                          backgroundColor: '#F8FAFC',
-                          borderRadius: '8px',
-                          border: '1px dashed #CBD5E1'
-                        }}>
-                          Tiada rekod subjek aktif bagi sesi ini di portal UTHM.
-                        </div>
-                      )}
-                    </div>
+                      );
+                    })()}
 
                     {/* Kepakaran & Penyelidikan (#FOE) */}
                     {lec.specialities && lec.specialities.length > 0 && (

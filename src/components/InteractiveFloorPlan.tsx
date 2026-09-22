@@ -904,12 +904,6 @@ export default function InteractiveFloorPlan({
     setIsDragging(false);
   };
 
-  const handleWheel = (e: React.WheelEvent) => {
-    e.preventDefault();
-    const zoomFactor = e.deltaY < 0 ? 1.1 : 0.9;
-    setZoom((prev) => Math.min(Math.max(prev * zoomFactor, 0.6), 3.5));
-  };
-
   // Mobile Touch Gestures: Pinch-to-zoom & Smooth Swipe/Pan
   const handleTouchStart = (e: React.TouchEvent) => {
     if (e.touches.length === 1) {
@@ -1103,6 +1097,36 @@ export default function InteractiveFloorPlan({
           </g>
         )}
 
+        {/* Lecturer Avatar in SVG Room for office rooms */}
+        {roomData?.lecturer?.avatarUrl && !node.isSpecialIcon && node.w >= 28 && node.h >= 24 && (
+          <g style={{ pointerEvents: 'none', opacity: isDimmed ? 0.2 : 1 }}>
+            <clipPath id={`avatar-clip-${node.id}`}>
+              <circle
+                cx={node.x + node.w - 10}
+                cy={node.y + 10}
+                r={7}
+              />
+            </clipPath>
+            <circle
+              cx={node.x + node.w - 10}
+              cy={node.y + 10}
+              r={8}
+              fill="#FFFFFF"
+              stroke="#FECACA"
+              strokeWidth={1.5}
+            />
+            <image
+              href={roomData.lecturer.avatarUrl}
+              x={node.x + node.w - 17}
+              y={node.y + 3}
+              width={14}
+              height={14}
+              clipPath={`url(#avatar-clip-${node.id})`}
+              preserveAspectRatio="xMidYMid slice"
+            />
+          </g>
+        )}
+
         {/* Kiosk Service Badges for Lifts, Toilets, Surau */}
         {node.isSpecialIcon === 'lift' && (
           <g opacity={isDimmed ? 0.2 : 1}>
@@ -1226,6 +1250,8 @@ export default function InteractiveFloorPlan({
             gap: '3px',
             pointerEvents: 'auto',
             width: 'fit-content',
+            scrollbarWidth: 'none',
+            msOverflowStyle: 'none',
           }}
         >
           <button
@@ -1325,6 +1351,8 @@ export default function InteractiveFloorPlan({
             pointerEvents: 'auto',
             overflowX: 'auto',
             maxWidth: 'calc(100vw - 32px)',
+            scrollbarWidth: 'none',
+            msOverflowStyle: 'none',
           }}
         >
           {[
@@ -1371,7 +1399,6 @@ export default function InteractiveFloorPlan({
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
         onMouseLeave={handleMouseUp}
-        onWheel={handleWheel}
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
@@ -1513,6 +1540,48 @@ export default function InteractiveFloorPlan({
                 <span>{hoveredNode.room?.wingName || 'FSKTM'}</span>
               </div>
             </div>
+
+            {/* Lecturer Hover PFP Header */}
+            {hoveredNode.room?.lecturer && (
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px', paddingBottom: '6px', borderBottom: '1px solid #FEE2E2' }}>
+                <div style={{
+                  width: '32px',
+                  height: '32px',
+                  borderRadius: '50%',
+                  overflow: 'hidden',
+                  border: '1.5px solid #FECACA',
+                  backgroundColor: '#FEE2E2',
+                  flexShrink: 0,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                  {hoveredNode.room.lecturer.avatarUrl ? (
+                    <img
+                      src={hoveredNode.room.lecturer.avatarUrl}
+                      alt={hoveredNode.room.lecturer.name}
+                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                      onError={(e) => {
+                        const target = e.currentTarget;
+                        if (hoveredNode.room?.lecturer?.fallbackAvatarUrl && target.src !== hoveredNode.room.lecturer.fallbackAvatarUrl) {
+                          target.src = hoveredNode.room.lecturer.fallbackAvatarUrl;
+                        } else {
+                          target.style.display = 'none';
+                        }
+                      }}
+                    />
+                  ) : null}
+                </div>
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <div style={{ fontSize: '11px', fontWeight: 800, color: '#0F172A', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                    {hoveredNode.room.lecturer.name}
+                  </div>
+                  <div style={{ fontSize: '9.5px', color: '#B91C1C', fontWeight: 700 }}>
+                    {hoveredNode.room.lecturer.role}
+                  </div>
+                </div>
+              </div>
+            )}
             <div style={{ fontSize: '12px', fontWeight: 800, color: '#0F172A', marginBottom: '2px' }}>
               {hoveredNode.room?.name || hoveredNode.node.label}
             </div>
@@ -1725,6 +1794,38 @@ export default function InteractiveFloorPlan({
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            {/* Lecturer PFP Avatar if present */}
+            {selectedRoom.lecturer?.avatarUrl && (
+              <div
+                style={{
+                  width: '36px',
+                  height: '36px',
+                  borderRadius: '50%',
+                  overflow: 'hidden',
+                  border: '2px solid #FECACA',
+                  backgroundColor: '#FEE2E2',
+                  flexShrink: 0,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  boxShadow: '0 2px 6px rgba(185, 28, 28, 0.18)',
+                }}
+              >
+                <img
+                  src={selectedRoom.lecturer.avatarUrl}
+                  alt={selectedRoom.lecturer.name}
+                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                  onError={(e) => {
+                    const target = e.currentTarget;
+                    if (selectedRoom.lecturer?.fallbackAvatarUrl && target.src !== selectedRoom.lecturer.fallbackAvatarUrl) {
+                      target.src = selectedRoom.lecturer.fallbackAvatarUrl;
+                    } else {
+                      target.style.display = 'none';
+                    }
+                  }}
+                />
+              </div>
+            )}
             {selectedRoom.shortform && (
               <span
                 style={{
