@@ -196,6 +196,11 @@ export default function InteractiveFloorPlan({
     }
   }, [floor.id]);
 
+  // Clear hover tooltip whenever a room is selected or modal opened
+  useEffect(() => {
+    setHoveredNode(null);
+  }, [selectedRoom]);
+
   // Map room data from floor.wings for instant lookup
   const roomLookup = useMemo(() => {
     const map = new Map<string, Room>();
@@ -1023,6 +1028,7 @@ export default function InteractiveFloorPlan({
         }}
         onClick={(e) => {
           e.stopPropagation();
+          setHoveredNode(null);
           if (touchMovedRef.current) {
             return; // Prevent selecting room if user was swiping or pinching
           }
@@ -1031,6 +1037,7 @@ export default function InteractiveFloorPlan({
           }
         }}
         onMouseEnter={(e) => {
+          if (isMobile || selectedRoom) return;
           if (!isDimmed) {
             setHoveredNode({
               node,
@@ -1041,6 +1048,7 @@ export default function InteractiveFloorPlan({
           }
         }}
         onMouseMove={(e) => {
+          if (isMobile || selectedRoom) return;
           if (hoveredNode) {
             setHoveredNode({
               node,
@@ -1493,8 +1501,8 @@ export default function InteractiveFloorPlan({
           )}
         </svg>
 
-        {/* Hover Tooltip Overlay */}
-        {hoveredNode && (
+        {/* Hover Tooltip Overlay (Desktop only, hidden when room is selected) */}
+        {hoveredNode && !selectedRoom && !isMobile && (
           <div
             style={{
               position: 'fixed',
@@ -1506,7 +1514,7 @@ export default function InteractiveFloorPlan({
               padding: '10px 12px',
               boxShadow: '0 10px 25px -5px rgba(185, 28, 28, 0.18)',
               pointerEvents: 'none',
-              zIndex: 9999,
+              zIndex: 40,
               minWidth: '180px',
               maxWidth: '240px',
             }}

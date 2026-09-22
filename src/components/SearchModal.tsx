@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useMemo, useRef } from 'react';
 import { Search, X, MapPin, ArrowRight, Layers } from 'lucide-react';
+import VersionBadge from './VersionBadge';
 import { FLOORS_DATA } from '../data/floors';
 import { Room } from '../types/directory';
 
@@ -415,13 +416,18 @@ export default function SearchModal({
           alignItems: 'center',
           justifyContent: 'space-between',
           fontSize: '11px',
-          color: '#64748B'
+          color: '#64748B',
+          gap: '10px',
+          flexWrap: 'wrap',
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
             <Layers size={14} color="#991B1B" />
             <span>Mencari di seluruh 8 aras FSKTM</span>
           </div>
-          <span>Ketik mana-mana hasil untuk buka pelan</span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <VersionBadge />
+            <span className="hide-mobile">Ketik mana-mana hasil untuk buka pelan</span>
+          </div>
         </div>
       </div>
     </div>

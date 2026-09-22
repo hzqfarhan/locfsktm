@@ -2,6 +2,7 @@
 
 import { Floor } from '../types/directory';
 import { Search, Layers } from 'lucide-react';
+import VersionBadge from './VersionBadge';
 
 interface NavbarProps {
   floors?: Floor[];
@@ -78,11 +79,15 @@ export default function Navbar({
           </div>
         </div>
 
+        {/* Right Section: Version Badge & Search Button */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <div className="hide-mobile">
+            <VersionBadge />
+          </div>
 
-
-        {/* Search button */}
-        <button
-          onClick={onOpenSearch}
+          {/* Search button */}
+          <button
+            onClick={onOpenSearch}
           aria-label="Cari bilik atau makmal"
           className="navbar-search-btn"
           style={{
@@ -126,6 +131,7 @@ export default function Navbar({
             ⌘K
           </kbd>
         </button>
+      </div>
       </div>
     </header>
   );

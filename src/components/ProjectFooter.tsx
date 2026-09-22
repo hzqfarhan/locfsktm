@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { Layers, Users, ExternalLink, Heart, Sparkles } from 'lucide-react';
+import VersionBadge from './VersionBadge';
 
 export interface Contributor {
   name: string;
@@ -109,8 +110,11 @@ export default function ProjectFooter() {
         <div className="footer-bottom-text">
           Dibina dengan <Heart size={12} fill="#EF4444" color="#EF4444" style={{ display: 'inline', verticalAlign: 'middle', margin: '0 2px' }} /> untuk mahasiswa FSKTM
         </div>
-        <div className="footer-bottom-disclaimer">
-          Inisiatif komuniti bebas • Tidak rasmi UTHM
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
+          <VersionBadge />
+          <div className="footer-bottom-disclaimer">
+            Inisiatif komuniti bebas • Tidak rasmi UTHM
+          </div>
         </div>
       </div>
     </footer>
